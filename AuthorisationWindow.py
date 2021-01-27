@@ -1,9 +1,9 @@
-import sys, mysql.connector, os, base64
+import sys, os, base64
 from cryptography.fernet import Fernet
 from ftplib import FTP
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout)
 from PyQt5 import QtCore, QtGui, QtWidgets
-from mysql.connector import errorcode
+import dbinteraction as db
 
 
 class ThisWindow(QWidget):
@@ -107,15 +107,6 @@ class ThisWindow(QWidget):
 
     def Autorise(self):
         try:
-            self.cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-            print('You have successfully connected to the Database.')
-            self.cursor = self.cnn.cursor()
-
             login = self.login.text()
             login = login.strip()
             password = self.password.text()
@@ -128,9 +119,8 @@ class ThisWindow(QWidget):
                 self.msgnum = QMessageBox(self)
                 self.msgnum.critical(self, "Ошибка ", "Пожалуйста, укажите ваш пароль.", QMessageBox.Ok)
             else:
-                query = "SELECT login FROM people"
-                self.cursor.execute(query)
-                result = self.cursor.fetchall()
+                conn = db.create_connection()
+                result = db.execute_query(conn, "SELECT login FROM people")
                 logins = []
                 for el in result:
                     tmp = str(el)
@@ -143,16 +133,14 @@ class ThisWindow(QWidget):
                     if login == el:
                         flag = 1
                         query = "SELECT id FROM people WHERE login='{}'".format(login)
-                        self.cursor.execute(query)
-                        result = self.cursor.fetchall()
+                        result = db.execute_query(conn, query)
                         # Преобразуем id
                         tmp = str(result)
                         length = len(tmp)
                         a = tmp[2:(length - 3)]
                         self.user_id = a
                         query = "SELECT password, confirmed FROM people WHERE login='{}'".format(login)
-                        self.cursor.execute(query)
-                        result = self.cursor.fetchall()
+                        result = db.execute_query(conn, query)
                         # Преобразуем пароль
                         tmp = str(result)
                         length = len(tmp)
@@ -185,13 +173,8 @@ class ThisWindow(QWidget):
                         else:
                             self.pmsg = QMessageBox(self)
                             self.pmsg.critical(self, "Ошибка ", "Ваша учетная запись не подтверждена. Попробуйте авторизоваться позже.", QMessageBox.Ok)
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with username or password")
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database doesn't exist")
-            else:
-                print(e)
+        except Exeception as e:
+            print(e)
             self.close()
 
 if __name__ == "__main__":
