@@ -38,5 +38,6 @@ class File:
         print('File ID: %s' % file.get('id'))
 
 
-a = File()
-a.get("11U88pKL9sloaz1N1gOIDVBNYj7f0E1WN", "new.png")
+if __name__ == "__main__":
+    a = File()
+    a.get("11U88pKL9sloaz1N1gOIDVBNYj7f0E1WN", "new.png")

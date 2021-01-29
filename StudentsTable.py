@@ -1,9 +1,9 @@
-import sys, os, mysql.connector
-from mysql.connector import errorcode
-from ftplib import FTP
+import sys, os
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QTableWidget, QMessageBox, QTableWidgetItem, QCheckBox, QPushButton
 from PyQt5.QtCore import Qt
+import dbinteraction as db
+import files
 
 
 class MainWindow(QWidget):
@@ -17,18 +17,8 @@ class MainWindow(QWidget):
 
     def initUI(self):
         try:
-            self.cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-            print('You have successfully connected to the Database.')
-            self.cursor = self.cnn.cursor()
-
-            query = "SELECT id, fio, confirmed, role FROM people"
-            self.cursor.execute(query)
-            queryresult = self.cursor.fetchall()
+            conn = db.create_connection()
+            queryresult = db.execute_query(conn, "SELECT id, fio, confirmed, role FROM people")
 
             self.setFixedSize(800, 600)
             self.Center()
@@ -96,13 +86,8 @@ class MainWindow(QWidget):
             btn.clicked.connect(lambda: self.ChangeFlag())
             btn.clicked.connect(self.Remember)
 
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                text = "Something is wrong with username or password"
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                text = "Database doesn't exist"
-            else:
-                text = e
+        except Exception as e:
+            print(e)
             self.setFixedSize(800, 600)
             self.Center()
             self.msg = QMessageBox(self)
@@ -120,6 +105,7 @@ class MainWindow(QWidget):
                     print(self.studentsbefore[i][0])
                     self.person_id = self.studentsbefore[i][0]
                     self.switch_toresults.emit()
+                    conn.close()
                     break
 
     def Center(self):
@@ -130,13 +116,8 @@ class MainWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -146,21 +127,9 @@ class MainWindow(QWidget):
 
     def Remember(self):
         try:
-            self.cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-            print('You have successfully connected to the Database.')
-            self.cursor = self.cnn.cursor()
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with username or password")
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database doesn't exist")
-            else:
-                print(e)
+            conn = db.create_connection()
+        except Exception as e:
+            print(e)
             self.close()
 
         changed = []
@@ -179,11 +148,12 @@ class MainWindow(QWidget):
                     changed.append(user)
         if changed:
             for el in changed:
-                self.cursor.execute(
+                query = (
                     "UPDATE people set confirmed={} WHERE id={}".format(el[2], el[0]))
-            self.cnn.commit()
-            self.cnn.close()
+                db.execute_query(conn, query, "insert")
+                conn.commit()
         if self.tomenu == 1:
+            conn.close()
             self.switch_tomenu.emit()
         else:
             self.WhichStudent()

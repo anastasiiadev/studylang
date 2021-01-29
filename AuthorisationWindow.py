@@ -1,9 +1,9 @@
 import sys, os, base64
 from cryptography.fernet import Fernet
-from ftplib import FTP
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout)
 from PyQt5 import QtCore, QtGui, QtWidgets
 import dbinteraction as db
+import files
 
 
 class ThisWindow(QWidget):
@@ -23,13 +23,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -167,7 +162,7 @@ class ThisWindow(QWidget):
                     if login == el and password == basepassword:
                         if confirmed == 1:
                             print('You are logged in!')
-                            self.cnn.close()
+                            conn.close()
                             self.hide()
                             self.switch_passed.emit()
                         else:

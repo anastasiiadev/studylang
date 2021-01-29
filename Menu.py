@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import sys, os, mysql.connector
-from mysql.connector import errorcode
+import sys, os
 import DoATest, CreateTest
-from ftplib import FTP
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QHBoxLayout, QMessageBox)
 from PyQt5 import QtCore, QtGui, QtWidgets
+import dbinteraction as db
+import files
 
 
 class ThisWindow(QWidget):
@@ -22,29 +22,17 @@ class ThisWindow(QWidget):
 
     def define_role(self, user_id):
         try:
-            cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with username or password")
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database doesn't exist")
-            else:
-                print(e)
-        self.cursor = cnn.cursor()
+            conn = db.create_connection()
+        except Exception as e:
+            print(e)
 
-        self.cursor.execute("SELECT role FROM people WHERE id={}".format(user_id))
-        result = self.cursor.fetchall()
+        result = db.execute_query(conn, "SELECT role FROM people WHERE id={}".format(user_id))
         if result:
             role = result[0][0]
         else:
             self.msgnofile = QMessageBox(self)
             self.msgnofile.critical(self, "Ошибка ", "Не удалось найти пользователя в базе данных.", QMessageBox.Ok)
-        cnn.close()
+        conn.close()
         return role
 
 
@@ -56,13 +44,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -92,13 +75,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1jgRj4273tHow-e8JJ8btM4jl6rG20t1U", "img/question.jpg")
         ico = QtGui.QIcon('img/question.jpg')
         but.setIcon(ico)
         but.setIconSize(QtCore.QSize(25, 25))

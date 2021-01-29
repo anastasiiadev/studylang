@@ -26,7 +26,18 @@ def execute_query(connection, query, mode="select"):
         print("Query executed successfully")
         if mode == "select":
             result = cursor.fetchall()
+            cursor.close()
             return result
     except psycopg2.OperationalError as e:
         print(f"The error '{e}' occurred")
+        cursor.close()
         raise Exception
+
+if __name__ == "__main__":
+    conn = create_connection()
+    query = "SELECT * FROM images"
+    #query = "SELECT * FROM pg_catalog.pg_tables;"
+    #query = "select column_name from information_schema.columns where information_schema.columns.table_name='tests';"
+    #query = "INSERT INTO images (id, filename, fileid) VALUES (2, 'question.jpg', '1jgRj4273tHow-e8JJ8btM4jl6rG20t1U')"
+    q = execute_query(conn, query)
+    print(q)

@@ -1,9 +1,9 @@
-import sys, mysql.connector, os, base64
+import sys, os, base64
 from cryptography.fernet import Fernet
-from ftplib import FTP
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout)
 from PyQt5 import QtCore, QtGui, QtWidgets
-from mysql.connector import errorcode
+import dbinteraction as db
+import files
 
 
 class ThisWindow(QWidget):
@@ -23,13 +23,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -131,18 +126,9 @@ class ThisWindow(QWidget):
                 self.msgnum.critical(self, "Ошибка ", "Указанные пароли не совпадают. Попробуйте их ввести еще раз.", QMessageBox.Ok)
             else:
                 try:
-                    cnn = mysql.connector.connect(
-                        host='stacey789.beget.tech',
-                        database='stacey789_db',
-                        user='stacey789_db',
-                        password='StudyLang_user789',
-                        port=3306)
-                    cursor = cnn.cursor()
-
-                    #check if there is the same login
-                    query = "SELECT login FROM people"
-                    cursor.execute(query)
-                    result = cursor.fetchall()
+                    # check if there is the same login
+                    conn = db.create_connection()
+                    result = db.execute_query(conn, "SELECT login FROM people")
                     logins = []
                     for el in result:
                         tmp = str(el)
@@ -159,8 +145,7 @@ class ThisWindow(QWidget):
                         self.msgnum.critical(self, "Ошибка ", "Такой логин уже существует. Укажите, пожалуйста, другой.", QMessageBox.Ok)
                     else:
                         #get new id
-                        cursor.execute("SELECT max(id) FROM people")
-                        result = cursor.fetchall()
+                        result = db.execute_query(conn, "SELECT max(id) FROM people")
                         max = result[0][0]
                         if max == None:
                             self.n = 1
@@ -182,19 +167,16 @@ class ThisWindow(QWidget):
                                                      "Пароль слишком длинный. Пожалуйста, введите пароль короче указанного.",
                                                      QMessageBox.Ok)
                         else:
-                            cursor.execute(
+                            query = (
                                 "INSERT INTO people (ID, FIO, LOGIN, PASSWORD, ROLE, CONFIRMED) VALUES "
                                 "({}, '{}', '{}', '{}', {}, {})".format(self.n, self.fio, self.login, hashedpass, 2, 0))
-                            cnn.commit()
+                            db.execute_query(conn, query, "insert")
+                            conn.commit()
+                            conn.close()
                             self.hide()
                             self.switch_register.emit()
-                except mysql.connector.Error as e:
-                    if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                        print("Something is wrong with username or password")
-                    elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                        print("Database doesn't exist")
-                    else:
-                        print(e)
+                except Exeception as e:
+                    print(e)
                     sys.exit(app.exec_())
 
 

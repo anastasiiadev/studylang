@@ -1,8 +1,6 @@
-import sys, mysql.connector, os
-from ftplib import FTP
+import sys, os
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
-from mysql.connector import errorcode
 
 class ThisWindow(QWidget):
 
