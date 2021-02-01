@@ -1,12 +1,13 @@
 import sys, os
 import re
-from ftplib import FTP
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QCheckBox, QHBoxLayout, QLabel, QApplication, QTextEdit, QPushButton, QMessageBox, QLineEdit, QFileDialog)
+import files
+import dbinteraction as db
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QCheckBox, QHBoxLayout, QLabel, QApplication, QTextEdit, QPushButton,
+                             QMessageBox, QLineEdit, QFileDialog)
 from PyQt5 import QtCore, QtGui
 
 
 class ThisWindow(QWidget):
-
     switch_am = QtCore.pyqtSignal()
 
     def __init__(self, n, i, filename):
@@ -23,13 +24,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -214,7 +210,8 @@ class ThisWindow(QWidget):
             answer.append(var5)
         if numch == 0:
             self.msgv1 = QMessageBox(self)
-            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильные ответы, отметив их галочкой.", QMessageBox.Ok)
+            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильные ответы, отметив их галочкой.",
+                                QMessageBox.Ok)
         elif numch == 1:
             self.msgv1 = QMessageBox(self)
             self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.", QMessageBox.Ok)
@@ -223,17 +220,11 @@ class ThisWindow(QWidget):
                 a = ', '
                 a = a.join(answer)
 
-                ftp = FTP()
-                ftp.set_debuglevel(2)
-                ftp.connect('stacey789.beget.tech', 21)
-                ftp.login('stacey789_ftp', 'StudyLang456987')
-                ftp.encoding = 'utf-8'
-                ftp.cwd('/audio')
-                ftp.size(self.newfile)
-                exist = 1
+                conn = db.create_connection()
+                samefile = db.execute_query(conn, "SELECT * FROM audios WHERE filename='{}'".format(self.newfile))
             except Exception:
-                exist = 0
-            if exist == 0 and (utext != '' and (var1 != '' and var2 != '') and self.maxscore != ''):
+                samefile = []
+            if not samefile and (utext != '' and (var1 != '' and var2 != '') and self.maxscore != ''):
                 if self.flag == 1:
                     self.msgexists = QMessageBox(self)
                     self.msgexists.critical(self, "Ошибка ",
@@ -241,13 +232,19 @@ class ThisWindow(QWidget):
                                             QMessageBox.Ok)
                 else:
                     try:
-                        fp = open(self.distribution, 'rb')
-                        send = ftp.storbinary('STOR %s' % self.fname + '.' + self.format, fp, 1024)
-                        fp.close()
-                    except Exception:
-                        self.msgnofile = QMessageBox(self)
-                        self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
-                    if 'send' in locals():
+                        print('new file: ' + self.newfile)
+                        f = files.File()
+                        fileid = f.post(self.newfile, self.distribution, 'audio')
+                        whichid = db.execute_query(conn, "SELECT max(id) FROM audios")
+                        max = whichid[0][0]
+                        if max == None:
+                            n = 1
+                        else:
+                            n = int(max) + 1
+                        query = ("INSERT INTO audios (id, filename, fileid) "
+                                 "VALUES ({}, '{}', '{}')".format(n, self.newfile, fileid))
+                        db.execute_query(conn, query, 'insert')
+
                         with open(self.filename, 'a', encoding='utf-8') as file:
                             file.write('Вопрос:' + utext + '\n')
                             file.write('Имя файла:' + self.fname + '.' + self.format + '\n')
@@ -264,12 +261,16 @@ class ThisWindow(QWidget):
                             file.write('\n')
                         self.hide()
                         self.switch_am.emit()
+                    except Exception:
+                        self.msgnofile = QMessageBox(self)
+                        self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
             elif utext == '':
                 self.msgnum = QMessageBox(self)
                 self.msgnum.critical(self, "Ошибка ", "Пожалуйста, укажите ваш вопрос.", QMessageBox.Ok)
             elif self.maxscore == '':
                 self.msgnum = QMessageBox(self)
-                self.msgnum.critical(self, "Ошибка ", "Пожалуйста, введите максимальное количество баллов за задание.", QMessageBox.Ok)
+                self.msgnum.critical(self, "Ошибка ", "Пожалуйста, введите максимальное количество баллов за задание.",
+                                     QMessageBox.Ok)
             elif var1 == '':
                 self.msgv1 = QMessageBox(self)
                 self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите первый вариант ответа.", QMessageBox.Ok)
@@ -278,8 +279,9 @@ class ThisWindow(QWidget):
                 self.msgv2.critical(self, "Ошибка ", "Пожалуйста, укажите второй вариант ответа.", QMessageBox.Ok)
             else:
                 self.msgnofile = QMessageBox(self)
-                self.msgnofile.critical(self, "Ошибка ", "Файл с таким имененем уже существует. Переименуйте ваш файл и откройте его заново.", QMessageBox.Ok)
-
+                self.msgnofile.critical(self, "Ошибка ",
+                                        "Файл с таким имененем уже существует. Переименуйте ваш файл и откройте его заново.",
+                                        QMessageBox.Ok)
 
     def showDialog(self):
 
@@ -288,7 +290,7 @@ class ThisWindow(QWidget):
         self.img.setText(self.distribution)
         getformat = re.search(r'(?<=\.)\w+', self.distribution)
         self.format = getformat.group().lower()
-        getfname = re.search(r'(?<=\/|\\)[ ,?!_():;+#$%&*@\-\+\'\’\w]+(?=\.)', self.distribution)
+        getfname = re.search(r'(?<=\/|\\)[ ,?!_()\]\[:;+#$%&*@\.\-\+\'\’\w]+(?=\.(mp3|wav|MP3|WAV))', self.distribution)
         self.fname = getfname.group()
         self.flag = 0
         if self.format == 'mp3':
@@ -301,17 +303,13 @@ class ThisWindow(QWidget):
                                     "Пожалуйста, выберите другой файл соответствующий форматам mp3 или wav.",
                                     QMessageBox.Ok)
         try:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.encoding = 'utf-8'
-            ftp.cwd('/audio')
-            ftp.size(self.newfile)
-            exist = 1
+            print(self.newfile, type(self.newfile))
+            conn = db.create_connection()
+            result = db.execute_query(conn, "SELECT * FROM audios WHERE filename='{}'".format(self.newfile))
+            print(result)
         except Exception:
-            exist = 0
-        if exist == 1:
+            result = []
+        if result:
             self.msgname = QMessageBox(self)
             self.msgname.critical(self, "Ошибка ",
                                   "Файл с таким имененем уже существует. Переименуйте ваш файл и откройте его заново",
@@ -321,6 +319,6 @@ class ThisWindow(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(2, 1, 'files/Test30.txt')
+    myapp = ThisWindow(2, 1, 'testfiles/Test1.txt')
     myapp.show()
     sys.exit(app.exec_())

@@ -1,5 +1,6 @@
 import sys, os
-from ftplib import FTP
+import files
+import dbinteraction as db
 import testWindow as testw
 import taskWindow as task, Qtext_Amatch, Qtext_Aone, Qtext_Amany, Qimg_Amatch, Qimg_Aone, Qimg_Amany, Qaudio_Atmatch, Qaudio_Aone, Qaudio_Amany, EndCreate
 from PyQt5.QtWidgets import QApplication, QMessageBox
@@ -7,13 +8,13 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 
 class TaskController:
 
-    def __init__(self, n, i, filename, score):
+    def __init__(self, n, i, filename, score, dbid):
         self.testscore = score
         n = int(n)
         i = int(i)
         if i > n:
             self.task = EndCreate.ThisWindow(self.testscore, filename)
-            self.task.switch_end.connect(lambda: self.end(filename))
+            self.task.switch_end.connect(lambda: self.end(filename, dbid))
         else:
             if i == 1:
                 path = os.getcwd()
@@ -102,17 +103,12 @@ class TaskController:
         elif i == n + 1:
             obj = TaskController(n, i, filename, self.testscore)
 
-    def end(self, filename):
+    def end(self, filename, dbid):
+        print(filename)
         try:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.encoding = 'utf-8'
-            ftp.cwd('/testfiles')
-            fp = open(filename, 'rb')
-            send = ftp.storbinary('STOR %s' % filename[10:], fp, 1024)
-            fp.close()
+            f = files.File()
+            fileid = f.post(filename.split('/')[-1], filename, 'tests') #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            print('Вставить в БД fileid=' + fileid)
         except Exception:
             self.msgnofile = QMessageBox(self)
             self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
@@ -134,7 +130,7 @@ class TestController:
 
     def Tasks(self):
         self.testW.close()
-        self.taskcontroller = TaskController(self.testW.questions, 1, 'testfiles/{}'.format(self.testW.filename), 0)
+        self.taskcontroller = TaskController(self.testW.questions, 1, 'testfiles/{}'.format(self.testW.filename), 0, self.testW.n)
 
 
 if __name__=="__main__":

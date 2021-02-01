@@ -1,5 +1,5 @@
 import sys, os
-from ftplib import FTP
+import files
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox)
 from PyQt5 import QtCore, QtGui
 
@@ -30,14 +30,9 @@ class ThisWindow(QWidget):
         folder = path + '\\img\\'
         if os.path.exists(folder) is False:
             os.mkdir(folder)
-        if os.path.exists(path + 'img/' + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+        if os.path.exists(folder + file) is False:
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
