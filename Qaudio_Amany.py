@@ -46,7 +46,7 @@ class ThisWindow(QWidget):
         self.qnum = QLabel("Вопрос #%s" % self.n, self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qnum.adjustSize()
-        self.imgt = QLabel("Выберите аудиофайл в формате mp3 или wav:", self)
+        self.imgt = QLabel("Выберите аудиофайл в формате mp3 или wav(не превышающий 10 Mb):", self)
         self.imgt.setFont(QtGui.QFont("Century Gothic", 15))
         self.imgt.adjustSize()
         self.img = QTextEdit(self)
