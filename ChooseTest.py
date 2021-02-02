@@ -1,5 +1,7 @@
 import sys, os
+import files
 from PyQt5 import QtCore, QtGui
+import dbinteraction as db
 from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
 
 class ThisWindow(QWidget):
@@ -15,16 +17,8 @@ class ThisWindow(QWidget):
 
     def SelectFromDB(self):
         try:
-            cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-            self.cursor = cnn.cursor()
-
-            self.cursor.execute("SELECT id, testname FROM tests")
-            result = self.cursor.fetchall()
+            conn = db.create_connection()
+            result = db.execute_query(conn, "SELECT id, testname FROM tests")
             if not result:
                 self.msg = QMessageBox(self)
                 self.msg.critical(self, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
@@ -33,14 +27,9 @@ class ThisWindow(QWidget):
                 self.d = dict(result)
                 self.testnames = list(self.d.values())
                 self.status = 1
-                cnn.close()
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                text = "Something is wrong with username or password"
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                text = "Database doesn't exist"
-            else:
-                text = e
+                conn.close()
+        except Exception as e:
+            print(e, "logfile.log")
             self.setFixedSize(800, 600)
             self.Center()
             self.msg = QMessageBox(self)
@@ -94,13 +83,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()

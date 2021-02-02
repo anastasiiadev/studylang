@@ -21,21 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f547e0c5-0550-4b11-a9b1-f56d311d45a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChooseTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CreateTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EndCreate.py" beforeDir="false" afterPath="$PROJECT_DIR$/EndCreate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qaudio_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qaudio_Amany.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qaudio_Aone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qaudio_Aone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qaudio_Atmatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qaudio_Atmatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qimg_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qimg_Amany.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qimg_Amatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qimg_Amatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qimg_Aone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qimg_Aone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qtext_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qtext_Amany.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qtext_Amatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qtext_Amatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qtext_Aone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qtext_Aone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadSwitch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadSwitch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dbinteraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/dbinteraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/iconSL.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testfiles/Test1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/Test1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testfiles/Test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/Test2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,38 +215,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="686" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612244342998" />
-    <state width="1885" height="287" key="GridCell.Tab.0.bottom" timestamp="1612248565421">
+    <state width="1885" height="285" key="GridCell.Tab.0.bottom" timestamp="1612255518230">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612248565421" />
-    <state width="1885" height="287" key="GridCell.Tab.0.center" timestamp="1612248565421">
+    <state width="1885" height="285" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612255518230" />
+    <state width="1885" height="285" key="GridCell.Tab.0.center" timestamp="1612255518230">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="287" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612248565421" />
-    <state width="1885" height="287" key="GridCell.Tab.0.left" timestamp="1612248565421">
+    <state width="1885" height="285" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612255518230" />
+    <state width="1885" height="285" key="GridCell.Tab.0.left" timestamp="1612255518230">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="287" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612248565421" />
-    <state width="1885" height="287" key="GridCell.Tab.0.right" timestamp="1612248565421">
+    <state width="1885" height="285" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612255518230" />
+    <state width="1885" height="285" key="GridCell.Tab.0.right" timestamp="1612255518230">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="287" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612248565421" />
-    <state width="1885" height="342" key="GridCell.Tab.1.bottom" timestamp="1612248460588">
+    <state width="1885" height="285" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612255518230" />
+    <state width="1885" height="342" key="GridCell.Tab.1.bottom" timestamp="1612254819933">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612248460588" />
-    <state width="1885" height="342" key="GridCell.Tab.1.center" timestamp="1612248460588">
+    <state width="1885" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612254819933" />
+    <state width="1885" height="342" key="GridCell.Tab.1.center" timestamp="1612254819933">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612248460588" />
-    <state width="1885" height="342" key="GridCell.Tab.1.left" timestamp="1612248460588">
+    <state width="1885" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612254819933" />
+    <state width="1885" height="342" key="GridCell.Tab.1.left" timestamp="1612254819933">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612248460588" />
-    <state width="1885" height="342" key="GridCell.Tab.1.right" timestamp="1612248460588">
+    <state width="1885" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612254819933" />
+    <state width="1885" height="342" key="GridCell.Tab.1.right" timestamp="1612254819933">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1885" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612248460588" />
+    <state width="1885" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612254819933" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1612174235497">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -293,8 +282,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ChooseTest.py</url>
-          <line>86</line>
+          <line>75</line>
           <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CreateTest.py</url>
+          <line>125</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

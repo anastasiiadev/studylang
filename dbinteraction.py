@@ -40,5 +40,6 @@ if __name__ == "__main__":
     #query = "SELECT * FROM pg_catalog.pg_tables;"
     #query = "select column_name from information_schema.columns where information_schema.columns.table_name='tests';"
     #query = "INSERT INTO images (id, filename, fileid) VALUES (2, 'question.jpg', '1jgRj4273tHow-e8JJ8btM4jl6rG20t1U')"
+    #query = "UPDATE tests SET fileid='chair' WHERE id=7"
     q = execute_query(conn, query)
     print(q)

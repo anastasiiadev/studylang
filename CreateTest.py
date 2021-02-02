@@ -124,7 +124,7 @@ class TestController:
             f = files.File()
             fileid = f.post(self.testW.filename, 'testfiles/{}'.format(self.testW.filename), 'tests')
             conn = db.create_connection()
-            query = "UPDATE tests SET fileid='{}' WHERE id={})".format(fileid, self.testW.n)
+            query = "UPDATE tests SET fileid='{}' WHERE id={}".format(fileid, self.testW.n)
             db.execute_query(conn, query, 'insert')
             path = os.getcwd()
             f = self.testW.filename.replace('/', '\\')
