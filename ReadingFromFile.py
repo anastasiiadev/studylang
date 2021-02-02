@@ -106,10 +106,10 @@ def read_from_file(file):
             randomed.append(marks)
         if time:
             randomed.append(time)
-        return randomed
+    return randomed
 
 
 if __name__=="__main__":
-    f = 'Test12.txt'
+    f = 'Test16.txt'
     newlist = read_from_file(f)
     print(newlist)

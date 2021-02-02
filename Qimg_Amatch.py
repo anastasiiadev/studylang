@@ -230,7 +230,7 @@ class ThisWindow(QWidget):
 
                     with open(self.filename, 'a', encoding='utf-8') as file:
                         file.write('Вопрос:' + utext + '\n')
-                        file.write('Имя файла:' + self.fname + '.' + self.format + '\n')
+                        file.write('Имя файла:' + self.newfile + '\n')
                         file.write('Соответствие1:' + var1f + ';' + var1s + '\n')
                         file.write('Соответствие2:' + var2f + ';' + var2s + '\n')
                         if var3f != '' or var3s != '':

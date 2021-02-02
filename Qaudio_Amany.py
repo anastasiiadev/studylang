@@ -246,7 +246,7 @@ class ThisWindow(QWidget):
 
                         with open(self.filename, 'a', encoding='utf-8') as file:
                             file.write('Вопрос:' + utext + '\n')
-                            file.write('Имя файла:' + self.fname + '.' + self.format + '\n')
+                            file.write('Имя файла:' + self.newfile + '\n')
                             file.write('Вариант1:' + var1 + '\n')
                             file.write('Вариант2:' + var2 + '\n')
                             if var3 != '':

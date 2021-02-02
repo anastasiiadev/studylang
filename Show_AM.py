@@ -1,5 +1,6 @@
 import sys, os, subprocess
-from ftplib import FTP
+import files
+import dbinteraction as db
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplication, QCheckBox, QPushButton, QMessageBox)
 from PyQt5 import QtGui, QtCore
 
@@ -29,13 +30,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -167,25 +163,16 @@ class ThisWindow(QWidget):
             if os.path.exists(folder) is False:
                 os.mkdir(folder)
             if os.path.exists(folder + self.audiofile) is False:
-                ftp = FTP()
-                ftp.set_debuglevel(2)
-                ftp.connect('stacey789.beget.tech', 21)
-                ftp.login('stacey789_ftp', 'StudyLang456987')
-                ftp.encoding = 'utf-8'
-                ftp.cwd('/audio')
-                download = ftp.retrbinary("RETR " + self.audiofile, open(folder + self.audiofile, 'wb').write)
-                ftp.close()
-            else:
-                download = 'The file is in the directory.'
+                conn = db.create_connection()
+                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))
+                f = files.File()
+                f.get(fileid, 'audio/{}'.format(self.audiofile))
+
+                os.startfile(folder + self.audiofile)
         except Exception:
             self.msgnofile = QMessageBox(self)
             self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)
-        if 'download' in locals():
-            dir = folder + self.audiofile
-            try:
-                os.startfile(dir)
-            except AttributeError:
-                subprocess.call(['open', dir])
+
 
     def WriteToFile(self):
         # проверка, что кнопка нажата

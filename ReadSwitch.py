@@ -85,19 +85,18 @@ class Showtask:
             file.close()
             try:
                 f = files.File()
-                answerid = f.post(self.filename, 'answerfiles/{}'.format(self.filename), 'answers')
+                answerfileid = f.post(self.filename, 'answerfiles/{}'.format(self.filename), 'answers')
                 conn = db.create_connection()
-                query = "UPDATE testing SET answerfileid='{}' WHERE id={}".format(answerid, )
+                query = "UPDATE testing SET answerfileid='{}' WHERE id={}".format(answerfileid, self.answerid)
                 db.execute_query(conn, query, 'insert')
-            except Exception:
-                self.msgnofile = QMessageBox(self)
-                self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
-            if 'send' in locals():
                 path = os.getcwd()
                 try:
                     os.remove(path + '\\answerfiles\\' + self.filename)
                 except OSError as e:
                     print("Failed with:", e.strerror)
+            except Exception:
+                self.msgnofile = QMessageBox(self)
+                self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл на сервер.", QMessageBox.Ok)
             self.task = EndDo.ThisWindow(self.answerid, self.wholescore, el)
             self.task.switch_end.connect(lambda: self.task.close())
             self.processor.window.close()
