@@ -1,5 +1,6 @@
 import sys
-
+import os
+import files
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QLineEdit, QMessageBox)
 from PyQt5 import QtCore, QtGui
 
@@ -16,7 +17,15 @@ class ThisWindow(QWidget):
 
     def Center(self):
         self.setWindowTitle("StudyLang")
-        ico = QtGui.QIcon("C:\Program Files\MySQL\MySQL Server 8.0\docs\S.jpg")
+        file = 'iconSL.jpg'
+        path = os.getcwd()
+        folder = path + '\\img\\'
+        if os.path.exists(folder) is False:
+            os.mkdir(folder)
+        if os.path.exists(folder + file) is False:
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
+        ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
         x = (desktop.width() - self.frameSize().width()) // 2
@@ -172,5 +181,5 @@ class ThisWindow(QWidget):
 
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(12, 'testfiles/Test10.txt')
+    myapp = ThisWindow(12, 'testfiles/Test1.txt')
     sys.exit(app.exec_())

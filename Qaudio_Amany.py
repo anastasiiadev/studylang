@@ -232,7 +232,6 @@ class ThisWindow(QWidget):
                                             QMessageBox.Ok)
                 else:
                     try:
-                        print('new file: ' + self.newfile)
                         f = files.File()
                         fileid = f.post(self.newfile, self.distribution, 'audio')
                         whichid = db.execute_query(conn, "SELECT max(id) FROM audios")
@@ -303,7 +302,6 @@ class ThisWindow(QWidget):
                                     "Пожалуйста, выберите другой файл соответствующий форматам mp3 или wav.",
                                     QMessageBox.Ok)
         try:
-            print(self.newfile, type(self.newfile))
             conn = db.create_connection()
             result = db.execute_query(conn, "SELECT * FROM audios WHERE filename='{}'".format(self.newfile))
             print(result)

@@ -1,4 +1,5 @@
 import sys, os
+
 import files
 import dbinteraction as db
 import testWindow as testw
@@ -8,13 +9,14 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 
 class TaskController:
 
-    def __init__(self, n, i, filename, score, dbid):
+    def __init__(self, test, n, i, filename, score):
         self.testscore = score
+        self.test = test
         n = int(n)
         i = int(i)
         if i > n:
             self.task = EndCreate.ThisWindow(self.testscore, filename)
-            self.task.switch_end.connect(lambda: self.end(filename, dbid))
+            self.task.switch_end.connect(lambda: self.test.sendtest())
         else:
             if i == 1:
                 path = os.getcwd()
@@ -99,25 +101,9 @@ class TaskController:
         n = int(n)
         i += 1
         if i <= n:
-            obj = TaskController(n, i, filename, self.testscore)
+            obj = TaskController(self.test, n, i, filename, self.testscore)
         elif i == n + 1:
-            obj = TaskController(n, i, filename, self.testscore)
-
-    def end(self, filename, dbid):
-        print(filename)
-        try:
-            f = files.File()
-            fileid = f.post(filename.split('/')[-1], filename, 'tests') #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            print('Вставить в БД fileid=' + fileid)
-        except Exception:
-            self.msgnofile = QMessageBox(self)
-            self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
-        if 'send' in locals():
-            self.task.close()
-            path = os.getcwd()
-            f = filename.replace('/', '\\')
-            os.remove(path + '\\' + f)
-        #sys.exit(app.exec_())
+            obj = TaskController(self.test, n, i, filename, self.testscore)
 
 
 class TestController:
@@ -130,7 +116,23 @@ class TestController:
 
     def Tasks(self):
         self.testW.close()
-        self.taskcontroller = TaskController(self.testW.questions, 1, 'testfiles/{}'.format(self.testW.filename), 0, self.testW.n)
+        self.taskcontroller = TaskController(self, self.testW.questions, 1, 'testfiles/{}'.format(self.testW.filename), 0)
+
+
+    def sendtest(self):
+        try:
+            f = files.File()
+            fileid = f.post(self.testW.filename, 'testfiles/{}'.format(self.testW.filename), 'tests')
+            conn = db.create_connection()
+            query = "UPDATE tests SET fileid='{}' WHERE id={})".format(fileid, self.testW.n)
+            db.execute_query(conn, query, 'insert')
+            path = os.getcwd()
+            f = self.testW.filename.replace('/', '\\')
+            os.remove(path + '\\' + f)
+        except Exception:
+            self.msgnofile = QMessageBox(self)
+            self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
+        #sys.exit(app.exec_())
 
 
 if __name__=="__main__":
