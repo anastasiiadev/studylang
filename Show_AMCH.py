@@ -275,7 +275,7 @@ class ThisWindow(QWidget):
                 os.mkdir(folder)
             if os.path.exists(folder + self.audiofile) is False:
                 conn = db.create_connection()
-                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))
+                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))[0][0]
                 f = files.File()
                 f.get(fileid, 'audio/{}'.format(self.audiofile))
 

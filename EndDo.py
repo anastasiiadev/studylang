@@ -1,5 +1,6 @@
-import sys, mysql.connector, os
-from mysql.connector import errorcode
+import sys, os
+import files
+import dbinteraction as db
 from ftplib import FTP
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton)
 from PyQt5 import QtCore, QtGui
@@ -24,13 +25,8 @@ class ThisWindow(QWidget):
         if os.path.exists(folder) is False:
             os.mkdir(folder)
         if os.path.exists(folder + file) is False:
-            ftp = FTP()
-            ftp.set_debuglevel(2)
-            ftp.connect('stacey789.beget.tech', 21)
-            ftp.login('stacey789_ftp', 'StudyLang456987')
-            ftp.cwd('/img')
-            ftp.retrbinary("RETR " + file, open(folder + file, 'wb').write)
-            ftp.close()
+            f = files.File()
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
         ico = QtGui.QIcon('img/iconSL.jpg')
         self.setWindowIcon(ico)
         desktop = QApplication.desktop()
@@ -52,23 +48,12 @@ class ThisWindow(QWidget):
 
         #insert a score into DB
         try:
-            cnn = mysql.connector.connect(
-                host='stacey789.beget.tech',
-                database='stacey789_db',
-                user='stacey789_db',
-                password='StudyLang_user789',
-                port=3306)
-        except mysql.connector.Error as e:
-            if e.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Something is wrong with username or password")
-            elif e.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database doesn't exist")
-            else:
-                print(e)
-        self.cursor = cnn.cursor()
-        self.cursor.execute("UPDATE testing set score={}, mark={} WHERE id={}".format(self.score, self.mark, self.testid))
-        cnn.commit()
-        cnn.close()
+            conn = db.create_connection()
+            db.execute_query(conn, "UPDATE testing set score={}, mark={} WHERE id={}".format(self.score, self.mark, self.testid), 'insert')
+            conn.commit()
+            conn.close()
+        except Exception as e:
+            print(e)
 
         self.setFixedSize(800, 600)
         self.Center()

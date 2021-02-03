@@ -1,5 +1,6 @@
 import sys, os, random
 import files
+import dbinteraction as db
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QHBoxLayout, QPushButton, QMessageBox)
 from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtGui import QPixmap
@@ -114,21 +115,16 @@ class ThisWindow(QWidget):
             path = os.getcwd()
             folder = path + '\\img\\'
             if os.path.exists(folder + self.image) is False:
-                ftp = FTP()
-                ftp.set_debuglevel(2)
-                ftp.connect('stacey789.beget.tech', 21)
-                ftp.login('stacey789_ftp', 'StudyLang456987')
-                ftp.encoding = 'utf-8'
-                ftp.cwd('/img')
-                download = ftp.retrbinary("RETR " + self.image, open(folder + self.image, 'wb').write)
-                ftp.close()
-            else:
-                download = 'The file is in the directory.'
+                conn = db.create_connection()
+                fileid = db.execute_query(conn,
+                                          "SELECT fileid FROM images WHERE filename='{}'".format(self.image))[0][0]
+                f = files.File()
+                f.get(fileid, 'img/{}'.format(self.image))
         except Exception:
             self.msgnofile = QMessageBox(self)
             self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)
-        if 'download' in locals():
-            prepixmap = QPixmap(folder + self.image)
+            self.close()
+        prepixmap = QPixmap(folder + self.image)
         width = prepixmap.width()
         height = prepixmap.height()
         if height > 380:
@@ -383,5 +379,5 @@ class ThisWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = ThisWindow(2, 1, 'Какой цвет преобладает на картинке?', 'question.jpg', 'answerfiles/Test2.txt', {'Человек':'черный', 'Фон':'оранжевый'}, '5')
+    window = ThisWindow(3, 1, 'какие предметы одежды на картинке?', 'плиссе юбка.png', 'answerfiles/Test100.txt', {'skirt': 'юбка', 'sweater': 'свитер', 'jacket': 'пиджак'}, '6')
     sys.exit(app.exec_())

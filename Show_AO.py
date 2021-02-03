@@ -164,7 +164,8 @@ class ThisWindow(QWidget):
                 os.mkdir(folder)
             if os.path.exists(folder + self.audiofile) is False:
                 conn = db.create_connection()
-                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))
+                fileid = db.execute_query(conn,
+                                          "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))[0][0]
                 f = files.File()
                 f.get(fileid, 'audio/{}'.format(self.audiofile))
 
@@ -227,5 +228,5 @@ class ThisWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = ThisWindow(2, 2, 'кто поет', 'Bob Sinclar feat. Pitbull and DragonFly and Fatman Scoop - Rock The Boat.mp3', ['Боб Синклар', 'Сара Паркер', 'Роберт Пукер'], 'JustTest.txt', 'Боб Синклар', '1')
+    window = ThisWindow(2, 2, 'кто поет', 'Bob Sinclar feat. Pitbull and DragonFly and Fatman Scoop - Rock The Boat.mp3', ['Боб Синклар', 'Сара Паркер', 'Роберт Пукер'], 'answerfiles/JustTest.txt', 'Боб Синклар', '1')
     sys.exit(app.exec_())

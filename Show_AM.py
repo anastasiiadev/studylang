@@ -156,6 +156,7 @@ class ThisWindow(QWidget):
         self.audio.clicked.connect(self.RecordingPlay)
         self.btn.clicked.connect(self.WriteToFile)
 
+
     def RecordingPlay(self):
         try:
             path = os.getcwd()
@@ -164,7 +165,7 @@ class ThisWindow(QWidget):
                 os.mkdir(folder)
             if os.path.exists(folder + self.audiofile) is False:
                 conn = db.create_connection()
-                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))
+                fileid = db.execute_query(conn, "SELECT fileid FROM audios WHERE filename='{}'".format(self.audiofile))[0][0]
                 f = files.File()
                 f.get(fileid, 'audio/{}'.format(self.audiofile))
 
