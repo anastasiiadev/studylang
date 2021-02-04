@@ -4,10 +4,11 @@ import dbinteraction as db
 import files
 
 
-class AMany(QWidget):
+class AVariants(QWidget):
 
-    def __init__(self):
+    def __init__(self, type):
         super().__init__()
+        self.type = type
         self.generalbox = QVBoxLayout(self)
         self.variants = QHBoxLayout(self)
         self.texts = QVBoxLayout(self)
@@ -83,7 +84,10 @@ class AMany(QWidget):
         self.message.setFont(QtGui.QFont("Century Gothic", 9))
         self.message.adjustSize()
         self.message.setFixedSize(700, 20)
-        self.message2 = QLabel("Поставьте галочку ✔ напротив правильных ответов.", self)
+        if self.type == 'many':
+            self.message2 = QLabel("Поставьте галочку ✔ напротив правильных ответов.", self)
+        else:
+            self.message2 = QLabel("Поставьте галочку ✔ напротив правильного ответа.", self)
         self.message2.setFont(QtGui.QFont("Century Gothic", 9))
         self.message2.adjustSize()
         self.message2.setFixedSize(700, 20)
@@ -113,18 +117,12 @@ class AMany(QWidget):
 
     def WriteToFile(self, userquestion, testfilename, distribution, mediafile=None):
         utext = userquestion.strip()
-        var1 = self.var1.text()
-        var1 = var1.strip()
-        var2 = self.var2.text()
-        var2 = var2.strip()
-        var3 = self.var3.text()
-        var3 = var3.strip()
-        var4 = self.var4.text()
-        var4 = var4.strip()
-        var5 = self.var5.text()
-        var5 = var5.strip()
-        self.maxscore = self.maxsc.text()
-        self.maxscore = self.maxscore.strip()
+        var1 = self.var1.text().strip()
+        var2 = self.var2.text().strip()
+        var3 = self.var3.text().strip()
+        var4 = self.var4.text().strip()
+        var5 = self.var5.text().strip()
+        self.maxscore = self.maxsc.text().strip()
 
         # проверка, что кнопка нажата
         numch = 0
@@ -146,14 +144,25 @@ class AMany(QWidget):
             answer.append(var5)
         if numch == 0:
             self.msgv1 = QMessageBox(self)
-            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильные ответы, отметив их галочкой.",
-                                QMessageBox.Ok)
+            if self.type == 'many':
+                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильные ответы, отметив их галочкой.",
+                                    QMessageBox.Ok)
+            else:
+                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильный ответ, отметив его галочкой.",
+                                    QMessageBox.Ok)
         elif numch == 1:
             self.msgv1 = QMessageBox(self)
-            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.", QMessageBox.Ok)
+            if self.type == 'many':
+                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.",
+                                    QMessageBox.Ok)
+            else:
+                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите только один правильный ответ.",
+                                    QMessageBox.Ok)
         else:
-            a = ', '
-            a = a.join(answer)
+            if self.type == 'many':
+                answers = ', '.join(answer)
+            else:
+                answers = answer[0]
             if mediafile is not None:
                 try:
                     conn = db.create_connection()
@@ -216,7 +225,10 @@ class AMany(QWidget):
                             file.write('Вариант4:' + var4 + '\n')
                         if var5 != '':
                             file.write('Вариант5:' + var5 + '\n')
-                        file.write('Правильные ответы:' + a + '\n')
+                        if self.type == 'many':
+                            file.write('Правильные ответы:' + answers + '\n')
+                        else:
+                            file.write('Правильный ответ:' + answers + '\n')
                         file.write('Максимальный балл:' + self.maxscore + '\n')
                         file.write('\n')
                     self.hide()

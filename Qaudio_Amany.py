@@ -1,6 +1,6 @@
 import sys
 import general_settings as gs
-import qaudio, amany
+import qaudio, avariants
 from PyQt5.QtWidgets import QVBoxLayout,  QApplication
 from PyQt5 import QtCore
 
@@ -17,7 +17,7 @@ class ThisWindow(gs.SLWindow):
     def initUI(self):
         self.mainbox = QVBoxLayout(self)
         self.qcomponents = qaudio.QAudio(self.n)
-        self.acomponents = amany.AMany()
+        self.acomponents = avariants.AVariants('many')
         self.mainbox.addWidget(self.qcomponents)
         self.mainbox.addStretch(1)
         self.mainbox.addWidget(self.acomponents)
