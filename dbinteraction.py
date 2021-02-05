@@ -35,7 +35,7 @@ def execute_query(connection, query, mode="select"):
 
 if __name__ == "__main__":
     conn = create_connection()
-    query = "SELECT * FROM testing"
+    query = "SELECT * FROM tests"
     #query = "DELETE FROM tests WHERE id < 5"
     #query = "SELECT * FROM tests WHERE id>15;"
     #query = "SELECT * FROM pg_catalog.pg_tables;"

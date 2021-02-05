@@ -21,10 +21,17 @@
   <component name="ChangeListManager">
     <list default="true" id="f547e0c5-0550-4b11-a9b1-f56d311d45a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreateTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Qaudio_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qaudio_Amany.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Qaudio_Atmatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qaudio_Atmatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/avariants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Qimg_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qimg_Amany.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Qtext_Amany.py" beforeDir="false" afterPath="$PROJECT_DIR$/Qtext_Amany.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/amatch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/avariants.py" beforeDir="false" afterPath="$PROJECT_DIR$/avariants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbinteraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/dbinteraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qaudio.py" beforeDir="false" afterPath="$PROJECT_DIR$/qaudio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/taskWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testfiles/Test1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/Test1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/Test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/Test2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,8 +63,8 @@
       <recent name="C:\Users\1\PycharmProjects\StudyLangTest август\testfiles" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Qaudio_Atmatch">
-    <configuration name="Qaudio_Amany" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.CreateTestCopy">
+    <configuration name="CreateTestCopy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -69,28 +76,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Qaudio_Amany.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Qaudio_Aone" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="StudyLangTest" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Qaudio_Aone.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CreateTestCopy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -120,7 +106,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="avariants" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Qimg_Amany" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -132,7 +118,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\developing\studylang\avariants.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Qimg_Amany.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -141,7 +127,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="qaudio" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Qtext_Amany" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -153,7 +139,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qaudio.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Qtext_Amany.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dbinteraction" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="StudyLangTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dbinteraction.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.CreateTestCopy" />
+        <item itemvalue="Python.dbinteraction" />
+        <item itemvalue="Python.Qtext_Amany" />
+        <item itemvalue="Python.Qimg_Amany" />
         <item itemvalue="Python.Qaudio_Atmatch" />
-        <item itemvalue="Python.Qaudio_Amany" />
-        <item itemvalue="Python.Qaudio_Aone" />
-        <item itemvalue="Python.avariants" />
-        <item itemvalue="Python.qaudio" />
       </list>
     </recent_temporary>
   </component>
@@ -215,38 +222,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="686" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612424598109" />
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom" timestamp="1612437251183">
+    <state width="1899" height="342" key="GridCell.Tab.0.bottom" timestamp="1612511626277">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612437251183" />
-    <state width="1899" height="285" key="GridCell.Tab.0.center" timestamp="1612437251183">
+    <state width="1899" height="342" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626277" />
+    <state width="1899" height="342" key="GridCell.Tab.0.center" timestamp="1612511626277">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612437251183" />
-    <state width="1899" height="285" key="GridCell.Tab.0.left" timestamp="1612437251183">
+    <state width="1899" height="342" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626277" />
+    <state width="1899" height="342" key="GridCell.Tab.0.left" timestamp="1612511626277">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612437251183" />
-    <state width="1899" height="285" key="GridCell.Tab.0.right" timestamp="1612437251183">
+    <state width="1899" height="342" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626277" />
+    <state width="1899" height="342" key="GridCell.Tab.0.right" timestamp="1612511626277">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612437251183" />
-    <state width="1899" height="342" key="GridCell.Tab.1.bottom" timestamp="1612427644517">
+    <state width="1899" height="342" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626277" />
+    <state width="1899" height="342" key="GridCell.Tab.1.bottom" timestamp="1612511626215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612427644517" />
-    <state width="1899" height="342" key="GridCell.Tab.1.center" timestamp="1612427644517">
+    <state width="1899" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626215" />
+    <state width="1899" height="342" key="GridCell.Tab.1.center" timestamp="1612511626215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612427644517" />
-    <state width="1899" height="342" key="GridCell.Tab.1.left" timestamp="1612427644517">
+    <state width="1899" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626215" />
+    <state width="1899" height="342" key="GridCell.Tab.1.left" timestamp="1612511626215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612427644517" />
-    <state width="1899" height="342" key="GridCell.Tab.1.right" timestamp="1612427644517">
+    <state width="1899" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626215" />
+    <state width="1899" height="342" key="GridCell.Tab.1.right" timestamp="1612511626215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612427644517" />
+    <state width="1899" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612511626215" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1612174235497">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -281,11 +288,6 @@
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CreateTest.py</url>
-          <line>125</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ReadingFromFile.py</url>
           <line>43</line>
           <option name="timeStamp" value="84" />
@@ -304,6 +306,21 @@
           <url>file://$PROJECT_DIR$/DoATest.py</url>
           <line>14</line>
           <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Qimg_Amany.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Qtext_Amany.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CreateTestCopy.py</url>
+          <line>124</line>
+          <option name="timeStamp" value="103" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

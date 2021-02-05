@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 
 import files
 import dbinteraction as db
+import create_task
 import testWindow as testw
 import taskWindow as task, Qtext_Amatch, Qtext_Aone, Qtext_Amany, Qimg_Amatch, Qimg_Aone, Qimg_Amany, Qaudio_Atmatch, Qaudio_Aone, Qaudio_Amany, EndCreate
 
@@ -30,7 +31,7 @@ class TaskController:
 
     def CreateTaskWindow(self, n, i, filename):
         self.task = task.ThisWindow(i, filename)
-        self.task.switch_t_mch.connect(lambda: self.text_match(n, i, filename))
+        self.task.switch_t_mch[str, str].connect(lambda: self.general(n, i, filename, str, str))
         self.task.switch_t_o.connect(lambda: self.text_one(n, i, filename))
         self.task.switch_t_m.connect(lambda: self.text_many(n, i, filename))
         self.task.switch_i_mch.connect(lambda: self.img_match(n, i, filename))
@@ -40,9 +41,9 @@ class TaskController:
         self.task.switch_a_o.connect(lambda: self.audio_one(n, i, filename))
         self.task.switch_a_m.connect(lambda: self.audio_many(n, i, filename))
 
-    def text_match(self, n, i, filename):
-        self.window = Qtext_Amatch.ThisWindow(n, i, filename)
-        self.window.switch_tmch.connect(lambda: self.new(n, i, filename))
+    def general(self, n, i, filename, q, a):
+        self.window = create_task.ThisWindow(n, i, filename, q, a)
+        self.window.switch_create_task_end.connect(lambda: self.new(n, i, filename))
         self.task.close()
         self.window.show()
 

@@ -8,6 +8,7 @@ class AVariants(QWidget):
 
     def __init__(self, type):
         super().__init__()
+        self.switch_task_end = QtCore.pyqtSignal()
         self.type = type
         self.generalbox = QVBoxLayout(self)
         self.variants = QHBoxLayout(self)
@@ -115,7 +116,7 @@ class AVariants(QWidget):
         self.generalbox.addWidget(self.btn, alignment=QtCore.Qt.AlignCenter)
         self.setLayout(self.generalbox)
 
-    def WriteToFile(self, userquestion, testfilename, distribution, mediafile=None):
+    def WriteToFile(self, userquestion, testfilename, distribution=None, mediafile=None):
         utext = userquestion.strip()
         var1 = self.var1.text().strip()
         var2 = self.var2.text().strip()
@@ -150,23 +151,29 @@ class AVariants(QWidget):
             else:
                 self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильный ответ, отметив его галочкой.",
                                     QMessageBox.Ok)
-        elif numch == 1:
+        elif numch == 1 and self.type == 'many':
             self.msgv1 = QMessageBox(self)
-            if self.type == 'many':
-                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.",
-                                    QMessageBox.Ok)
-            else:
-                self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите только один правильный ответ.",
-                                    QMessageBox.Ok)
+            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.",
+                                QMessageBox.Ok)
+        elif numch > 1 and self.type == 'one':
+            self.msgv1 = QMessageBox(self)
+            self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите только один правильный ответ.",
+                                QMessageBox.Ok)
         else:
             if self.type == 'many':
                 answers = ', '.join(answer)
             else:
                 answers = answer[0]
             if mediafile is not None:
+                if mediafile.split('.')[-1] in ('mp3', 'MP3', 'wav', 'WAV'):
+                    filetype = 'audio'
+                    table = 'audios'
+                else:
+                    filetype = 'img'
+                    table = 'images'
                 try:
                     conn = db.create_connection()
-                    samefile = db.execute_query(conn, "SELECT * FROM audios WHERE filename='{}'".format(mediafile))
+                    samefile = db.execute_query(conn, f"SELECT * FROM {table} WHERE filename='{mediafile}'")
                 except Exception:
                     samefile = []
                 if samefile:
@@ -200,15 +207,15 @@ class AVariants(QWidget):
                         if mediafile is not None:
                             try:
                                 f = files.File()
-                                fileid = f.post(mediafile, distribution, 'audio')
-                                whichid = db.execute_query(conn, "SELECT max(id) FROM audios")
+                                fileid = f.post(mediafile, distribution, filetype)
+                                whichid = db.execute_query(conn, f"SELECT max(id) FROM {table}")
                                 max = whichid[0][0]
                                 if max == None:
                                     n = 1
                                 else:
                                     n = int(max) + 1
-                                query = ("INSERT INTO audios (id, filename, fileid) "
-                                         "VALUES ({}, '{}', '{}')".format(n, mediafile, fileid))
+                                query = (f"INSERT INTO {table} (id, filename, fileid) "
+                                         f"VALUES ({n}, '{mediafile}', '{fileid}')")
                                 db.execute_query(conn, query, 'insert')
                             except Exception:
                                 self.msgnofile = QMessageBox(self)
@@ -232,4 +239,4 @@ class AVariants(QWidget):
                         file.write('Максимальный балл:' + self.maxscore + '\n')
                         file.write('\n')
                     self.hide()
-                    self.switch_tm.emit()
+                    self.switch_task_end.emit()

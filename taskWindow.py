@@ -6,7 +6,7 @@ from PyQt5 import QtCore, QtGui
 
 class ThisWindow(QWidget):
 
-    switch_t_mch = QtCore.pyqtSignal()
+    switch_t_mch = QtCore.pyqtSignal(str, str)
     switch_t_o = QtCore.pyqtSignal()
     switch_t_m = QtCore.pyqtSignal()
     switch_i_mch = QtCore.pyqtSignal()
@@ -90,7 +90,7 @@ class ThisWindow(QWidget):
             file.write('Тип ответа:' + self.atype + '\n')
 
         if self.qtype == 'Текст' and self.atype == 'Установить соответствие':
-            self.switch_t_mch.emit()
+            self.switch_t_mch.emit('text', 'match')
         elif self.qtype == 'Текст' and self.atype == 'Выбрать один правильный ответ':
             self.switch_t_o.emit()
         elif self.qtype == 'Текст' and self.atype == 'Выбрать несколько правильных ответов':
@@ -107,6 +107,8 @@ class ThisWindow(QWidget):
             self.switch_a_o.emit()
         elif self.qtype == 'Аудио' and self.atype == 'Выбрать несколько правильных ответов':
             self.switch_a_m.emit()
+
+
 
 
 if __name__=="__main__":

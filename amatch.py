@@ -8,6 +8,7 @@ class AMatch(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.switch_task_end = QtCore.pyqtSignal()
         self.box = QVBoxLayout(self)
         self.message = QLabel(
             "Соответствий максимально может быть 5. Если вам нужно меньше, оставьте лишние поля пустыми.",
@@ -109,7 +110,7 @@ class AMatch(QWidget):
         self.box.addStretch(2)
         self.setLayout(self.box)
 
-    def WriteToFile(self, userquestion, testfilename, distribution, mediafile=None):
+    def WriteToFile(self, userquestion, testfilename, distribution=None, mediafile=None):
         utext = userquestion.strip()
         var1f = self.var1f.text().strip()
         var1s = self.var1s.text().strip()
@@ -124,9 +125,15 @@ class AMatch(QWidget):
         self.maxscore = self.maxsc.text().strip()
 
         if mediafile is not None:
+            if mediafile.split('.')[-1] in ('mp3', 'MP3', 'wav', 'WAV'):
+                filetype = 'audio'
+                table = 'audios'
+            else:
+                filetype = 'img'
+                table = 'images'
             try:
                 conn = db.create_connection()
-                samefile = db.execute_query(conn, "SELECT * FROM audios WHERE filename='{}'".format(mediafile))
+                samefile = db.execute_query(conn, f"SELECT * FROM {table} WHERE filename='{mediafile}'")
             except Exception:
                 samefile = []
             if samefile:
@@ -160,15 +167,15 @@ class AMatch(QWidget):
                     if mediafile is not None:
                         try:
                             f = files.File()
-                            fileid = f.post(mediafile, distribution, 'audio')
-                            whichid = db.execute_query(conn, "SELECT max(id) FROM audios")
+                            fileid = f.post(mediafile, distribution, filetype)
+                            whichid = db.execute_query(conn, f"SELECT max(id) FROM {table}")
                             max = whichid[0][0]
                             if max == None:
                                 n = 1
                             else:
                                 n = int(max) + 1
-                            query = ("INSERT INTO audios (id, filename, fileid) "
-                                     "VALUES ({}, '{}', '{}')".format(n, mediafile, fileid))
+                            query = (f"INSERT INTO {table} (id, filename, fileid) "
+                                     f"VALUES ({n}, '{mediafile}', '{fileid}')")
                             db.execute_query(conn, query, 'insert')
                         except Exception:
                             self.msgnofile = QMessageBox(self)
@@ -188,4 +195,4 @@ class AMatch(QWidget):
                     file.write('Максимальный балл:' + self.maxscore + '\n')
                     file.write('\n')
                 self.hide()
-                self.switch_amch.emit()
+                self.switch_task_end.emit()

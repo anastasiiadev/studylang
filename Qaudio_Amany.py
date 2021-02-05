@@ -1,8 +1,10 @@
 import sys
-import general_settings as gs
-import qaudio, avariants
 from PyQt5.QtWidgets import QVBoxLayout,  QApplication
 from PyQt5 import QtCore
+
+import general_settings as gs
+import qaudio
+import avariants
 
 
 class ThisWindow(gs.SLWindow):
