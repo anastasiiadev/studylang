@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-import DoATest, CreateTest
+import DoATest, CreateTest_old
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QHBoxLayout, QMessageBox)
 from PyQt5 import QtCore, QtGui, QtWidgets
 import dbinteraction as db
@@ -132,7 +132,7 @@ class ThisWindow(QWidget):
 
     def SwitchMode1(self):
         self.close()
-        object = CreateTest.TestController(self.user_id)
+        object = CreateTest_old.TestController(self.user_id)
 
     def SwitchMode2(self):
         self.close()

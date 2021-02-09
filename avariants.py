@@ -6,9 +6,10 @@ import files
 
 class AVariants(QWidget):
 
+    switch_task_end = QtCore.pyqtSignal()
+
     def __init__(self, type):
         super().__init__()
-        self.switch_task_end = QtCore.pyqtSignal()
         self.type = type
         self.generalbox = QVBoxLayout(self)
         self.variants = QHBoxLayout(self)

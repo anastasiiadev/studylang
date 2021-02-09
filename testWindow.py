@@ -1,11 +1,12 @@
 import sys, datetime, os
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox)
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox
 from PyQt5 import QtCore, QtGui
-import files
+
+import general_settings as gs
 import dbinteraction as db
 
 
-class ThisWindow(QWidget):
+class ThisWindow(gs.SLWindow):
     switch_newtest = QtCore.pyqtSignal()
 
     def __init__(self, user_id):
@@ -20,31 +21,8 @@ class ThisWindow(QWidget):
         except ValueError:
             return False
 
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
 
     def initUI(self):
-        self.setFixedSize(800, 600)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                     QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
         self.lname = QLabel("Укажите название теста:", self)
         self.lname.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
@@ -81,7 +59,7 @@ class ThisWindow(QWidget):
         self.questions = self.num.text()
 
         flag = 0
-        result = db.execute_query(conn, "SELECT * FROM tests WHERE testname='{}'".format(test_name))
+        result = db.execute_query(conn, f"SELECT * FROM tests WHERE testname='{test_name}'")
         print(result)
         if result:
             self.msgnum = QMessageBox(self)
@@ -113,11 +91,11 @@ class ThisWindow(QWidget):
                 os.mkdir(folder)
             self.filename = "Test%s.txt" % self.n
             with open('testfiles/' + self.filename, 'w', encoding='utf-8') as file:
-                file.write('Количество вопросов: %s\n' % self.questions)
+                file.write(f'Количество вопросов: {self.questions}\n')
                 file.write('\n')
 
             query = ("INSERT INTO tests (ID, TESTNAME, FILEID, DATE) VALUES "
-                     "({}, '{}', '{}', '{}')".format(self.n, test_name, self.filename, date))
+                     f"({self.n}, '{test_name}', '{self.filename}', '{date}')")
             db.execute_query(conn, query, 'insert')
             conn.commit()
 
@@ -127,10 +105,11 @@ class ThisWindow(QWidget):
                 id = 1
             else:
                 id = int(max) + 1
-            query = ("INSERT INTO work (ID, PERSONID, TRIAL_OR_TEST_ID, MODE) VALUES "
-                     "({}, '{}', '{}', '{}')".format(id, int(self.user_id), self.n, 1))
-            conn.commit()
+            query2 = ("INSERT INTO work (ID, PERSONID, TRIAL_OR_TEST_ID, MODE) VALUES "
+                     f"({id}, '{int(self.user_id)}', '{self.n}', '{1}')")
 
+            conn.commit()
+            db.execute_query(conn, query2, 'insert')
             conn.close()
             self.switch_newtest.emit()
 

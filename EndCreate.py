@@ -1,45 +1,21 @@
 import sys
-import os
-import files
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QLineEdit, QMessageBox)
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QLineEdit, QMessageBox
 from PyQt5 import QtCore, QtGui
 
+import general_settings as gs
 
-class ThisWindow(QWidget):
+
+class ThisWindow(gs.SLWindow):
 
     switch_end = QtCore.pyqtSignal()
 
     def __init__(self, score, filename):
+        super().__init__()
         self.filename = filename
         self.maxscore = score
-        super().__init__()
         self.initUI()
 
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
-
     def initUI(self):
-        self.setFixedSize(850, 650)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
         self.text = QLabel("Сколько баллов нужно набрать пользователю, чтобы получить:", self)
         self.text.setFont(QtGui.QFont("Century Gothic", 14))
@@ -142,7 +118,7 @@ class ThisWindow(QWidget):
                 if self.fivesc > self.maxscore or self.foursc > self.maxscore or self.threesc > self.maxscore:
                     self.msgnum = QMessageBox(self)
                     self.msgnum.critical(self, "Ошибка ",
-                                         "Максимальное количество баллов за тест - {}.".format(self.maxscore),
+                                         f"Максимальное количество баллов за тест - {self.maxscore}.",
                                          QMessageBox.Ok)
                 else:
                     if self.fivesc < self.foursc:

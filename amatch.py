@@ -6,9 +6,10 @@ import files
 
 class AMatch(QWidget):
 
+    switch_task_end = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
-        self.switch_task_end = QtCore.pyqtSignal()
         self.box = QVBoxLayout(self)
         self.message = QLabel(
             "Соответствий максимально может быть 5. Если вам нужно меньше, оставьте лишние поля пустыми.",

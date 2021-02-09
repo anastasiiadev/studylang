@@ -1,20 +1,14 @@
-import sys, os
-import files
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox)
+import sys
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
 from PyQt5 import QtCore, QtGui
 
+import general_settings as gs
 
-class ThisWindow(QWidget):
 
-    switch_t_mch = QtCore.pyqtSignal(str, str)
-    switch_t_o = QtCore.pyqtSignal()
-    switch_t_m = QtCore.pyqtSignal()
-    switch_i_mch = QtCore.pyqtSignal()
-    switch_i_o = QtCore.pyqtSignal()
-    switch_i_m = QtCore.pyqtSignal()
-    switch_a_mch = QtCore.pyqtSignal()
-    switch_a_o = QtCore.pyqtSignal()
-    switch_a_m = QtCore.pyqtSignal()
+
+class ThisWindow(gs.SLWindow):
+
+    switch_type_task = QtCore.pyqtSignal(str, str)
 
     def __init__(self, n, testname):
         super().__init__()
@@ -23,34 +17,9 @@ class ThisWindow(QWidget):
         self.initUI()
 
 
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
-
-
     def initUI(self):
-        self.setFixedSize(800, 600)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
-        self.qnum = QLabel("Вопрос #%s" % self.n, self)
+        self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qnum.adjustSize()
         self.qtype = QLabel("Выберите тип вопроса:", self)
@@ -85,28 +54,28 @@ class ThisWindow(QWidget):
         self.qtype = self.qbox.currentText()
         self.atype = self.abox.currentText()
         with open(self.testname, 'a', encoding='utf-8') as file:
-            file.write('Вопрос #%s\n' % self.n)
+            file.write(f'Вопрос #{self.n}\n')
             file.write('Тип вопроса:' + self.qtype + '\n')
             file.write('Тип ответа:' + self.atype + '\n')
 
         if self.qtype == 'Текст' and self.atype == 'Установить соответствие':
-            self.switch_t_mch.emit('text', 'match')
+            self.switch_type_task.emit('text', 'match')
         elif self.qtype == 'Текст' and self.atype == 'Выбрать один правильный ответ':
-            self.switch_t_o.emit()
+            self.switch_type_task.emit('text', 'one')
         elif self.qtype == 'Текст' and self.atype == 'Выбрать несколько правильных ответов':
-            self.switch_t_m.emit()
+            self.switch_type_task.emit('text', 'many')
         elif self.qtype == 'Изображение' and self.atype == 'Установить соответствие':
-            self.switch_i_mch.emit()
+            self.switch_type_task.emit('image', 'match')
         elif self.qtype == 'Изображение' and self.atype == 'Выбрать один правильный ответ':
-            self.switch_i_o.emit()
+            self.switch_type_task.emit('image', 'one')
         elif self.qtype == 'Изображение' and self.atype == 'Выбрать несколько правильных ответов':
-            self.switch_i_m.emit()
+            self.switch_type_task.emit('image', 'many')
         elif self.qtype == 'Аудио' and self.atype == 'Установить соответствие':
-            self.switch_a_mch.emit()
+            self.switch_type_task.emit('audio', 'match')
         elif self.qtype == 'Аудио' and self.atype == 'Выбрать один правильный ответ':
-            self.switch_a_o.emit()
+            self.switch_type_task.emit('audio', 'one')
         elif self.qtype == 'Аудио' and self.atype == 'Выбрать несколько правильных ответов':
-            self.switch_a_m.emit()
+            self.switch_type_task.emit('audio', 'many')
 
 
 
