@@ -1,10 +1,12 @@
-import sys, os
-import files
+import sys
 from PyQt5 import QtCore, QtGui
-import dbinteraction as db
-from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
+from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
 
-class ThisWindow(QWidget):
+import dbinteraction as db
+import general_settings as gs
+
+
+class ThisWindow(gs.SLWindow):
 
     switch_choosetest = QtCore.pyqtSignal()
 
@@ -37,22 +39,13 @@ class ThisWindow(QWidget):
             sys.exit()
             self.status = 0
 
-
     def initUI(self):
-        self.setFixedSize(800, 600)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                     QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
         self.qtest = QLabel("Какой тест вы хотите пройти?", self)
         self.qtest.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qtest.adjustSize()
         self.qbox = QComboBox(self)
         self.qbox.addItems(self.testnames)
-        #self.qbox.setFixedSize(300, 25)
         self.btn = QPushButton('OK', self)
         self.box.addStretch(2)
         self.box.addWidget(self.qtest, alignment=QtCore.Qt.AlignCenter)
@@ -69,28 +62,10 @@ class ThisWindow(QWidget):
         self.gettestid = self.get_key(self.d, self.test)
         self.switch_choosetest.emit()
 
-
     def get_key(self, d, value):
         for k, v in d.items():
             if v == value:
                 return k
-
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
 
 
 

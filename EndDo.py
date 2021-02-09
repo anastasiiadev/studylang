@@ -1,12 +1,12 @@
-import sys, os
-import files
-import dbinteraction as db
-from ftplib import FTP
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton)
+import sys
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QPushButton
 from PyQt5 import QtCore, QtGui
 
+import dbinteraction as db
+import general_settings as gs
 
-class ThisWindow(QWidget):
+
+class ThisWindow(gs.SLWindow):
 
     switch_end = QtCore.pyqtSignal()
 
@@ -17,25 +17,7 @@ class ThisWindow(QWidget):
         self.marks = marks
         self.initUI()
 
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
-
     def initUI(self):
-
         #define a mark
         if self.score >= int(self.marks[1]):
             self.mark = 5
@@ -49,18 +31,11 @@ class ThisWindow(QWidget):
         #insert a score into DB
         try:
             conn = db.create_connection()
-            db.execute_query(conn, "UPDATE testing set score={}, mark={} WHERE id={}".format(self.score, self.mark, self.testid), 'insert')
+            db.execute_query(conn, f"UPDATE testing set score={self.score}, mark={self.mark} WHERE id={self.testid}", 'insert')
             conn.commit()
             conn.close()
         except Exception as e:
             print(e)
-
-        self.setFixedSize(800, 600)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
 
         self.box = QVBoxLayout(self)
         self.first = QLabel("Спасибо за прохождение теста!", self)
@@ -80,11 +55,11 @@ class ThisWindow(QWidget):
                 text = 'баллов'
             else:
                 text = 'балла'
-        self.showscore = QLabel("Вы набрали %s " % self.score + text + ' из %s!' % self.marks[4], self)
+        self.showscore = QLabel(f"Вы набрали {self.score} " + text + f' из {self.marks[4]}!', self)
         self.showscore.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.showscore.adjustSize()
 
-        self.umark = QLabel("Ваша оценка - {}!".format(self.mark), self)
+        self.umark = QLabel(f"Ваша оценка - {self.mark}!", self)
         self.umark.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.umark.adjustSize()
 
@@ -123,8 +98,7 @@ class ThisWindow(QWidget):
         self.close()
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    #myapp = ThisWindow(15, 7.0, ['Оценки', '8', '5', '3', '10'])
     myapp = ThisWindow(10, 0, ['Оценки', '8', '5', '3', '9'])
     sys.exit(app.exec_())

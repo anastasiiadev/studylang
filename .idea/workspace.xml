@@ -16,20 +16,23 @@
         <item name="GROUP_NODE:sldir" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:sldir" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:sldir/master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f547e0c5-0550-4b11-a9b1-f56d311d45a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreateTestCopy.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateTestCopy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EndCreate.py" beforeDir="false" afterPath="$PROJECT_DIR$/EndCreate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/amatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/avariants.py" beforeDir="false" afterPath="$PROJECT_DIR$/avariants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/general_settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/taskWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/testWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testfiles/Test1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/Test1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChooseTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoATest.py" beforeDir="false" afterPath="$PROJECT_DIR$/DoATest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EndDo.py" beforeDir="false" afterPath="$PROJECT_DIR$/EndDo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReadSwitch.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadSwitch.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +64,8 @@
       <recent name="C:\Users\1\PycharmProjects\StudyLangTest август\testfiles" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.general_settings">
-    <configuration name="CreateTestCopy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.show_amatch_task">
+    <configuration name="Show_AM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -74,7 +77,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CreateTestCopy.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Show_AM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -83,7 +86,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Qtext_Amany" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="showTaskWindow" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -95,7 +98,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Qtext_Amany.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/showTaskWindow.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -104,7 +107,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="create_task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="show_amatch_task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -116,7 +119,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/create_task.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/show_amatch_task.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,7 +128,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dbinteraction" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="show_avariants_task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -137,7 +140,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dbinteraction.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/show_avariants_task.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -146,7 +149,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="general_settings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="show_qaudio_task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -158,7 +161,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/general_settings.py" />
+      <option name="SCRIPT_NAME" value="D:\developing\studylang\show_qaudio_task.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -169,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.general_settings" />
-        <item itemvalue="Python.CreateTestCopy" />
-        <item itemvalue="Python.dbinteraction" />
-        <item itemvalue="Python.create_task" />
-        <item itemvalue="Python.Qtext_Amany" />
+        <item itemvalue="Python.show_amatch_task" />
+        <item itemvalue="Python.show_avariants_task" />
+        <item itemvalue="Python.Show_AM" />
+        <item itemvalue="Python.showTaskWindow" />
+        <item itemvalue="Python.show_qaudio_task" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +208,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="sldir/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -221,38 +236,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="686" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612424598109" />
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1612847986224">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1612879052361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612847986224" />
-    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1612847986224">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612879052361" />
+    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1612879052361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612847986224" />
-    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1612847986224">
+    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612879052361" />
+    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1612879052361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612847986224" />
-    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1612847986224">
+    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612879052361" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1612879052361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612847986224" />
-    <state width="1899" height="345" key="GridCell.Tab.1.bottom" timestamp="1612793682624">
+    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612879052361" />
+    <state width="1899" height="345" key="GridCell.Tab.1.bottom" timestamp="1612876531802">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612793682624" />
-    <state width="1899" height="345" key="GridCell.Tab.1.center" timestamp="1612793682624">
+    <state width="1899" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612876531802" />
+    <state width="1899" height="345" key="GridCell.Tab.1.center" timestamp="1612876531802">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="345" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612793682624" />
-    <state width="1899" height="345" key="GridCell.Tab.1.left" timestamp="1612793682624">
+    <state width="1899" height="345" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612876531802" />
+    <state width="1899" height="345" key="GridCell.Tab.1.left" timestamp="1612876531802">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="345" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612793682624" />
-    <state width="1899" height="345" key="GridCell.Tab.1.right" timestamp="1612793682624">
+    <state width="1899" height="345" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612876531802" />
+    <state width="1899" height="345" key="GridCell.Tab.1.right" timestamp="1612876531802">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="345" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612793682624" />
+    <state width="1899" height="345" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612876531802" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1612174235497">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -297,16 +312,6 @@
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ChooseTest.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/DoATest.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Qimg_Amany.py</url>
           <line>46</line>
           <option name="timeStamp" value="100" />
@@ -315,6 +320,11 @@
           <url>file://$PROJECT_DIR$/Qtext_Amany.py</url>
           <line>31</line>
           <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/show_avariants_task.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

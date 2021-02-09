@@ -1,8 +1,9 @@
 import sys, datetime, random, os, threading, TimerWindow
 from datetime import datetime, timedelta
-import Show_TMCH, Show_TO, Show_TM, Show_IMCH, Show_IO, Show_IM, Show_AMCH, Show_AO, Show_AM, EndDo
 from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal
+
+import Show_TMCH, Show_TO, Show_TM, Show_IMCH, Show_IO, Show_IM, Show_AMCH, Show_AO, Show_AM, EndDo
 import files
 import dbinteraction as db
 
@@ -41,14 +42,14 @@ class Showtask:
             folder = path + '\\testfiles\\'
             if os.path.exists(folder) is False:
                 os.mkdir(folder)
-            self.testfile = "Test{}.txt".format(self.testid)
+            self.testfile = f"Test{self.testid}.txt"
             if os.path.exists(folder + self.testfile) is False:
                 try:
                     conn = db.create_connection()
-                    tresult = db.execute_query(conn, "SELECT fileid FROM tests WHERE id={}".format(self.testid))
+                    tresult = db.execute_query(conn, f"SELECT fileid FROM tests WHERE id={self.testid}")
                     if tresult:
                         f = files.File()
-                        f.get(tresult[0][0], 'testfiles/{}'.format(self.testfile))
+                        f.get(tresult[0][0], f'testfiles/{self.testfile}')
                 except Exception:
                     self.msg = QMessageBox(self)
                     self.msg.critical(self, "Ошибка ", "Не удалось скачать файл теста. Повторите попытку позже.",
@@ -80,14 +81,14 @@ class Showtask:
     def show_task(self, i):
         el = self.list[i]
         if (len(el) == 5 and el[0] == 'Оценки'):
-            with open('answerfiles/{}'.format(self.filename), 'a', encoding='utf-8') as file:
-                file.write('Общее количество баллов: %s' % self.wholescore + '\n')
+            with open(f'answerfiles/{self.filename}', 'a', encoding='utf-8') as file:
+                file.write(f'Общее количество баллов: {self.wholescore}' + '\n')
             file.close()
             try:
                 f = files.File()
-                answerfileid = f.post(self.filename, 'answerfiles/{}'.format(self.filename), 'answers')
+                answerfileid = f.post(self.filename, f'answerfiles/{self.filename}', 'answers')
                 conn = db.create_connection()
-                query = "UPDATE testing SET answerfileid='{}' WHERE id={}".format(answerfileid, self.answerid)
+                query = f"UPDATE testing SET answerfileid='{answerfileid}' WHERE id={self.answerid}"
                 db.execute_query(conn, query, 'insert')
                 path = os.getcwd()
                 try:
@@ -162,11 +163,11 @@ class Showtask:
             folder = path + '\\answerfiles\\'
             if os.path.exists(folder) is False:
                 os.mkdir(folder)
-            self.filename = "Test%s.txt" % n
+            self.filename = f"Test{n}.txt"
             now = datetime.now()
             date = now.strftime("%d-%m-%Y %H:%M")
             query = ("INSERT INTO testing (ID, TESTID, DATE, ANSWERFILEID) VALUES "
-                     "({}, '{}', '{}', '{}')".format(n, self.testid, date, self.filename))
+                     f"({n}, '{self.testid}', '{date}', '{self.filename}')")
             db.execute_query(conn, query, 'insert')
             conn.commit()
 
@@ -177,7 +178,7 @@ class Showtask:
             else:
                 id = int(max) + 1
             query = ("INSERT INTO work (ID, PERSONID, TRIAL_OR_TEST_ID, MODE) VALUES "
-                     "({}, '{}', '{}', '{}')".format(id, int(self.user_id), n, 2))
+                     f"({id}, '{int(self.user_id)}', '{n}', '2')")
             db.execute_query(conn, query, 'insert')
             conn.commit()
             conn.close()

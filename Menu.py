@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-import DoATest, CreateTest_old
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QHBoxLayout, QMessageBox)
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import DoATest, CreateTest
 import dbinteraction as db
 import files
+import general_settings as gs
 
-
-class ThisWindow(QWidget):
+class ThisWindow(gs.SLWindow):
 
     switch_students = QtCore.pyqtSignal()
 
@@ -26,7 +27,7 @@ class ThisWindow(QWidget):
         except Exception as e:
             print(e)
 
-        result = db.execute_query(conn, "SELECT role FROM people WHERE id={}".format(user_id))
+        result = db.execute_query(conn, f"SELECT role FROM people WHERE id={user_id}")
         if result:
             role = result[0][0]
         else:
@@ -35,33 +36,7 @@ class ThisWindow(QWidget):
         conn.close()
         return role
 
-
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
-
-
     def initUI(self):
-        self.setFixedSize(800, 600)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
         self.mainbox = QVBoxLayout(self)
         self.do = QPushButton("Пройти тест", self)
@@ -132,7 +107,7 @@ class ThisWindow(QWidget):
 
     def SwitchMode1(self):
         self.close()
-        object = CreateTest_old.TestController(self.user_id)
+        object = CreateTest.TestController(self.user_id)
 
     def SwitchMode2(self):
         self.close()
