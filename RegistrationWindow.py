@@ -2,11 +2,12 @@ import sys, os, base64
 from cryptography.fernet import Fernet
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout)
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 import dbinteraction as db
-import files
+import general_settings as gs
 
 
-class ThisWindow(QWidget):
+class ThisWindow(gs.SLWindow):
 
     switch_register = QtCore.pyqtSignal()
 
@@ -14,33 +15,7 @@ class ThisWindow(QWidget):
         super().__init__()
         self.initUI()
 
-
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
-
-
     def initUI(self):
-        self.setFixedSize(850, 650)
-        self.Center()
-        pal = self.palette()
-        pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-        self.setPalette(pal)
-
         self.box = QVBoxLayout(self)
         self.entertext = QLabel("Введите данные для регистрации:", self)
         self.entertext.setFont(QtGui.QFont("Century Gothic", 15))
@@ -169,13 +144,13 @@ class ThisWindow(QWidget):
                         else:
                             query = (
                                 "INSERT INTO people (ID, FIO, LOGIN, PASSWORD, ROLE, CONFIRMED) VALUES "
-                                "({}, '{}', '{}', '{}', {}, {})".format(self.n, self.fio, self.login, hashedpass, 2, 0))
+                                f"({self.n}, '{self.fio}', '{self.login}', {hashedpass}, 2, 0)")
                             db.execute_query(conn, query, "insert")
                             conn.commit()
                             conn.close()
                             self.hide()
                             self.switch_register.emit()
-                except Exeception as e:
+                except Exception as e:
                     print(e)
                     sys.exit(app.exec_())
 

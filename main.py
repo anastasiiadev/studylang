@@ -1,7 +1,7 @@
 import sys
-import AuthorisationWindow, Menu, RegistrationWindow, StudentsTable, StudentResults
 from PyQt5.QtWidgets import QApplication
 
+import AuthorisationWindow, Menu, RegistrationWindow, StudentsTable, StudentResults
 
 class TestController:
 

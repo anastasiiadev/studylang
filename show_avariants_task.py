@@ -64,7 +64,7 @@ class AVariants(gs.SLWindow):
         box.addLayout(horizontal)
         box.addSpacing(30)
         box.addWidget(self.btn, alignment=QtCore.Qt.AlignCenter)
-        box.addStretch(1)
+        box.addStretch(2)
         self.setLayout(box)
         self.show()
 
@@ -91,7 +91,7 @@ class AVariants(gs.SLWindow):
                 for el in user_answers:
                     if el in self.rightanswers:
                         self.score += point
-                    else:
+                    elif len(user_answers) > len(self.rightanswers):
                         self.score -= point
                 self.score = round(self.score, 1)
                 ost = self.score % 1
@@ -100,7 +100,7 @@ class AVariants(gs.SLWindow):
                 if self.score < 0:
                     self.score = 0
             else:
-                if user_answers[0] == self.rightanswers[0]:#is it safe???????????????????
+                if user_answers[0] == self.rightanswers:#is it safe???????????????????
                     self.score += self.maxscore
 
             with open(self.filename, 'a', encoding='utf-8') as file:
@@ -115,6 +115,6 @@ class AVariants(gs.SLWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = AVariants('one', 3, ['The speaker is a journalist.', 'The speaker is a member of a rescue team.', 'There has been an earthquake.', 'There has been an avalanche.'],
+    window = AVariants('many', 3, ['The speaker is a journalist.', 'The speaker is a member of a rescue team.', 'There has been an earthquake.', 'There has been an avalanche.'],
                        'answerfiles/Test1.txt', ['The speaker is a member of a rescue team.', 'There has been an earthquake.'], '3')
     sys.exit(app.exec_())

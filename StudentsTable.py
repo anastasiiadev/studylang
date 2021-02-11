@@ -1,31 +1,25 @@
-import sys, os
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QTableWidget, QMessageBox, QTableWidgetItem, QCheckBox, QPushButton
+import sys
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication, QGridLayout, QTableWidget, QMessageBox, QTableWidgetItem, QCheckBox, QPushButton
 from PyQt5.QtCore import Qt
+
 import dbinteraction as db
-import files
+import general_settings as gs
 
 
-class MainWindow(QWidget):
+class MainWindow(gs.SLWindow):
 
     switch_tomenu = QtCore.pyqtSignal()
     switch_toresults = QtCore.pyqtSignal()
 
     def __init__(self):
-        QWidget.__init__(self)
+        super().__init__()
         self.initUI()
 
     def initUI(self):
         try:
             conn = db.create_connection()
             queryresult = db.execute_query(conn, "SELECT id, fio, confirmed, role FROM people")
-
-            self.setFixedSize(800, 600)
-            self.Center()
-            pal = self.palette()
-            pal.setColor(QtGui.QPalette.Normal, QtGui.QPalette.Window,
-                         QtGui.QColor("#ffffff"))
-            self.setPalette(pal)
             self.tomenu = 0
 
             grid_layout = QGridLayout()
@@ -88,8 +82,6 @@ class MainWindow(QWidget):
 
         except Exception as e:
             print(e)
-            self.setFixedSize(800, 600)
-            self.Center()
             self.msg = QMessageBox(self)
             self.msg.critical(self, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
             sys.exit()
@@ -105,25 +97,7 @@ class MainWindow(QWidget):
                     print(self.studentsbefore[i][0])
                     self.person_id = self.studentsbefore[i][0]
                     self.switch_toresults.emit()
-                    conn.close()
                     break
-
-    def Center(self):
-        self.setWindowTitle("StudyLang")
-        file = 'iconSL.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
-            f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
-        self.setWindowIcon(ico)
-        desktop = QApplication.desktop()
-        x = (desktop.width() - self.frameSize().width()) // 2
-        y = ((desktop.height() - self.frameSize().height()) // 2) - 30
-        self.move(x, y)
 
     def Remember(self):
         try:
@@ -149,7 +123,7 @@ class MainWindow(QWidget):
         if changed:
             for el in changed:
                 query = (
-                    "UPDATE people set confirmed={} WHERE id={}".format(el[2], el[0]))
+                    f"UPDATE people set confirmed={el[2]} WHERE id={el[0]}")
                 db.execute_query(conn, query, "insert")
                 conn.commit()
         if self.tomenu == 1:
@@ -160,8 +134,6 @@ class MainWindow(QWidget):
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QApplication(sys.argv)
     mw = MainWindow()
     mw.show()

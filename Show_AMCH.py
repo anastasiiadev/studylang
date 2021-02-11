@@ -367,6 +367,6 @@ class ThisWindow(QWidget):
 
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(3, 3, 'Кто чья жена?', 'Beyonce - Partition.mp3', 'answerfiles/Test2.txt', {'Бейонсе':'Джей Зи', 'Ким Кардашьян':'Кенью Уэст'})
+    myapp = ThisWindow(3, 3, 'Кто чья жена?', 'Beyonce - Partition.mp3', 'answerfiles/Test2.txt', {'Бейонсе':'Джей Зи', 'Ким Кардашьян':'Кенью Уэст'}, '2')
     myapp.show()
     sys.exit(app.exec_())

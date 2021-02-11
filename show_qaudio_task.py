@@ -9,9 +9,8 @@ import dbinteraction as db
 
 class QAudio(gs.SLWindow):
 
-    def __init__(self, n, i, question, audiofile):
+    def __init__(self, i, question, audiofile):
         super().__init__()
-        self.num = n
         self.n = i
         self.question = question
         self.audiofile = audiofile
@@ -19,9 +18,9 @@ class QAudio(gs.SLWindow):
 
 
     def initUI(self):
-        box = QVBoxLayout(self)
-        box.setContentsMargins(0, 30, 0, 30)
-        self.qnum = QLabel("Вопрос #%s" % self.n, self)
+        self.box = QVBoxLayout(self)
+        self.box.setContentsMargins(0, 30, 0, 30)
+        self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qnum.adjustSize()
         self.qtext = QLabel(self.question, self)
@@ -34,15 +33,16 @@ class QAudio(gs.SLWindow):
             self.qtext.setFixedSize(500, 150)
         self.qtext.setAlignment(QtCore.Qt.AlignCenter)
         self.audio = QPushButton('Прослушать аудиозапись', self)
+        self.audio.setFixedSize(170, 27)
 
-        box.addStretch(1)
-        box.addWidget(self.qnum, alignment=QtCore.Qt.AlignCenter)
-        box.addSpacing(5)
-        box.addWidget(self.qtext, alignment=QtCore.Qt.AlignCenter)
-        box.addSpacing(15)
-        box.addWidget(self.audio, alignment=QtCore.Qt.AlignCenter)
-        box.addStretch(3)
-        self.setLayout(box)
+        self.box.addSpacing(50)
+        self.box.addWidget(self.qnum, alignment=QtCore.Qt.AlignCenter)
+        self.box.addSpacing(10)
+        self.box.addWidget(self.qtext, alignment=QtCore.Qt.AlignCenter)
+        self.box.addSpacing(30)
+        self.box.addWidget(self.audio, alignment=QtCore.Qt.AlignCenter)
+        self.box.addStretch(2)
+        self.setLayout(self.box)
         self.show()
 
         self.audio.clicked.connect(self.RecordingPlay)

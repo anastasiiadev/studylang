@@ -100,5 +100,5 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(10, 0, ['Оценки', '8', '5', '3', '9'])
+    myapp = ThisWindow(28, 5.0, ['Оценки', '4', '2', '1', '7'])
     sys.exit(app.exec_())

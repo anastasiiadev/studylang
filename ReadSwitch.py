@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMessageBox, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal
 
-import Show_TMCH, Show_TO, Show_TM, Show_IMCH, Show_IO, Show_IM, Show_AMCH, Show_AO, Show_AM, EndDo
+import showTaskWindow
+import EndDo
 import files
 import dbinteraction as db
 
@@ -57,7 +58,6 @@ class Showtask:
 
                 info = self.read_from_file(self.testfile)
                 self.list = info
-                print(*self.list)
                 self.n = self.list[0]
                 self.m = int(self.list[-1][0])
                 self.s = int(self.list[-1][1])
@@ -101,39 +101,45 @@ class Showtask:
             self.task = EndDo.ThisWindow(self.answerid, self.wholescore, el)
             self.task.switch_end.connect(lambda: self.task.close())
             self.processor.window.close()
+
+        #elements order in ifo: i, question_type, answer_type, question, mediafile, [variants], rightanswer, score (mediafile and variants are optional)
+        #arguments in showtaskWindow: self, question_type, answer_type, i, question, filename, rightanswers, maxscore, mediafile=None, variants=None
         elif el[1] == 'Текст' and el[2] == 'Установить соответствие':
-            self.task = Show_TMCH.ThisWindow(el[0], i, el[3], 'answerfiles/{}'.format(self.filename), el[4], el[5])
-            self.task.switch_tmch.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('text', 'match', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[4], el[5])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Текст' and el[2] == 'Выбрать один правильный ответ':
-            self.task = Show_TO.ThisWindow(el[0], i, el[3], el[4], 'answerfiles/{}'.format(self.filename), el[5], el[6])
-            self.task.switch_to.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('text', 'one', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[5], el[6], variants=el[4])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Текст' and el[2] == 'Выбрать несколько правильных ответов':
-            self.task = Show_TM.ThisWindow(el[0], i, el[3], el[4], 'answerfiles/{}'.format(self.filename), el[5], el[6])
-            self.task.switch_tm.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('text', 'many', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[5], el[6], variants=el[4])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Изображение' and el[2] == 'Установить соответствие':
-            self.task = Show_IMCH.ThisWindow(el[0], i, el[3], el[4], 'answerfiles/{}'.format(self.filename), el[5],
-                                             el[6])
-            self.task.switch_imch.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('image', 'match', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[5], el[6], mediafile=el[4])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Изображение' and el[2] == 'Выбрать один правильный ответ':
-            self.task = Show_IO.ThisWindow(el[0], i, el[3], el[4], el[5], 'answerfiles/{}'.format(self.filename), el[6],
-                                           el[7])
-            self.task.switch_io.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('image', 'one', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[6], el[7], mediafile=el[4], variants=el[5])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Изображение' and el[2] == 'Выбрать несколько правильных ответов':
-            self.task = Show_IM.ThisWindow(el[0], i, el[3], el[4], el[5], 'answerfiles/{}'.format(self.filename), el[6],
-                                           el[7])
-            self.task.switch_im.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('image', 'many', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[6], el[7], mediafile=el[4], variants=el[5])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Аудио' and el[2] == 'Установить соответствие':
-            self.task = Show_AMCH.ThisWindow(el[0], i, el[3], el[4], 'answerfiles/{}'.format(self.filename), el[5],
-                                             el[6])
-            self.task.switch_amch.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('audio', 'match', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[5], el[6], mediafile=el[4])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Аудио' and el[2] == 'Выбрать один правильный ответ':
-            self.task = Show_AO.ThisWindow(el[0], i, el[3], el[4], el[5], 'answerfiles/{}'.format(self.filename), el[6],
-                                           el[7])
-            self.task.switch_ao.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('audio', 'one', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[6], el[7], mediafile=el[4], variants=el[5])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         elif el[1] == 'Аудио' and el[2] == 'Выбрать несколько правильных ответов':
-            self.task = Show_AM.ThisWindow(el[0], i, el[3], el[4], el[5], 'answerfiles/{}'.format(self.filename), el[6],
-                                           el[7])
-            self.task.switch_am.connect(lambda: self.show_score(self.task.score, i))
+            self.task = showTaskWindow.ThisWindow('audio', 'many', i, el[3], f'answerfiles/{self.filename}',
+                                                  el[6], el[7], mediafile=el[4], variants=el[5])
+            self.task.do_task_end.connect(lambda: self.show_score(self.task.acomponents.score, i))
         self.task.show()
 
     def new(self, i):
@@ -185,7 +191,6 @@ class Showtask:
         except Exception as e:
             print(e)
             raise Exception
-
 
     def read_from_file(self, file):
         with open('testfiles/' + file, 'r', encoding='utf-8') as f:
@@ -298,6 +303,6 @@ class Showtask:
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    testid = '1'
+    testid = '87'
     test = Showtask(testid, '1')
     sys.exit(app.exec_())
