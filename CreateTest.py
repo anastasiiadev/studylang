@@ -40,9 +40,8 @@ class TaskController:
         self.window.show()
 
     def new(self):
-        a = int(self.window.acomponents.maxscore)
         self.window.close()
-        self.testscore += a
+        self.testscore += int(self.window.acomponents.maxscore)
         i = int(self.i)
         n = int(self.n)
         i += 1

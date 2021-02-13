@@ -49,10 +49,10 @@ class ThisWindow(gs.SLWindow):
         if doli < 1 and doli != 0:
             text = 'балла'
         else:
-            if ed == 1:
-                text = 'балл'
-            elif ed >= 5 or ed == 0 or self.score in (10, 11, 12, 13, 14):
+            if ed >= 5 or ed == 0 or self.score in (10, 11, 12, 13, 14):
                 text = 'баллов'
+            elif ed == 1:
+                text = 'балл'
             else:
                 text = 'балла'
         self.showscore = QLabel(f"Вы набрали {self.score} " + text + f' из {self.marks[4]}!', self)
@@ -100,5 +100,5 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(28, 5.0, ['Оценки', '4', '2', '1', '7'])
+    myapp = ThisWindow(28, 16.0, ['Оценки', '3', '3', '3', '11'])
     sys.exit(app.exec_())

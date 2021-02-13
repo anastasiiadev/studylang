@@ -64,7 +64,7 @@ class AVariants(QWidget):
         self.setLayout(self.box)
         self.show()
 
-        self.btn.clicked.connect(self.WriteToFile)
+        #self.btn.clicked.connect(self.WriteToFile)
 
 
     def WriteToFile(self):
@@ -108,9 +108,7 @@ class AVariants(QWidget):
             self.window_initialising.emit()
 
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = AVariants('many', 3, ['The speaker is a journalist.', 'The speaker is a member of a rescue team.', 'There has been an earthquake.', 'There has been an avalanche.'],
-                       'answerfiles/Test1.txt', ['The speaker is a member of a rescue team.', 'There has been an earthquake.'], '3')
+    window = AVariants('one', 2, ['geg', 'kilol', 'mmmm'], 'answerfiles/Test1.txt', 'mmmm', '8')
     sys.exit(app.exec_())

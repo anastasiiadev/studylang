@@ -76,7 +76,7 @@ class ThisWindow(gs.SLWindow):
 
         if test_name != '' and (self.questions != '' and typeQuestions is True) and flag == 0:
             now = datetime.datetime.now()
-            date = now.strftime("%d-%m-%Y %H:%M")
+            date = now.strftime("%Y-%m-%d %H:%M")
 
             result = db.execute_query(conn, "SELECT max(id) FROM tests")
             max = result[0][0]

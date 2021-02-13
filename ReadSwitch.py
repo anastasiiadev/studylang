@@ -81,6 +81,7 @@ class Showtask(QWidget):
     def show_task(self, i):
         el = self.list[i]
         if (len(el) == 5 and el[0] == 'Оценки'):
+            self.processor.window.close()
             with open(f'answerfiles/{self.filename}', 'a', encoding='utf-8') as file:
                 file.write(f'Общее количество баллов: {self.wholescore}' + '\n')
             file.close()
@@ -100,7 +101,6 @@ class Showtask(QWidget):
                 self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл на сервер.", QMessageBox.Ok)
             self.task = EndDo.ThisWindow(self.answerid, self.wholescore, el)
             self.task.switch_end.connect(lambda: self.task.close())
-            self.processor.window.close()
 
         #elements order in ifo: i, question_type, answer_type, question, mediafile, [variants], rightanswer, score (mediafile and variants are optional)
         #arguments in showtaskWindow: self, question_type, answer_type, i, question, filename, rightanswers, maxscore, mediafile=None, variants=None
@@ -304,6 +304,6 @@ class Showtask(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    testid = '91'
+    testid = '93'
     test = Showtask(testid, '1')
     sys.exit(app.exec_())
