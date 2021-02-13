@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QVBoxLayout,  QApplication
+from PyQt5.QtWidgets import QVBoxLayout,  QApplication, QSizePolicy
 from PyQt5 import QtCore
 
 import general_settings as gs
@@ -45,13 +45,13 @@ class ThisWindow(gs.SLWindow):
         else:
             self.acomponents = show_amatch_task.AMatch(self.n, self.filename, self.rightanswers, self.maxscore)
 
-
+        self.mainbox.addStretch()
         self.mainbox.addWidget(self.qcomponents)
-        if self.question_type == 'image':
-            self.mainbox.addSpacing(280)
-        else:
-            self.mainbox.addSpacing(30)
+        self.qcomponents.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.mainbox.addStretch()
         self.mainbox.addWidget(self.acomponents)
+        self.acomponents.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.mainbox.addStretch()
         self.setLayout(self.mainbox)
 
         self.acomponents.btn.clicked.connect(self.check)
@@ -63,6 +63,11 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow('text', 'match', 1, 'как кого звали?', 'answerfiles/Test4.txt', {'Рон': 'Уизли', 'Гермиона': 'Грейнжер', 'Гарри': 'Поттер'}, 6)
+    myapp = ThisWindow('image', 'many', 1, 'What professions can you see in the picture?',
+                       'answerfiles/Test1.txt', ['The speaker is a member of a rescue team.', 'There has been an earthquake.'], '3',
+                       'little-prince-illustration 350 высота.jpg',
+                       ['The speaker is a journalist.', 'The speaker is a member of a rescue team.',
+                        'There has been an earthquake.', 'There has been an avalanche.'],
+                       )
     myapp.show()
     sys.exit(app.exec_())

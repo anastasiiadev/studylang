@@ -28,7 +28,7 @@ class Processor(QThread):
         threading.Timer(1, self.run).start()
 
 
-class Showtask:
+class Showtask(QWidget):
 
     def __init__(self, testid, user_id):
         self.testid = testid
@@ -171,7 +171,8 @@ class Showtask:
                 os.mkdir(folder)
             self.filename = f"Test{n}.txt"
             now = datetime.now()
-            date = now.strftime("%d-%m-%Y %H:%M")
+            date = now.strftime("%Y-%m-%d %H:%M")
+            # date = now.strftime("%d-%m-%Y %H:%M")
             query = ("INSERT INTO testing (ID, TESTID, DATE, ANSWERFILEID) VALUES "
                      f"({n}, '{self.testid}', '{date}', '{self.filename}')")
             db.execute_query(conn, query, 'insert')
@@ -303,6 +304,6 @@ class Showtask:
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    testid = '87'
+    testid = '91'
     test = Showtask(testid, '1')
     sys.exit(app.exec_())

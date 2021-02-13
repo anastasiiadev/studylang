@@ -1,11 +1,10 @@
-import sys, os
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QMessageBox
+import sys
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication
 from PyQt5 import QtGui, QtCore
 
-import general_settings as gs
 
 
-class QText(gs.SLWindow):
+class QText(QWidget):
 
     def __init__(self, i, question):
         super().__init__()
@@ -15,7 +14,6 @@ class QText(gs.SLWindow):
 
     def initUI(self):
         box = QVBoxLayout(self)
-        box.setContentsMargins(0, 30, 0, 30)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qnum.adjustSize()
@@ -29,15 +27,14 @@ class QText(gs.SLWindow):
             self.qtext.setFixedSize(500, 150)
         self.qtext.setAlignment(QtCore.Qt.AlignCenter)
 
-        box.addStretch(1)
+        box.addSpacing(50)
         box.addWidget(self.qnum, alignment=QtCore.Qt.AlignCenter)
         box.addSpacing(10)
         box.addWidget(self.qtext, alignment=QtCore.Qt.AlignCenter)
-        box.addStretch(3)
         self.show()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = QText(2, 1, 'What professions can you see in the picture?')
+    window = QText(1, 'What professions can you see in the picture?')
     sys.exit(app.exec_())

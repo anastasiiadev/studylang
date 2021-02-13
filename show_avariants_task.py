@@ -1,11 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QMessageBox, QCheckBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QMessageBox, QCheckBox
 from PyQt5 import QtGui, QtCore
 
-import general_settings as gs
 
-
-class AVariants(gs.SLWindow):
+class AVariants(QWidget):
 
     window_initialising = QtCore.pyqtSignal()
 
@@ -21,8 +19,7 @@ class AVariants(gs.SLWindow):
         self.initUI()
 
     def initUI(self):
-        box = QVBoxLayout(self)
-        box.setContentsMargins(0, 30, 0, 30)
+        self.box = QVBoxLayout(self)
         if self.type == 'many':
             self.message = QLabel("Выберите несколько правильных ответов.", self)
             self.message.setFixedSize(370, 25)
@@ -38,8 +35,8 @@ class AVariants(gs.SLWindow):
             exec(f"self.var{x}.setStyleSheet('font: 11pt Century Gothic;')")
         self.btn = QPushButton('OK', self)
         self.btn.setFixedSize(80, 25)
-        box.addWidget(self.message, alignment=QtCore.Qt.AlignCenter)
-        box.addSpacing(30)
+        self.box.addWidget(self.message, alignment=QtCore.Qt.AlignCenter)
+        self.box.addSpacing(20)
         left = QVBoxLayout(self)
         if self.variants_number > 3:
             right = QVBoxLayout(self)
@@ -61,11 +58,10 @@ class AVariants(gs.SLWindow):
             horizontal.addSpacing(10)
             horizontal.addLayout(right)
         horizontal.addStretch(1)
-        box.addLayout(horizontal)
-        box.addSpacing(30)
-        box.addWidget(self.btn, alignment=QtCore.Qt.AlignCenter)
-        box.addStretch(2)
-        self.setLayout(box)
+        self.box.addLayout(horizontal)
+        self.box.addSpacing(20)
+        self.box.addWidget(self.btn, alignment=QtCore.Qt.AlignCenter)
+        self.setLayout(self.box)
         self.show()
 
         self.btn.clicked.connect(self.WriteToFile)

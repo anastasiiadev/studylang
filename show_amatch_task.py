@@ -1,11 +1,9 @@
 import sys
 import random
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QMessageBox, QCheckBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplication, QPushButton, QMessageBox
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QDrag, QPixmap, QPainter
 from PyQt5.QtCore import Qt, QMimeData
-
-import general_settings as gs
 
 
 class DragLabel(QLabel):
@@ -53,7 +51,7 @@ class DropLabel(QLabel):
         event.acceptProposedAction()
 
 
-class AMatch(gs.SLWindow):
+class AMatch(QWidget):
 
     window_initialising = QtCore.pyqtSignal()
 
@@ -121,7 +119,6 @@ class AMatch(gs.SLWindow):
         self.btn = QPushButton('OK', self)
         self.mainbox.addSpacing(30)
         self.mainbox.addWidget(self.btn, alignment=QtCore.Qt.AlignCenter)
-        self.mainbox.addStretch(1)
         self.setLayout(self.mainbox)
 
         #self.btn.clicked.connect(self.WriteToFile)

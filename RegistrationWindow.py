@@ -144,7 +144,7 @@ class ThisWindow(gs.SLWindow):
                         else:
                             query = (
                                 "INSERT INTO people (ID, FIO, LOGIN, PASSWORD, ROLE, CONFIRMED) VALUES "
-                                f"({self.n}, '{self.fio}', '{self.login}', {hashedpass}, 2, 0)")
+                                f"({self.n}, '{self.fio}', '{self.login}', '{hashedpass}', '2', '0')")
                             db.execute_query(conn, query, "insert")
                             conn.commit()
                             conn.close()

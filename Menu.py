@@ -117,7 +117,7 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    myapp = ThisWindow('1')
+    myapp = ThisWindow('3')
     myapp.show()
     sys.exit(app.exec_())
 

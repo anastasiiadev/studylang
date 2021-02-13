@@ -1,14 +1,13 @@
 import sys, os
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QMessageBox
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 
-import general_settings as gs
 import files
 import dbinteraction as db
 
 
-class QImage(gs.SLWindow):
+class QImage(QWidget):
 
     def __init__(self, i, question, image):
         super().__init__()
@@ -18,8 +17,7 @@ class QImage(gs.SLWindow):
         self.initUI()
 
     def initUI(self):
-        box = QVBoxLayout(self)
-        box.setContentsMargins(0, 30, 0, 30)
+        self.box = QVBoxLayout(self)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
         self.qnum.adjustSize()
@@ -48,7 +46,7 @@ class QImage(gs.SLWindow):
         prepixmap = QPixmap(folder + self.image)
         width = prepixmap.width()
         height = prepixmap.height()
-        if height > 405:
+        if height > 330:
             pixmap = prepixmap.scaledToHeight(300, mode=0)
         elif width <= 650:
             pixmap = prepixmap
@@ -57,16 +55,16 @@ class QImage(gs.SLWindow):
         lbl = QLabel(self)
         lbl.setPixmap(pixmap)
 
-        box.addWidget(self.qnum, alignment=QtCore.Qt.AlignCenter)
-        box.addSpacing(5)
-        box.addWidget(self.qtext, alignment=QtCore.Qt.AlignCenter)
-        box.addSpacing(5)
-        box.addWidget(lbl, alignment=QtCore.Qt.AlignCenter)
-        box.addStretch(1)
+        self.box.addWidget(self.qnum, alignment=QtCore.Qt.AlignCenter)
+        self.box.addSpacing(5)
+        self.box.addWidget(self.qtext, alignment=QtCore.Qt.AlignCenter)
+        self.box.addSpacing(5)
+        self.box.addWidget(lbl, alignment=QtCore.Qt.AlignCenter)
+        self.setLayout(self.box)
         self.show()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = QImage(2, 1, 'What professions can you see in the picture?', 'cover Easy Lace.jpg')
+    window = QImage(1, 'What professions can you see in the picture?', 'little-prince-illustration 350 высота.jpg')
     sys.exit(app.exec_())

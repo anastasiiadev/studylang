@@ -105,14 +105,14 @@ class ThisWindow(gs.SLWindow):
                 for el in logins:
                     if login == el:
                         flag = 1
-                        query = "SELECT id FROM people WHERE login='{}'".format(login)
+                        query = f"SELECT id FROM people WHERE login='{login}'"
                         result = db.execute_query(conn, query)
                         # Преобразуем id
                         tmp = str(result)
                         length = len(tmp)
                         a = tmp[2:(length - 3)]
                         self.user_id = a
-                        query = "SELECT password, confirmed FROM people WHERE login='{}'".format(login)
+                        query = f"SELECT password, confirmed FROM people WHERE login='{login}'"
                         result = db.execute_query(conn, query)
                         # Преобразуем пароль
                         tmp = str(result)
