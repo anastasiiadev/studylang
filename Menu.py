@@ -25,7 +25,11 @@ class ThisWindow(gs.SLWindow):
         try:
             conn = db.create_connection()
         except Exception as e:
-            print(e)
+            self.show()
+            self.msg = QMessageBox(self)
+            self.msg.critical(self, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
+            self.close()
+            logging.error(e)
 
         result = db.execute_query(conn, f"SELECT role FROM people WHERE id={user_id}")
         if result:
@@ -43,7 +47,7 @@ class ThisWindow(gs.SLWindow):
         self.do.setFixedSize(150, 30)
         self.do.setStyleSheet('font: 11pt Century Gothic;')
         self.butbox = QHBoxLayout(self)
-        but = QPushButton(self)
+        guide_button = QPushButton(self)
         file = 'question.jpg'
         path = os.getcwd()
         folder = path + '\\img\\'
@@ -53,9 +57,9 @@ class ThisWindow(gs.SLWindow):
             f = files.File()
             f.get("1jgRj4273tHow-e8JJ8btM4jl6rG20t1U", "img/question.jpg")
         ico = QtGui.QIcon('img/question.jpg')
-        but.setIcon(ico)
-        but.setIconSize(QtCore.QSize(25, 25))
-        self.butbox.addWidget(but, alignment=QtCore.Qt.AlignRight)
+        guide_button.setIcon(ico)
+        guide_button.setIconSize(QtCore.QSize(25, 25))
+        self.butbox.addWidget(guide_button, alignment=QtCore.Qt.AlignRight)
         self.butbox.addSpacing(20)
         if self.role == 1:
             self.text = QLabel("Что вы хотите сделать?", self)
@@ -90,10 +94,10 @@ class ThisWindow(gs.SLWindow):
 
         if self.role == 1:
             self.create.clicked.connect(self.SwitchMode1)
-            but.clicked.connect(self.teachers_guide)
+            guide_button.clicked.connect(self.teachers_guide)
             self.seestudents.clicked.connect(lambda: self.switch_students.emit())
         else:
-            but.clicked.connect(self.students_guide)
+            guide_button.clicked.connect(self.students_guide)
         self.do.clicked.connect(self.SwitchMode2)
 
     def students_guide(self):
@@ -117,6 +121,8 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    import logging
+    logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow('3')
     myapp.show()
     sys.exit(app.exec_())

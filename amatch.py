@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QHBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox
 from PyQt5 import QtGui, QtCore
+
 import dbinteraction as db
 import files
 

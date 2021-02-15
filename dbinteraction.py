@@ -35,12 +35,13 @@ def execute_query(connection, query, mode="select"):
 
 if __name__ == "__main__":
     conn = create_connection()
-    query = "SELECT * FROM images ORDER BY id"
+    query = "SELECT * FROM people ORDER BY id"
     #query = "DELETE FROM images WHERE id > 2"
     #query = "SELECT * FROM tests WHERE id>15;"
     #query = "SELECT * FROM pg_catalog.pg_tables;"
-    #query = "select column_name from information_schema.columns where information_schema.columns.table_name='tests';"
+    #$query = "select * from information_schema.columns where information_schema.columns.table_name='people';"
     #query = "INSERT INTO images (id, filename, fileid) VALUES (2, 'question.jpg', '1jgRj4273tHow-e8JJ8btM4jl6rG20t1U')"
     #query = "UPDATE people SET role=1, confirmed=1 WHERE id=3"
+    #query = "ALTER TABLE people ALTER COLUMN password TYPE varchar(300)"
     q = execute_query(conn, query)
     print(q)

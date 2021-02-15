@@ -1,4 +1,5 @@
 import sys
+import logging
 from PyQt5.QtWidgets import QApplication
 
 import AuthorisationWindow, Menu, RegistrationWindow, StudentsTable, StudentResults
@@ -6,11 +7,12 @@ import AuthorisationWindow, Menu, RegistrationWindow, StudentsTable, StudentResu
 class TestController:
 
     def __init__(self):
+        logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
         self.login = AuthorisationWindow.ThisWindow()
-        self.login.switch_passed.connect(lambda: self.ChooseMode())
+        self.login.switch_passed.connect(lambda: self.ShowMenu())
         self.login.switch_register.connect(lambda: self.Register())
 
-    def ChooseMode(self):
+    def ShowMenu(self):
         if hasattr(self, 'login'):
             self.login.close()
         if hasattr(self, 'studwin'):
@@ -26,8 +28,8 @@ class TestController:
     def StudentsTable(self):
         self.controller.close()
         self.studwin = StudentsTable.MainWindow()
-        self.studwin.switch_tomenu.connect(lambda: self.ChooseMode())
-        self.studwin.switch_toresults.connect(lambda: self.StudentResult(self.studwin.person_id))
+        self.studwin.switch_tomenu.connect(lambda: self.ShowMenu())
+        self.studwin.switch_toresults.connect(lambda: self.StudentResult(self.studwin.checked_person_id))
 
     def StudentResult(self, id):
         self.studwin.close()
@@ -37,7 +39,7 @@ class TestController:
     def From_Student_To_Students(self):
         self.studres.close()
         self.studwin = StudentsTable.MainWindow()
-        self.studwin.switch_tomenu.connect(lambda: self.ChooseMode())
+        self.studwin.switch_tomenu.connect(lambda: self.ShowMenu())
         self.studwin.switch_toresults.connect(lambda: self.StudentResult(self.studwin.person_id))
 
 if __name__=="__main__":
