@@ -1,10 +1,12 @@
 import random
+import time
+
 
 def read_from_file(file):
     with open('testfiles/' + file, 'r', encoding='utf-8') as f:
         info = []
         lines = f.readlines()
-        questionsnum = int(lines[0][21:].strip())
+        questionsnum = int(lines[0][20:].strip())
         info.append(questionsnum)
         i = 2
         variants = []
@@ -77,24 +79,25 @@ def read_from_file(file):
                 ans = a[18:].strip()
                 answers = ans.split(', ')
             if a == '\n':
-                item.append(qnum)
                 item.append(qtype)
                 item.append(atype)
+                item.append(qnum)
                 item.append(q)
-                if img_or_audio != '':
-                    item.append(img_or_audio)
-                if variants:
-                    item.append(variants)
-                if dictmatch:
-                    item.append(dictmatch)
                 if answer != '':
                     item.append(answer)
                 if answers:
                     item.append(answers)
+                if dictmatch:
+                    item.append(dictmatch)
                 if score != '':
                     item.append(score)
+                if img_or_audio != '':
+                    item.append(img_or_audio)
+                if variants:
+                    item.append(variants)
                 info.append(item)
-                qnum, qtype, atype, q, img_or_audio, variants, dictmatch, answer, answers = '', '', '', '', '', [], {}, '', []
+                qtype, atype, qnum, q, answer, answers, img_or_audio = '', '', '', '', '', '', ''
+                dictmatch, variants = {}, []
             i += 1
 
         seq = [i for i in range(1, info[0] + 1)]
@@ -106,10 +109,50 @@ def read_from_file(file):
             randomed.append(marks)
         if time:
             randomed.append(time)
-    return randomed
+        return randomed
+
+def new_read(file):
+    #with open('testfiles/' + file, 'r', encoding='utf-8') as f:
+    testfile = open('testfiles/' + file, 'r', encoding='utf-8').readlines()
+    while True:
+        try:
+            testfile.remove('\n')
+        except ValueError:
+            break
+    temp = []
+    for line in testfile:
+        linelist = line.split('_||separate||_')
+        temp.append(linelist)
+    testlist = [temp[0][1].strip()]
+    i = 1
+    if temp[i][0] == 'Вопрос #':
+        tasklist = []
+        tasklist.append(temp[i][1].rstrip('\n'))
+        i += 1
+        while temp[i][0] != 'Вопрос #':
+            tasklist.append(temp[i][1].rstrip('\n'))
+            i += 1
+        print(tasklist)
 
 
+    print(temp)
+
+        # seq = [i for i in range(1, info[0] + 1)]
+        # random.shuffle(seq)
+        # randomed = [info[0]]
+        # for i in seq:
+        #     randomed.append(info[i])
+        # if marks:
+        #     randomed.append(marks)
+        # if time:
+        #     randomed.append(time)
+        # return randomed
+
+#separator _||separate||_
+#elements order in info: i, question_type, answer_type, question, mediafile, [variants], rightanswer, score (mediafile and variants are optional)
+#arguments in showtaskWindow: question_type, answer_type, i, question, rightanswers, maxscore, mediafile=None, variants=None
 if __name__=="__main__":
-    f = 'Test16.txt'
+    f = 'Test2.txt'
+    start_time = time.time()
     newlist = read_from_file(f)
     print(newlist)

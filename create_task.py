@@ -1,10 +1,11 @@
 import sys
+import logging
 from PyQt5.QtWidgets import QVBoxLayout,  QApplication
 from PyQt5 import QtCore
 
 import general_settings as gs
-import qaudio, qimage, qtext
-import avariants, amatch
+import create_qaudio_task, create_qimage_task, create_qtext_task
+import create_avariants_task, create_amatch_task
 
 
 class ThisWindow(gs.SLWindow):
@@ -22,19 +23,19 @@ class ThisWindow(gs.SLWindow):
     def initUI(self):
         self.mainbox = QVBoxLayout(self)
         if self.question == 'audio':
-            self.qcomponents = qaudio.QAudio(self.n)
+            self.qcomponents = create_qaudio_task.QAudio(self.n)
             self.qcomponents.audiob.clicked.connect(self.qcomponents.showDialog)
         elif self.question == 'image':
-            self.qcomponents = qimage.QImage(self.n)
+            self.qcomponents = create_qimage_task.QImage(self.n)
             self.qcomponents.imgb.clicked.connect(self.qcomponents.showDialog)
         else:
-            self.qcomponents = qtext.QText(self.n)
+            self.qcomponents = create_qtext_task.QText(self.n)
         if self.answer == 'many':
-            self.acomponents = avariants.AVariants('many')
+            self.acomponents = create_avariants_task.AVariants('many')
         elif self.answer == 'one':
-            self.acomponents = avariants.AVariants('one')
+            self.acomponents = create_avariants_task.AVariants('one')
         else:
-            self.acomponents = amatch.AMatch()
+            self.acomponents = create_amatch_task.AMatch()
         self.mainbox.addWidget(self.qcomponents)
         self.mainbox.addStretch(1)
         self.mainbox.addWidget(self.acomponents)
@@ -44,11 +45,15 @@ class ThisWindow(gs.SLWindow):
 
     def check(self):
         utext = self.qcomponents.utext.toPlainText()
-        self.acomponents.switch_task_end.connect(lambda: self.switch_create_task_end.emit())
+        self.acomponents.switch_task_end.connect(lambda: self.close_task_window())
         if self.question in ('audio', 'image'):
             self.acomponents.WriteToFile(utext, self.filename, self.qcomponents.distribution, self.qcomponents.newfile)
         else:
             self.acomponents.WriteToFile(utext, self.filename)
+
+    def close_task_window(self):
+        self.close()
+        self.switch_create_task_end.emit()
 
 
 if __name__ == "__main__":
