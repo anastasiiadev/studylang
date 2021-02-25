@@ -5,6 +5,22 @@ from PyQt5 import QtCore, QtGui
 import general_settings as gs
 
 
+TEXT_QUESTION_NUMBER = 'Вопрос #'
+TEXT_QUESTION_TYPE = 'Тип вопроса:'
+TEXT_ANSWER_TYPE = 'Тип ответа:'
+TEXT_TYPE_TEXT = 'Текст'
+TEXT_TYPE_AUDIO = 'Аудио'
+TEXT_TYPE_IMAGE = 'Изображение'
+TEXT_TYPE_MANY_VARIANTS = 'Выбрать несколько правильных ответов'
+TEXT_TYPE_ONE_VARIANT = 'Выбрать один правильный ответ'
+TEXT_TYPE_MATCH = 'Установить соответствие'
+AUDIO = 'audio'
+IMAGE = 'image'
+TEXT = 'text'
+MANY_VARIANTS = 'many'
+ONE_VARIANT = 'one'
+MATCH = 'match'
+
 
 class ThisWindow(gs.SLWindow):
 
@@ -54,23 +70,23 @@ class ThisWindow(gs.SLWindow):
         self.qtype = self.qbox.currentText()
         self.atype = self.abox.currentText()
         with open(self.testname, 'a', encoding='utf-8') as file:
-            file.write(f'Вопрос #{self.n}\n')
-            file.write('Тип вопроса:' + self.qtype + '\n')
-            file.write('Тип ответа:' + self.atype + '\n')
+            file.write(TEXT_QUESTION_NUMBER + f'{self.n}\n')
+            file.write(TEXT_QUESTION_TYPE + self.qtype + '\n')
+            file.write(TEXT_ANSWER_TYPE + self.atype + '\n')
 
-        if self.qtype == 'Текст':
-            question = 'text'
-        elif self.qtype == 'Изображение':
-            question = 'image'
+        if self.qtype == TEXT_TYPE_TEXT:
+            question = TEXT
+        elif self.qtype == TEXT_TYPE_IMAGE:
+            question = IMAGE
         else:
-            question = 'audio'
+            question = AUDIO
 
-        if self.atype == 'Установить соответствие':
-            answer = 'match'
-        elif self.atype == 'Выбрать один правильный ответ':
-            answer = 'one'
+        if self.atype == TEXT_TYPE_MATCH:
+            answer = MATCH
+        elif self.atype == TEXT_TYPE_ONE_VARIANT:
+            answer = ONE_VARIANT
         else:
-            answer = 'many'
+            answer = MANY_VARIANTS
 
         self.switch_type_task.emit(question, answer)
 

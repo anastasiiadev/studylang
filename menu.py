@@ -7,6 +7,8 @@ import testing, creating_test
 import dbinteraction as db
 import files
 import general_settings as gs
+import folder
+
 
 class ThisWindow(gs.SLWindow):
 
@@ -16,29 +18,28 @@ class ThisWindow(gs.SLWindow):
         super().__init__()
         self.user_id = user_id
         self.role = self.define_role(user_id)
-        self.initUI()
+        if hasattr(self, 'role'):
+            self.initUI()
 
 
     def define_role(self, user_id):
         try:
             conn = db.create_connection()
+            result = db.execute_query(conn, f"SELECT role FROM people WHERE id={user_id}")
+            if result:
+                role = result[0][0]
+            else:
+                self.show()
+                self.msg = QMessageBox(None)
+                self.msg.critical(None, "Ошибка ", "Не удалось найти пользователя в базе данных.", QMessageBox.Ok)
+                self.close()
+            conn.close()
+            return role
         except Exception as e:
-            self.show()
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ", "Не удалось подключиться к базе данных. Повторите попытку позже.", QMessageBox.Ok)
-            self.close()
+            self.msg = QMessageBox(None)
+            self.msg.critical(None, "Ошибка ", "Не удалось подключиться к базе данных. Повторите попытку позже.", QMessageBox.Ok)
             logging.error(e)
 
-        result = db.execute_query(conn, f"SELECT role FROM people WHERE id={user_id}")
-        if result:
-            role = result[0][0]
-        else:
-            self.show()
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ", "Не удалось найти пользователя в базе данных.", QMessageBox.Ok)
-            self.close()
-        conn.close()
-        return role
 
     def initUI(self):
         self.box = QVBoxLayout(self)
@@ -49,11 +50,8 @@ class ThisWindow(gs.SLWindow):
         self.guide_box = QHBoxLayout(self)
         guide_button = QPushButton(self)
         file = 'question.jpg'
-        path = os.getcwd()
-        folder = path + '\\img\\'
-        if os.path.exists(folder) is False:
-            os.mkdir(folder)
-        if os.path.exists(folder + file) is False:
+        img_directory = folder.Making_Folder('\\img\\')
+        if os.path.exists(img_directory.path_to_folder + file) is False:
             f = files.File()
             f.get("1jgRj4273tHow-e8JJ8btM4jl6rG20t1U", "img/question.jpg")
         ico = QtGui.QIcon('img/question.jpg')
@@ -147,7 +145,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
-    myapp = ThisWindow('3')
+    myapp = ThisWindow('1')
     myapp.show()
     sys.exit(app.exec_())
 

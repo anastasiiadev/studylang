@@ -1,4 +1,4 @@
-import sys, os
+import sys
 import logging
 from PyQt5.QtWidgets import QApplication, QMessageBox
 
@@ -8,6 +8,7 @@ import create_task
 import test_window
 import type_task_window
 import creating_end
+import folder
 
 
 class TaskController:
@@ -20,14 +21,11 @@ class TaskController:
         self.filename = filename
         if self.i > self.n:
             self.end_window = creating_end.ThisWindow(self.testscore, filename)
-            self.end_window.switch_end.connect(lambda: self.test.sendtest(self.end_window))
+            self.end_window.switch_end.connect(lambda: self.test.sendtest())
             self.end_window.show()
         else:
             if self.i == 1:
-                path = os.getcwd()
-                folder = path + '\\testfiles\\'
-                if os.path.exists(folder) is False:
-                    os.mkdir(folder)
+                self.test.test_directory = folder.Making_Folder('\\testfiles\\')
             self.type_task = type_task_window.ThisWindow(self.i, self.filename)
             self.type_task.switch_type_task.connect(self.general)
             self.type_task.show()
@@ -60,19 +58,19 @@ class TestController:
     def create_new_task(self, n, i, filename, score):
         self.taskcontroller = TaskController(self, n, i, filename, score)
 
-    def sendtest(self, window):
+    def sendtest(self):
         try:
             f = files.File()
             fileid = f.post(self.test_window.filename, f'testfiles/{self.test_window.filename}', 'tests')
             conn = db.create_connection()
             query = f"UPDATE tests SET fileid='{fileid}' WHERE id={self.test_window.new_test_id}"
             db.execute_query(conn, query, 'insert')
-        except Exception:
-            self.msgnofile = QMessageBox(self)
-            self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
-        path = os.getcwd()
-        os.remove(path + '\\testfiles\\' + self.test_window.filename)
-        window.close()
+        except Exception as e:
+            self.msgnofile = QMessageBox(None)
+            self.msgnofile.critical(None, "Ошибка ", "Не удалось загрузить ваш файл.", QMessageBox.Ok)
+            logging.error(e)
+        self.test_directory.remove(self.test_window.filename)
+        self.taskcontroller.end_window.close()
 
 
 if __name__=="__main__":

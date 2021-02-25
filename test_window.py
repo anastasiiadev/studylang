@@ -5,7 +5,10 @@ from PyQt5 import QtCore, QtGui
 
 import general_settings as gs
 import dbinteraction as db
+import folder
 
+
+TEXT_QUESTIONS_NUMBER = 'Количество вопросов:'
 
 class ThisWindow(gs.SLWindow):
     switch_newtest = QtCore.pyqtSignal()
@@ -80,13 +83,10 @@ class ThisWindow(gs.SLWindow):
             else:
                 self.new_test_id = int(test_max_id) + 1
 
-            path = os.getcwd()
-            folder = path + '\\testfiles\\'
-            if os.path.exists(folder) is False:
-                os.mkdir(folder)
+            folder.Making_Folder('\\testfiles\\')
             self.filename = "Test%s.txt" % self.new_test_id
             with open('testfiles/' + self.filename, 'w', encoding='utf-8') as file:
-                file.write(f'Количество вопросов:{self.questions}\n')
+                file.write(TEXT_QUESTIONS_NUMBER + f'{self.questions}\n')
                 file.write('\n')
 
             query = ("INSERT INTO tests (ID, TESTNAME, FILEID, DATE) VALUES "

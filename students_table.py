@@ -72,10 +72,10 @@ class MainWindow(gs.SLWindow):
         except Exception as e:
             logging.error(e)
             self.show()
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ", "Не удалось найти информацию о студентах. Повторите попытку позже.", QMessageBox.Ok)
+            self.msg = QMessageBox(None)
+            self.msg.critical(None, "Ошибка ", "Не удалось найти информацию о студентах. Повторите попытку позже.", QMessageBox.Ok)
             self.close()
-            sys.exit()
+
 
     def ChangeFlag(self):
         self.tomenu = 1

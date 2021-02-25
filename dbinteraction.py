@@ -1,4 +1,6 @@
 import psycopg2
+import logging
+
 
 def create_connection():
     connection = None
@@ -10,9 +12,9 @@ def create_connection():
             host='ec2-54-73-90-195.eu-west-1.compute.amazonaws.com',
             port='5432',
         )
-        print("Connection to PostgreSQL DB successful")
+        logging.info("Connection to PostgreSQL DB successful")
     except psycopg2.OperationalError as e:
-        print(f"The error '{e}' occurred")
+        logging.error(f"The error '{e}' occurred")
         raise Exception
     return connection
 
@@ -23,19 +25,21 @@ def execute_query(connection, query, mode="select"):
         result = None
     try:
         cursor.execute(query)
-        print("Query executed successfully")
+        logging.info("Query executed successfully")
         if mode == "select":
             result = cursor.fetchall()
             cursor.close()
             return result
     except psycopg2.OperationalError as e:
-        print(f"The error '{e}' occurred")
+        logging.error(f"The error '{e}' occurred")
         cursor.close()
         raise Exception
 
 if __name__ == "__main__":
+    import logging
+    logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     conn = create_connection()
-    query = "SELECT * FROM tests ORDER BY id"
+    query = "SELECT * FROM people ORDER BY id"
     #query = "DELETE FROM tests WHERE id > 0"
     #query = "SELECT * FROM tests WHERE id>15;"
     #query = "SELECT * FROM pg_catalog.pg_tables;"

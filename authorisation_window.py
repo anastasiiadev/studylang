@@ -130,8 +130,8 @@ class ThisWindow(gs.SLWindow):
                                               QMessageBox.Ok)
         except Exception as e:
             self.show()
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ",
+            self.msg = QMessageBox(None)
+            self.msg.critical(None, "Ошибка ",
                               "Не удалось подключиться к базе данных. Попробуйте авторизоваться позже.",
                               QMessageBox.Ok)
             self.close()

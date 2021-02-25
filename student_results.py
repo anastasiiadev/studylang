@@ -61,8 +61,8 @@ class MainWindow(gs.SLWindow):
 
         except Exception as e:
             self.show()
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
+            self.msg = QMessageBox(None)
+            self.msg.critical(None, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
             self.close()
             logging.error(e)
 

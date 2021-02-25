@@ -147,7 +147,6 @@ class ThisWindow(gs.SLWindow):
                                       "Не удалось подключиться к базе данных. Попробуйте авторизоваться позже.",
                                       QMessageBox.Ok)
                     self.close()
-                    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

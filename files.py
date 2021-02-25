@@ -1,6 +1,5 @@
 import httplib2
 import apiclient
-import dbinteraction as db
 from oauth2client.service_account import ServiceAccountCredentials
 
 
@@ -33,9 +32,9 @@ class File:
         """
 
         dirs_ids = {'answers': '1dMpj6wlLrJUdW3_GtxnJBkOQJoPV-4y7', 'audio': '15UIN3O1iSv0F5s28czXEpCJZlrzYVaVl',
-                    'img': '12JO-0jjME-X_IFge6SIa9jegxowVCiwO', 'tests': '1wdfbE4HsS-7BCW3zNTY4U4bcaEHc9QLc',
+                    'image': '12JO-0jjME-X_IFge6SIa9jegxowVCiwO', 'tests': '1wdfbE4HsS-7BCW3zNTY4U4bcaEHc9QLc',
                     'general': '1Zpov7-QHU3KoNGZhSLNSXRcgG77Y6K4x'}
-        if directory == 'img':
+        if directory == 'image':
             type = 'image/' + pathto.split('.')[-1]
         elif directory == 'audio':
             if pathto.split('.')[-1] == 'mp3':
@@ -44,17 +43,19 @@ class File:
                 type = 'x-wav'
         else:
             type = 'text/plain'
-        print(type)
+        logging.info('filetype:', type)
         file_metadata = {'name': filedrive, 'parents': [dirs_ids[directory]]}
         media = apiclient.http.MediaFileUpload(pathto, mimetype=type)
         file = self.service.files().create(body=file_metadata,
                                            media_body=media,
                                            fields='id').execute()
         new_id = file.get('id')
-        print('File ID: %s' % new_id)
+        logging.info(f'File ID: {new_id}')
         return new_id
 
 
 if __name__ == "__main__":
+    import logging
+    logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     a = File()
-    a.post("new999.png", "img/prof.png", 'img')
+    a.post("new999.png", "img/prof.png", 'image')

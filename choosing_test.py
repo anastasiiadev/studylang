@@ -23,8 +23,8 @@ class ThisWindow(gs.SLWindow):
             result = db.execute_query(conn, "SELECT id, testname FROM tests")
             if not result:
                 self.show()
-                self.msg = QMessageBox(self)
-                self.msg.information(self, "Тесты отсутствуют", "В базе данных нет тестов. Попробуйте пройти тестирование позже.", QMessageBox.Ok)
+                self.msg = QMessageBox(None)
+                self.msg.information(None, "Тесты отсутствуют", "В базе данных нет тестов. Попробуйте пройти тестирование позже.", QMessageBox.Ok)
                 self.status = 0
                 self.close()
                 logging.info("Нет тестов в БД.")
@@ -37,8 +37,8 @@ class ThisWindow(gs.SLWindow):
         except Exception as e:
             self.show()
             logging.error(e)
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
+            self.msg = QMessageBox(None)
+            self.msg.critical(None, "Ошибка ", "Не удалось найти тесты. Повторите попытку позже.", QMessageBox.Ok)
             self.status = 0
             self.close()
 

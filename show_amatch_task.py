@@ -33,6 +33,7 @@ class DragLabel(QLabel):
             drag.setHotSpot(event.pos())
             drag.exec_(Qt.CopyAction | Qt.MoveAction)
 
+
 class DropLabel(QLabel):
     def __init__(self, label, parent):
         super().__init__(label, parent)
@@ -51,9 +52,10 @@ class DropLabel(QLabel):
         event.acceptProposedAction()
 
 
+
 class AMatch(QWidget):
 
-    window_initialising = QtCore.pyqtSignal()
+    do_task_end = QtCore.pyqtSignal()
 
     def __init__(self, i, filename, d, maxscore):
         super().__init__()
@@ -152,7 +154,7 @@ class AMatch(QWidget):
                     self.score = round(self.score)
                 file.write('Баллы: ' + str(self.score) + '\n')
                 file.write('\n')
-            self.window_initialising.emit()
+            self.do_task_end.emit()
 
 
 if __name__=="__main__":

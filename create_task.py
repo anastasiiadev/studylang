@@ -8,6 +8,12 @@ import create_qaudio_task, create_qimage_task, create_qtext_task
 import create_avariants_task, create_amatch_task
 
 
+AUDIO = 'audio'
+IMAGE = 'image'
+MANY_VARIANTS = 'many'
+ONE_VARIANT = 'one'
+
+
 class ThisWindow(gs.SLWindow):
 
     switch_create_task_end = QtCore.pyqtSignal()
@@ -22,17 +28,17 @@ class ThisWindow(gs.SLWindow):
 
     def initUI(self):
         self.mainbox = QVBoxLayout(self)
-        if self.question == 'audio':
+        if self.question == AUDIO:
             self.qcomponents = create_qaudio_task.QAudio(self.n)
             self.qcomponents.audiob.clicked.connect(self.qcomponents.showDialog)
-        elif self.question == 'image':
+        elif self.question == IMAGE:
             self.qcomponents = create_qimage_task.QImage(self.n)
             self.qcomponents.imgb.clicked.connect(self.qcomponents.showDialog)
         else:
             self.qcomponents = create_qtext_task.QText(self.n)
-        if self.answer == 'many':
+        if self.answer == MANY_VARIANTS:
             self.acomponents = create_avariants_task.AVariants('many')
-        elif self.answer == 'one':
+        elif self.answer == ONE_VARIANT:
             self.acomponents = create_avariants_task.AVariants('one')
         else:
             self.acomponents = create_amatch_task.AMatch()
@@ -46,7 +52,7 @@ class ThisWindow(gs.SLWindow):
     def check(self):
         utext = self.qcomponents.utext.toPlainText()
         self.acomponents.switch_task_end.connect(lambda: self.close_task_window())
-        if self.question in ('audio', 'image'):
+        if self.question in (AUDIO, IMAGE):
             self.acomponents.WriteToFile(utext, self.filename, self.qcomponents.distribution, self.qcomponents.newfile)
         else:
             self.acomponents.WriteToFile(utext, self.filename)

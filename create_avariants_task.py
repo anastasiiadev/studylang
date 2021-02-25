@@ -1,9 +1,22 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCheckBox, QHBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox
 from PyQt5 import QtGui, QtCore
 
-
 import dbinteraction as db
 import files
+
+
+TYPE_AUDIO = 'audio'
+TABLE_AUDIO = 'audios'
+TYPE_IMAGE = 'img'
+TABLE_IMAGE = 'images'
+MANY_VARIANTS = 'many'
+ONE_VARIANT = 'one'
+TEXT_QUESTION = 'Вопрос:'
+TEXT_MEDIAFILE = 'Имя файла:'
+TEXT_VARIANT = 'Вариант'
+TEXT_RIGHT_ANSWERS = 'Правильные ответы:'
+TEXT_RIGHT_ANSWER = 'Правильный ответ:'
+TEXT_MAXSCORE = 'Максимальный балл:'
 
 
 class AVariants(QWidget):
@@ -148,32 +161,32 @@ class AVariants(QWidget):
             answer.append(var5)
         if numch == 0:
             self.msgv1 = QMessageBox(self)
-            if self.type == 'many':
+            if self.type == MANY_VARIANTS:
                 self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильные ответы, отметив их галочкой.",
                                     QMessageBox.Ok)
             else:
                 self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите правильный ответ, отметив его галочкой.",
                                     QMessageBox.Ok)
-        elif numch == 1 and self.type == 'many':
+        elif numch == 1 and self.type == MANY_VARIANTS:
             self.msgv1 = QMessageBox(self)
             self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите более одного правильного ответа.",
                                 QMessageBox.Ok)
-        elif numch > 1 and self.type == 'one':
+        elif numch > 1 and self.type == ONE_VARIANT:
             self.msgv1 = QMessageBox(self)
             self.msgv1.critical(self, "Ошибка ", "Пожалуйста, укажите только один правильный ответ.",
                                 QMessageBox.Ok)
         else:
-            if self.type == 'many':
+            if self.type == MANY_VARIANTS:
                 answers = ', '.join(answer)
             else:
                 answers = answer[0]
             if mediafile is not None:
                 if mediafile.split('.')[-1] in ('mp3', 'MP3', 'wav', 'WAV'):
-                    filetype = 'audio'
-                    table = 'audios'
+                    filetype = TYPE_AUDIO
+                    table = TABLE_AUDIO
                 else:
-                    filetype = 'img'
-                    table = 'images'
+                    filetype = TYPE_IMAGE
+                    table = TABLE_IMAGE
                 try:
                     conn = db.create_connection()
                     samefile = db.execute_query(conn, f"SELECT * FROM {table} WHERE filename='{mediafile}'")
@@ -224,21 +237,21 @@ class AVariants(QWidget):
                                 self.msgnofile = QMessageBox(self)
                                 self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.",
                                                         QMessageBox.Ok)
-                        file.write('Вопрос:' + utext + '\n')
+                        file.write(TEXT_QUESTION + utext + '\n')
                         if mediafile is not None:
-                            file.write('Имя файла:' + mediafile + '\n')
-                        file.write('Вариант1:' + var1 + '\n')
-                        file.write('Вариант2:' + var2 + '\n')
+                            file.write(TEXT_MEDIAFILE + mediafile + '\n')
+                        file.write(TEXT_VARIANT + '1:' + var1 + '\n')
+                        file.write(TEXT_VARIANT + '2:' + var2 + '\n')
                         if var3 != '':
-                            file.write('Вариант3:' + var3 + '\n')
+                            file.write(TEXT_VARIANT + '3:' + var3 + '\n')
                         if var4 != '':
-                            file.write('Вариант4:' + var4 + '\n')
+                            file.write(TEXT_VARIANT + '4:' + var4 + '\n')
                         if var5 != '':
-                            file.write('Вариант5:' + var5 + '\n')
-                        if self.type == 'many':
-                            file.write('Правильные ответы:' + answers + '\n')
+                            file.write(TEXT_VARIANT + '5:' + var5 + '\n')
+                        if self.type == MANY_VARIANTS:
+                            file.write(TEXT_RIGHT_ANSWERS + answers + '\n')
                         else:
-                            file.write('Правильный ответ:' + answers + '\n')
-                        file.write('Максимальный балл:' + self.maxscore + '\n')
+                            file.write(TEXT_RIGHT_ANSWER + answers + '\n')
+                        file.write(TEXT_MAXSCORE + self.maxscore + '\n')
                         file.write('\n')
                     self.switch_task_end.emit()

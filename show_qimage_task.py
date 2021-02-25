@@ -4,6 +4,7 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 
 import files
+import folder
 import dbinteraction as db
 
 
@@ -31,19 +32,18 @@ class QImage(QWidget):
             self.qtext.setFixedSize(500, 150)
         self.qtext.setAlignment(QtCore.Qt.AlignCenter)
         try:
-            path = os.getcwd()
-            folder = path + '\\img\\'
-            if os.path.exists(folder + self.image) is False:
+            image_directory = folder.Making_Folder('\\img\\')
+            if os.path.exists(image_directory.path_to_folder + self.image) is False:
                 conn = db.create_connection()
                 fileid = db.execute_query(conn,
                                           f"SELECT fileid FROM images WHERE filename='{self.image}'")[0][0]
                 f = files.File()
                 f.get(fileid, f'img/{self.image}')
         except Exception:
-            self.msgnofile = QMessageBox(self)
-            self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)
+            self.msgnofile = QMessageBox(None)
+            self.msgnofile.critical(None, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)
             self.close()
-        prepixmap = QPixmap(folder + self.image)
+        prepixmap = QPixmap(image_directory.path_to_folder + self.image)
         width = prepixmap.width()
         height = prepixmap.height()
         if height > 330:
@@ -66,5 +66,5 @@ class QImage(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = QImage(1, 'What professions can you see in the picture?', 'little-prince-illustration 350 высота.jpg')
+    window = QImage(1, 'What professions can you see in the picture?', 'cover3.jpg')
     sys.exit(app.exec_())

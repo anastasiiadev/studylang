@@ -4,6 +4,15 @@ from PyQt5 import QtGui, QtCore
 import dbinteraction as db
 import files
 
+TYPE_AUDIO = 'audio'
+TABLE_AUDIO = 'audios'
+TYPE_IMAGE = 'img'
+TABLE_IMAGE = 'images'
+TEXT_QUESTION = 'Вопрос:'
+TEXT_MEDIAFILE = 'Имя файла:'
+TEXT_MATCH = 'Соответствие'
+TEXT_MAXSCORE = 'Максимальный балл:'
+
 
 class AMatch(QWidget):
 
@@ -128,11 +137,11 @@ class AMatch(QWidget):
 
         if mediafile is not None:
             if mediafile.split('.')[-1] in ('mp3', 'MP3', 'wav', 'WAV'):
-                filetype = 'audio'
-                table = 'audios'
+                filetype = TYPE_AUDIO
+                table = TABLE_AUDIO
             else:
-                filetype = 'img'
-                table = 'images'
+                filetype = TYPE_IMAGE
+                table = TABLE_IMAGE
             try:
                 conn = db.create_connection()
                 samefile = db.execute_query(conn, f"SELECT * FROM {table} WHERE filename='{mediafile}'")
@@ -183,18 +192,18 @@ class AMatch(QWidget):
                             self.msgnofile = QMessageBox(self)
                             self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить ваш файл.",
                                                     QMessageBox.Ok)
-                    file.write('Вопрос:' + utext + '\n')
+                    file.write(TEXT_QUESTION + utext + '\n')
                     if mediafile is not None:
-                        file.write('Имя файла:' + mediafile + '\n')
-                    file.write('Соответствие1:' + var1f + ';' + var1s + '\n')
-                    file.write('Соответствие2:' + var2f + ';' + var2s + '\n')
+                        file.write(TEXT_MEDIAFILE + mediafile + '\n')
+                    file.write(TEXT_MATCH + '1:' + var1f + ';' + var1s + '\n')
+                    file.write(TEXT_MATCH + '2:' + var2f + ';' + var2s + '\n')
                     if var3f != '' or var3s != '':
-                        file.write('Соответствие3:' + var3f + ';' + var3s + '\n')
+                        file.write(TEXT_MATCH + '3:' + var3f + ';' + var3s + '\n')
                     if var4f != '' or var4s != '':
-                        file.write('Соответствие4:' + var4f + ';' + var4s + '\n')
+                        file.write(TEXT_MATCH + '4:' + var4f + ';' + var4s + '\n')
                     if var5f != '' or var5s != '':
-                        file.write('Соответствие5:' + var5f + ';' + var5s + '\n')
-                    file.write('Максимальный балл:' + self.maxscore + '\n')
+                        file.write(TEXT_MATCH + '5:' + var5f + ';' + var5s + '\n')
+                    file.write(TEXT_MAXSCORE + self.maxscore + '\n')
                     file.write('\n')
                 self.hide()
                 self.switch_task_end.emit()

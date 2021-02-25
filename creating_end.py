@@ -4,9 +4,12 @@ from PyQt5 import QtCore, QtGui
 
 import general_settings as gs
 
+TEXT_MARK = 'Оценка'
+TEXT_MAX_TEST_SCORE = 'Максимальное количество баллов:'
+TEXT_TIME = 'Время теста:'
+
 
 class ThisWindow(gs.SLWindow):
-
     switch_end = QtCore.pyqtSignal()
 
     def __init__(self, score, filename):
@@ -51,7 +54,6 @@ class ThisWindow(gs.SLWindow):
         self.btn = QPushButton('ОК', self)
         self.btn.setFixedSize(140, 25)
 
-
         self.box.addStretch(2)
         self.box.addWidget(self.text, alignment=QtCore.Qt.AlignCenter)
         v1box = QHBoxLayout()
@@ -88,7 +90,6 @@ class ThisWindow(gs.SLWindow):
         self.show()
 
         self.btn.clicked.connect(self.Remember)
-
 
     def Remember(self):
         self.fivesc = self.fivescore.text()
@@ -138,11 +139,11 @@ class ThisWindow(gs.SLWindow):
                                              QMessageBox.Ok)
                     else:
                         with open(self.filename, 'a', encoding='utf-8') as file:
-                            file.write('Оценка 5:' + str(self.fivesc) + '\n')
-                            file.write('Оценка 4:' + str(self.foursc) + '\n')
-                            file.write('Оценка 3:' + str(self.threesc) + '\n')
-                            file.write('Максимальное количество баллов:' + str(self.maxscore) + '\n')
-                            file.write('Время теста:' + str(self.min) + ' ' + str(self.sec) + '\n')
+                            file.write(TEXT_MARK + ' 5:' + str(self.fivesc) + '\n')
+                            file.write(TEXT_MARK + ' 4:' + str(self.foursc) + '\n')
+                            file.write(TEXT_MARK + ' 3:' + str(self.threesc) + '\n')
+                            file.write(TEXT_MAX_TEST_SCORE + str(self.maxscore) + '\n')
+                            file.write(TEXT_TIME + str(self.min) + ' ' + str(self.sec) + '\n')
                             file.write('\n')
                         self.msgnum = QMessageBox(self)
                         self.msgnum.information(self, "Тест создан ", "Вы успешно создали тест!", QMessageBox.Close)
@@ -154,7 +155,7 @@ class ThisWindow(gs.SLWindow):
                                      QMessageBox.Ok)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     myapp = ThisWindow(12, 'testfiles/Test1.txt')
     sys.exit(app.exec_())

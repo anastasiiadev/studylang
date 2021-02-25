@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QPushBut
 from PyQt5 import QtGui, QtCore
 
 import files
+import folder
 import dbinteraction as db
 
 
@@ -47,17 +48,13 @@ class QAudio(QWidget):
 
     def RecordingPlay(self):
         try:
-            path = os.getcwd()
-            folder = path + '\\audio\\'
-            if os.path.exists(folder) is False:
-                os.mkdir(folder)
-            if os.path.exists(folder + self.audiofile) is False:
+            audio_directory = folder.Making_Folder('\\audio\\')
+            if os.path.exists(audio_directory.path_to_folder + self.audiofile) is False:
                 conn = db.create_connection()
                 fileid = db.execute_query(conn, f"SELECT fileid FROM audios WHERE filename='{self.audiofile}'")[0][0]
                 f = files.File()
                 f.get(fileid, f'audio/{self.audiofile}')
-
-            os.startfile(folder + self.audiofile)
+            os.startfile(audio_directory.path_to_folder + self.audiofile)
         except Exception:
             self.msgnofile = QMessageBox(self)
             self.msgnofile.critical(self, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)

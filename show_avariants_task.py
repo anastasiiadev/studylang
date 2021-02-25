@@ -3,9 +3,13 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QApplicat
 from PyQt5 import QtGui, QtCore
 
 
+MANY_VARIANTS = 'many'
+ONE_VARIANT = 'one'
+
+
 class AVariants(QWidget):
 
-    window_initialising = QtCore.pyqtSignal()
+    do_task_end = QtCore.pyqtSignal()
 
     def __init__(self, type, i, answers, filename, rightanswers, maxscore):
         super().__init__()
@@ -20,7 +24,7 @@ class AVariants(QWidget):
 
     def initUI(self):
         self.box = QVBoxLayout(self)
-        if self.type == 'many':
+        if self.type == MANY_VARIANTS:
             self.message = QLabel("Выберите несколько правильных ответов.", self)
             self.message.setFixedSize(370, 25)
         else:
@@ -73,15 +77,15 @@ class AVariants(QWidget):
         for x in range(1, self.variants_number + 1):
             exec(f"if self.var{x}.isChecked() is True: user_answers.append(self.var{x}.text())")
         user_answers_number = len(user_answers)
-        if self.type == 'many' and user_answers_number < 2:
+        if self.type == MANY_VARIANTS and user_answers_number < 2:
             self.msgv1 = QMessageBox(self)
             self.msgv1.critical(self, "Ошибка ", "Пожалуйста, выберите два и более варианта ответов.", QMessageBox.Ok)
-        elif self.type == 'one' and (user_answers_number == 0 or user_answers_number > 1):
+        elif self.type == ONE_VARIANT and (user_answers_number == 0 or user_answers_number > 1):
             self.msgv1 = QMessageBox(self)
             self.msgv1.critical(self, "Ошибка ", "Пожалуйста, выберите один ответ.", QMessageBox.Ok)
         else:
             # count a score
-            if self.type == 'many':
+            if self.type == MANY_VARIANTS:
                 point = self.maxscore / len(self.rightanswers)
 
                 for el in user_answers:
@@ -105,7 +109,7 @@ class AVariants(QWidget):
                     file.write('Ответ:' + el + '\n')
                 file.write(f'Баллы:{self.score}' + '\n')
                 file.write('\n')
-            self.window_initialising.emit()
+            self.do_task_end.emit()
 
 
 if __name__ == '__main__':
