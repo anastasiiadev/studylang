@@ -1,4 +1,6 @@
-import sys, base64
+import sys
+import base64
+import logging
 from cryptography.fernet import Fernet
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -8,6 +10,12 @@ import general_settings as gs
 
 
 class ThisWindow(gs.SLWindow):
+
+    """
+    Окно регистрации позволяет создать новую учетную запись с ролью ученика.
+    Пользователь вводит данные, которые сохранятся в базе данных.
+    Для использования новой учетной записи ученика ее должен подтвердить преподаватель.
+    """
 
     switch_register = QtCore.pyqtSignal()
 
@@ -74,6 +82,14 @@ class ThisWindow(gs.SLWindow):
         self.btn.clicked.connect(self.Register)
 
     def Register(self):
+
+        """
+        Функция проверяет, все ли запрошенные данные введены, совпадают ли пароль и подтверждение пароля,
+        существуюет ли уже в БД учетная запись с введенным пользователем логином.
+        При успешном прохождении проверок пароль шифруется и все данные сохраняются в БД,
+        иначе на экране появляется ошибка.
+        """
+
         self.user_fio = self.fioline.text().strip()
         self.user_login = self.loginline.text().strip()
         self.user_password = self.passwordline.text().strip()
@@ -151,7 +167,6 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow()
     myapp.show()

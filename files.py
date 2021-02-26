@@ -1,3 +1,4 @@
+import logging
 import httplib2
 import apiclient
 from oauth2client.service_account import ServiceAccountCredentials
@@ -6,6 +7,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 class File:
 
     def __init__(self):
+
+        """
+        Создается подключение к google-диску через API.
+        """
+
         CREDENTIALS_FILE = 'creds.json'
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             CREDENTIALS_FILE,
@@ -14,9 +20,11 @@ class File:
         self.service = apiclient.discovery.build('drive', 'v3', http=httpAuth)
 
     def get(self, filedrive, pathto):
+
         """
-            filedrive -  fileid at google drive
-            pathto - path to a new file
+        :param filedrive: fileid на google-диске
+        :param pathto: имя нового файла и путь до него на ПК
+        Скачивает файл с google-диска.
         """
 
         data = self.service.files().get_media(fileId=filedrive).execute()
@@ -25,10 +33,13 @@ class File:
                 f.write(data)
 
     def post(self, filedrive, pathto, directory='general'):
+
         """
-            filedrive -  name of a new file at google drive
-            pathto - path to a file
-            directory - a name of a parent directory
+            :param filedrive: имя нового файла на google-диске
+            :param pathto: имя файла и путь до него на ПК
+            :param directory: имя родительской папки на google-диске
+            :return: идентификатор нового файла на google-диске
+            Загружает файл на google-диск.
         """
 
         dirs_ids = {'answers': '1dMpj6wlLrJUdW3_GtxnJBkOQJoPV-4y7', 'audio': '15UIN3O1iSv0F5s28czXEpCJZlrzYVaVl',
@@ -55,7 +66,6 @@ class File:
 
 
 if __name__ == "__main__":
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     a = File()
     a.post("new999.png", "img/prof.png", 'image')

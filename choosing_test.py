@@ -8,6 +8,11 @@ import general_settings as gs
 
 class ThisWindow(gs.SLWindow):
 
+    """
+    Открывается окно, с помощью которого, пользователь выбирает тест в выпаюдающем меню.
+    Далее идентификатор выбранного теста сохраняется в атрибуте self.gettestid.
+    """
+
     switch_choosetest = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -16,8 +21,15 @@ class ThisWindow(gs.SLWindow):
         if self.status == 1:
             self.initUI()
 
-
     def SelectFromDB(self):
+
+        """
+        Функция подключается к БД и создает атрибуты объекта класса:
+        self.tests_dict - словарь, в котором ключами являются идентификаторы всех тестов из БД,
+            а значениями - имена тестов;
+        self.testnames - список имен всех тестов из БД.
+        """
+
         try:
             conn = db.create_connection()
             result = db.execute_query(conn, "SELECT id, testname FROM tests")
@@ -28,7 +40,6 @@ class ThisWindow(gs.SLWindow):
                 self.status = 0
                 self.close()
                 logging.info("Нет тестов в БД.")
-                sys.exit(app.exec_())
             else:
                 self.tests_dict = dict(result)
                 self.testnames = list(self.tests_dict.values())
@@ -61,11 +72,23 @@ class ThisWindow(gs.SLWindow):
         self.btn.clicked.connect(self.RememberTestId)
 
     def RememberTestId(self):
+
+        """
+        Функция создает атрибут self.gettestid - идентификатор, выбранного теста.
+        """
+
         self.test = self.qbox.currentText()
         self.gettestid = self.get_key(self.tests_dict, self.test)
         self.switch_choosetest.emit()
 
     def get_key(self, dict, value):
+
+        """
+        :param dict: словарь
+        :param value: значение
+        :return: функция возвращает ключ для указанного значения
+        """
+
         for k, v in dict.items():
             if v == value:
                 return k

@@ -1360,3 +1360,33 @@ ERROR:root:name 'logging' is not defined
 ERROR:root:name 'logging' is not defined
 INFO:root:Connection to PostgreSQL DB successful
 INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Query executed successfully
+INFO:root:You are logged in!
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully
+INFO:root:Connection to PostgreSQL DB successful
+INFO:root:Query executed successfully

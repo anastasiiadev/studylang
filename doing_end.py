@@ -1,4 +1,5 @@
 import sys
+import logging
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QPushButton
 from PyQt5 import QtCore, QtGui
 
@@ -7,6 +8,11 @@ import general_settings as gs
 
 
 class ThisWindow(gs.SLWindow):
+
+    """
+    Окно с результатами тестирования: набранным баллом и оценкой.
+    Издается сигнал после нажатия кнопки "До свидания!"
+    """
 
     switch_end = QtCore.pyqtSignal()
 
@@ -35,7 +41,7 @@ class ThisWindow(gs.SLWindow):
             conn.commit()
             conn.close()
         except Exception as e:
-            print(e)
+            logging.error(e)
 
         self.box = QVBoxLayout(self)
         self.first = QLabel("Спасибо за прохождение теста!", self)
@@ -91,11 +97,12 @@ class ThisWindow(gs.SLWindow):
 
         self.btn.clicked.connect(self.Remember)
 
-
     def Remember(self):
         self.switch_end.emit()
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow(28, 16.0, ['Оценки', '3', '3', '3', '11'])
     sys.exit(app.exec_())

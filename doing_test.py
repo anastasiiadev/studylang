@@ -3,6 +3,7 @@ import os
 import random
 import sys
 import threading
+import logging
 from datetime import datetime, timedelta
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QMessageBox
@@ -40,15 +41,33 @@ TEXT_TIME = 'Время теста:'
 
 
 class Processor(QThread):
+
+    """
+    Класс, в котором реализуется логика таймера и открывается окно с отсчетом оставшегося времени.
+    """
+
     signal = pyqtSignal()
 
     def __init__(self, m, s):
+
+        """
+        Открывается окно таймера, запускается таймер.
+        :param m: минуты
+        :param s: секунды
+        """
+
         super().__init__()
         self.begin = timedelta(minutes=m, seconds=s)
         self.timer_window = timer_window.Window(self.begin)
         self.run()
 
     def run(self):
+
+        """
+        Функкция издает сигнал по истечению времени таймера.
+        Создается поток, который запускает функцию run каждую секунду.
+        """
+
         if self.begin == timedelta(seconds=0):
             self.timer_window.close()
             self.signal.emit()
@@ -61,7 +80,19 @@ class Processor(QThread):
 
 class Show_Task:
 
+    """
+    Контроллер, вызывающий окна заданий.
+    """
+
     def __init__(self, controller, i):
+
+        """
+        Контроллер, который открывает окно задания или окно с результатами теста.
+        Файл с ответами пользователя отправляется на google-диск и в БД сохраняется fileid в таблицу testing.
+        :param controller: объект контроллера теста
+        :param i: номер задания
+        """
+
         self.controller = controller
         current_task = self.controller.questions_list[i]
         if current_task[0] == TEXT_MARKS:
@@ -92,13 +123,34 @@ class Show_Task:
             self.task_window.show()
 
     def scoring(self,  i):
+
+        """
+        :param i: номер текущего задания
+        Увеличивается максимальный балл теста на максимальный балл за текущее задание,
+        вызывается функция new.
+        """
+
         self.controller.wholescore += float(self.task_window.acomponents.score)
         self.controller.new(i)
 
 
 class Show_Test_Controller:
 
+    """
+    Контроллер теста.
+    """
+
     def __init__(self, testid, userid):
+
+        """
+        :param testid: идентификатор теста в таблице tests
+        :param userid: идентификатор пользователя в таблице people
+        В БД создается новая запись ответа на тест в таблице testing,
+        файл теста скачивается на ПК и построчно читается функцией read_from_file.
+        В атрибут self.questions_list сохраняется список заданий теста в рандомном порядке,
+        Запускается таймер, вызывается функция new, создающая объект контроллера задания.
+        """
+
         self.test_id = testid
         self.user_id = userid
         self.answer_id = ''
@@ -136,20 +188,46 @@ class Show_Test_Controller:
             logging.error(e)
 
     def new(self, i):
+
+        """
+        :param i: номер предыдущего задания
+        Закрывается окно предыдущего задания, увеличивается счетчик заданий,
+        создается объект нового задания self.task_object.
+        """
+
         if hasattr(self, 'task_object'):
             self.task_object.task_window.close()
         i += 1
         self.task_object = Show_Task(self, i)
 
     def end_testing(self):
+
+        """
+        Закрывается окно с результатами тестирования.
+        """
+
         self.task_object.end_window.close()
 
     def timeout(self):
+
+        """
+        Появляется сообщение о том, что время вышло.
+        Вызывается функция new для открытия окна с результатами тестирования.
+        """
+
         self.msg = QMessageBox(None)
         self.msg.warning(None, "StudyLang", "Время вышло!", QMessageBox.Ok)
         self.new(self.questions_number)
 
     def insertToDB(self):
+
+        """
+        Функция подключается к БД и вставляет новую запись в таблицу ответов на тесты "testing"
+        и в таблицу взаимодействий с системой "work".
+        Атрибут self.answer_id хранит идентификатор новой записи о тестировании.
+        Атрибут self.filename представляет собой имя файла с ответом, который будет сохранен на google-диске.
+        """
+
         try:
             conn = db.create_connection()
             max_testing_id = db.execute_query(conn, "SELECT max(id) FROM testing")[0][0]
@@ -182,6 +260,14 @@ class Show_Test_Controller:
             raise Exception
 
     def read_from_file(self, file):
+
+        """
+        Функция построчно читает файл с тестом и формирует список заданий в рандомном порядке.
+        :param file: имя файла с тестом, который необходимо пройти
+        :return: список состоящий из списка заданий данного теста,
+            максимального времени прохождения теста и максимальных баллов за тест.
+        """
+
         with open('testfiles/' + file, 'r', encoding='utf-8') as f:
             info = []
             lines = f.readlines()
@@ -281,7 +367,6 @@ class Show_Test_Controller:
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     testid = '14'
     controller = Show_Test_Controller(testid, '1')

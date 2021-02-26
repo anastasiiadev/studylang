@@ -1,4 +1,5 @@
 import sys
+import logging
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QGridLayout, QTableWidget, QMessageBox, QTableWidgetItem, QCheckBox, QPushButton
 from PyQt5.QtCore import Qt
@@ -8,6 +9,13 @@ import general_settings as gs
 
 
 class MainWindow(gs.SLWindow):
+
+    """
+    Открывается окно с списком учеников в виде таблицы.
+    Первая колонка - ФИО пользователей с ролью "ученик".
+    Во второй колонке проставляются галочки напротив тех пользователей, чья регистрация подтверждена.
+    Третья колонка содержит кнопки "Результаты", кликнув на которые можно перейти к результатам выбранного ученика.
+    """
 
     switch_tomenu = QtCore.pyqtSignal()
     switch_toresults = QtCore.pyqtSignal()
@@ -81,6 +89,12 @@ class MainWindow(gs.SLWindow):
         self.tomenu = 1
 
     def WhichStudent(self):
+
+        """
+        Функция проверяет, кнопка пользователя с каким id была нажата.
+        Издается сигнал для перехода к окну с результатами тестирований конкретного ученика.
+        """
+
         if self.numstrings != 0:
             for i in range(0, self.numstrings):
                 button = self.table.cellWidget(i, 2)
@@ -90,6 +104,12 @@ class MainWindow(gs.SLWindow):
                     break
 
     def Remember(self):
+
+        """
+        Функция проверяет, для каких пользователей были изменены подтвердения регистрации,
+        и отправляет эту информацию в БД.
+        """
+
         try:
             conn = db.create_connection()
             changed = []
@@ -122,7 +142,6 @@ class MainWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     mw = MainWindow()
     mw.show()

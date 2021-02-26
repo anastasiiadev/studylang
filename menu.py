@@ -3,7 +3,8 @@ import logging
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import testing, creating_test
+import testing
+import creating_test
 import dbinteraction as db
 import files
 import general_settings as gs

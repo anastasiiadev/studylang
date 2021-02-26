@@ -1,4 +1,5 @@
-import sys, base64
+import sys
+import base64
 import logging
 from cryptography.fernet import Fernet
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox, QHBoxLayout
@@ -9,6 +10,12 @@ import general_settings as gs
 
 
 class ThisWindow(gs.SLWindow):
+
+    """
+    Класс, объектами которого являются окна авторизации.
+    С их помощью пользователи могут войти в свои учетные записи или создать новые.
+    """
+
     switch_passed = QtCore.pyqtSignal()
     switch_register = QtCore.pyqtSignal()
 
@@ -80,6 +87,11 @@ class ThisWindow(gs.SLWindow):
         self.regbtn.clicked.connect(lambda: self.switch_register.emit())
 
     def Autorise(self):
+        """
+        Функция проверияет, указал ли пользователь логин и пароль,
+        а также есть ли введенный логин в базе данных и верно ли указан пароль для данного логина.
+        """
+
         try:
             user_login = self.login.text().strip()
             user_password = self.password.text().strip()
@@ -140,7 +152,6 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow()
     myapp.show()

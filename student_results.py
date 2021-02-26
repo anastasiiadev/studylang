@@ -1,4 +1,5 @@
 import sys
+import logging
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QGridLayout, QMessageBox, QTableWidget, QTableWidgetItem, QPushButton
 from PyQt5.QtCore import Qt
@@ -8,6 +9,12 @@ import general_settings as gs
 
 
 class MainWindow(gs.SLWindow):
+
+    """
+    id - идентификатор пользователя в таблице people.
+    Открывается окно с результами тестирований конкретного ученика в виде таблицы,
+    которая содержит колонки: "Ученик", "Тест", "Дата и время", "Баллы", "Оценка.
+    """
 
     switch_tostudentstable = QtCore.pyqtSignal()
 
@@ -68,7 +75,6 @@ class MainWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     mw = MainWindow(2)
     mw.show()

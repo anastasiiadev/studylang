@@ -3,6 +3,11 @@ import logging
 
 
 def create_connection():
+
+    """
+    :return: функция возвращает подключение к БД.
+    """
+
     connection = None
     try:
         connection = psycopg2.connect(
@@ -19,6 +24,15 @@ def create_connection():
     return connection
 
 def execute_query(connection, query, mode="select"):
+
+    """
+    :param connection: подключение к БД
+    :param query: запрос к БД в виде строки
+    :param mode: режим работы с БД - select или insert(или что-то другое)
+    :return: если режим - select, то возвращается кортеж с результатами запроса к БД,
+        иначе ничего не возвращается.
+    """
+
     connection.autocommit = True
     cursor = connection.cursor()
     if mode == "select":
@@ -35,8 +49,8 @@ def execute_query(connection, query, mode="select"):
         cursor.close()
         raise Exception
 
+
 if __name__ == "__main__":
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     conn = create_connection()
     query = "SELECT * FROM people ORDER BY id"
