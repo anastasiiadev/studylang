@@ -9,7 +9,17 @@ import folder
 
 class SLWindow(QWidget):
 
+    """
+    Класс представляет собой общие настройки для всех окон приложения.
+    """
+
     def __init__(self):
+
+        """
+        Окно центрируется относительно размеров экрана,
+        задается цветовая гамма.
+        """
+
         super().__init__()
         self.set_icon_and_title()
         desktop = QApplication.desktop()
@@ -23,13 +33,19 @@ class SLWindow(QWidget):
         self.setPalette(pal)
 
     def set_icon_and_title(self):
+
+        """
+        Устанавливается заголовок окна и иконка приложения
+            (если файла нет в папке, то он скачивается).
+        """
+
         self.setWindowTitle("StudyLang")
         file = 'iconSL.jpg'
-        img_directory = folder.Making_Folder('\\img\\')
+        img_directory = folder.Making_Folder('\\image\\')
         if os.path.exists(img_directory.path_to_folder + file) is False:
             f = files.File()
-            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "img/iconSL.jpg")
-        ico = QtGui.QIcon('img/iconSL.jpg')
+            f.get("1tdvwtNx2iQUEDPbpe7NsSl-djVe-_h9G", "image/iconSL.jpg")
+        ico = QtGui.QIcon('image/iconSL.jpg')
         self.setWindowIcon(ico)
 
 if __name__=="__main__":

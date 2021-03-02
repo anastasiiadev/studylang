@@ -31,7 +31,7 @@ class Controller:
         """
 
         self.choosing_test.close()
-        self.doing_test = doing_test.Showtask(self.choosing_test.gettestid, self.user_id)
+        self.doing_test = doing_test.Show_Test_Controller(self.choosing_test.gettestid, self.user_id)
 
 
 if __name__=="__main__":

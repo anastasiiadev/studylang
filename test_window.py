@@ -1,24 +1,42 @@
-import sys, datetime, os
+import datetime
 import logging
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox
+import sys
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QLineEdit, QPushButton, QMessageBox
 
-import general_settings as gs
 import dbinteraction as db
 import folder
+import general_settings as gs
 
 
 TEXT_QUESTIONS_NUMBER = 'Количество вопросов:'
 
+
 class ThisWindow(gs.SLWindow):
+
+    """
+    Окно создания теста, в котором преподаватель указывает название теста и количество вопросв.
+    """
+
     switch_newtest = QtCore.pyqtSignal()
 
     def __init__(self, user_id):
+
+        """
+        :param user_id: идентификатор пользователя в БД, которому необходимо создать тест
+        Отрывается окно создания теста.
+        """
+
         super().__init__()
         self.user_id = user_id
         self.initUI()
 
     def initUI(self):
+
+        """
+        Настройка окна создания теста.
+        """
+
         self.box = QVBoxLayout(self)
         self.lname = QLabel("Укажите название теста:", self)
         self.lname.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
@@ -46,24 +64,36 @@ class ThisWindow(gs.SLWindow):
         self.btn.clicked.connect(self.Remember)
 
     def Remember(self):
-        try:
-            conn = db.create_connection()
-        except Exception as e:
-            logging.error(e)
+
+        """
+        Проверка наличия имени нового теста и количества вопросов.
+        Проверка совпадения имени нового теста с именами уже существующих тестов в БД.
+        Проверка того, что указанное количество вопросов является цифрой.
+        В случае прохождения проверок создаётся запись с данными о новом тесте в таблице tests
+            и запись в таблице work с информацией о взаимодействии с системой.
+        """
 
         test_name = self.name.text()
         self.questions = self.num.text()
 
-        same_testname = 0
-        result = db.execute_query(conn, f"SELECT * FROM tests WHERE testname='{test_name}'")
-        if result:
-            self.msg = QMessageBox(self)
-            self.msg.critical(self, "Ошибка", "Тест с таким именем уже существует.", QMessageBox.Ok)
-            same_testname = 1
-
         if test_name == '':
             self.msg = QMessageBox(self)
             self.msg.critical(self, "Ошибка ", "Необходимо ввести название теста", QMessageBox.Ok)
+
+        try:
+            conn = db.create_connection()
+            same_testname = 0
+            result = db.execute_query(conn, f"SELECT * FROM tests WHERE testname='{test_name}'")
+            if result:
+                self.msg = QMessageBox(self)
+                self.msg.critical(self, "Ошибка", "Тест с таким именем уже существует.", QMessageBox.Ok)
+                same_testname = 1
+        except Exception as e:
+            logging.error(e)
+            self.msg = QMessageBox(self)
+            self.msg.critical(self, "Ошибка", "Не удалось подключиться к базе данных. "
+                                              "Попробуйте создать тест позже.", QMessageBox.Ok)
+
         try:
             self.questions = int(self.questions)
             questions_is_int = True
@@ -111,7 +141,6 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow('1')
     myapp.show()

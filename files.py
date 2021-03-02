@@ -35,11 +35,11 @@ class File:
     def post(self, filedrive, pathto, directory='general'):
 
         """
-            :param filedrive: имя нового файла на google-диске
-            :param pathto: имя файла и путь до него на ПК
-            :param directory: имя родительской папки на google-диске
-            :return: идентификатор нового файла на google-диске
-            Загружает файл на google-диск.
+        :param filedrive: имя нового файла на google-диске
+        :param pathto: имя файла и путь до него на ПК
+        :param directory: имя родительской папки на google-диске
+        :return: идентификатор нового файла на google-диске
+        Загружает файл на google-диск.
         """
 
         dirs_ids = {'answers': '1dMpj6wlLrJUdW3_GtxnJBkOQJoPV-4y7', 'audio': '15UIN3O1iSv0F5s28czXEpCJZlrzYVaVl',
@@ -54,7 +54,7 @@ class File:
                 type = 'x-wav'
         else:
             type = 'text/plain'
-        logging.info('filetype:', type)
+        logging.info(f'filetype: {type}')
         file_metadata = {'name': filedrive, 'parents': [dirs_ids[directory]]}
         media = apiclient.http.MediaFileUpload(pathto, mimetype=type)
         file = self.service.files().create(body=file_metadata,
@@ -68,4 +68,4 @@ class File:
 if __name__ == "__main__":
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     a = File()
-    a.post("new999.png", "img/prof.png", 'image')
+    a.post("Гарри Поттер.png", "img/cover3.jpg", 'image')

@@ -7,7 +7,7 @@ import files
 
 TYPE_AUDIO = 'audio'
 TABLE_AUDIO = 'audios'
-TYPE_IMAGE = 'img'
+TYPE_IMAGE = 'image'
 TABLE_IMAGE = 'images'
 MANY_VARIANTS = 'many'
 ONE_VARIANT = 'one'
@@ -21,9 +21,20 @@ TEXT_MAXSCORE = 'Максимальный балл:'
 
 class AVariants(QWidget):
 
+    """
+    Виджет, реализующий часть окна создания задания для ответа типа "Выбрать один/несколько вариант(/-ов)".
+    Пользователю необходимо ввести все варианты ответов и указать, как-ой/-ие из них правильн-ый/-ые.
+    Минимально может быть два варианта, максимально - пять.
+    """
+
     switch_task_end = QtCore.pyqtSignal()
 
     def __init__(self, type):
+
+        """
+        :param type: тип ответа ('one' или 'many')
+        """
+
         super().__init__()
         self.type = type
         self.generalbox = QVBoxLayout(self)
@@ -133,6 +144,20 @@ class AVariants(QWidget):
         self.setLayout(self.generalbox)
 
     def WriteToFile(self, userquestion, testfilename, distribution=None, mediafile=None):
+
+        """
+        :param userquestion: текст вопроса, введенный пользователем
+        :param testfilename: имя файла с тестом
+        :param distribution: путь до медиафайла (по умолчанию None)
+        :param mediafile: имя медиафайла (по умолчанию None)
+        Если в задании есть медиафайл (аудио или картинка), происходит проверка,
+            нет ли файла с таким именем на google-диске, после проверки файл загружается на диск
+            и в соответствующую таблицу в БД (audios или images) заносится информация о файле.
+        В файл с тестом записывается вопрос, имя медиафайла при его наличии,
+            варианты ответов, правильн-ый/-ые ответ/-ы и максимальное количество баллов за данное задание.
+        Атрибут self.maxscore - максимальное количество баллов за задание.
+        """
+
         utext = userquestion.strip()
         var1 = self.var1.text().strip()
         var2 = self.var2.text().strip()

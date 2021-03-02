@@ -10,15 +10,33 @@ TEXT_TIME = 'Время теста:'
 
 
 class ThisWindow(gs.SLWindow):
+
+    """
+    Окно, завершающее создание теста.
+    В нем преподаватель указывает количество баллов, которое необходимо набрать ученику для получения оценок 3, 4 и 5.
+    Также нужно ввести количество минут и секунд доступных для тестирования.
+    """
+
     switch_end = QtCore.pyqtSignal()
 
     def __init__(self, score, filename):
+
+        """
+        :param score: макстмальное количество баллов для данного теста
+        :param filename: имя файла с тестом
+        """
+
         super().__init__()
         self.filename = filename
         self.maxscore = score
         self.initUI()
 
     def initUI(self):
+
+        """
+        Настройка окна.
+        """
+
         self.box = QVBoxLayout(self)
         self.text = QLabel("Сколько баллов нужно набрать пользователю, чтобы получить:", self)
         self.text.setFont(QtGui.QFont("Century Gothic", 14))
@@ -92,6 +110,12 @@ class ThisWindow(gs.SLWindow):
         self.btn.clicked.connect(self.Remember)
 
     def Remember(self):
+
+        """
+        Проверка наличия информации в полях ввода.
+        Запись в файл с тестом баллов для оценок и максимального времени прохождение теста.
+        """
+
         self.fivesc = self.fivescore.text()
         self.fivesc = self.fivesc.strip()
         self.foursc = self.fourscore.text()

@@ -368,6 +368,6 @@ class Show_Test_Controller:
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
-    testid = '14'
+    testid = '41'
     controller = Show_Test_Controller(testid, '1')
     sys.exit(app.exec_())

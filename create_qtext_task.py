@@ -4,6 +4,11 @@ from PyQt5 import QtGui, QtCore
 
 class QText(QWidget):
 
+    """
+    Виджет, реализующий часть окна создания задания типа "Текст".
+    Пользователю необходимо ввести текст вопроса.
+    """
+
     def __init__(self, i):
         super().__init__()
         self.box = QVBoxLayout(self)

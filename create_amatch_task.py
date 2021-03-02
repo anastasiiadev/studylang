@@ -6,7 +6,7 @@ import files
 
 TYPE_AUDIO = 'audio'
 TABLE_AUDIO = 'audios'
-TYPE_IMAGE = 'img'
+TYPE_IMAGE = 'image'
 TABLE_IMAGE = 'images'
 TEXT_QUESTION = 'Вопрос:'
 TEXT_MEDIAFILE = 'Имя файла:'
@@ -15,6 +15,12 @@ TEXT_MAXSCORE = 'Максимальный балл:'
 
 
 class AMatch(QWidget):
+
+    """
+    Виджет, реализующий часть окна создания задания для ответа типа "Установить соответствие".
+    Пользователю необходимо ввести первые и вторые части соответствий.
+    Минимально может быть два соответствия, максимально - пять.
+    """
 
     switch_task_end = QtCore.pyqtSignal()
 
@@ -122,6 +128,20 @@ class AMatch(QWidget):
         self.setLayout(self.box)
 
     def WriteToFile(self, userquestion, testfilename, distribution=None, mediafile=None):
+
+        """
+        :param userquestion: текст вопроса, введенный пользователем
+        :param testfilename: имя файла с тестом
+        :param distribution: путь до медиафайла (по умолчанию None)
+        :param mediafile: имя медиафайла (по умолчанию None)
+        Если в задании есть медиафайл (аудио или картинка), происходит проверка,
+            нет ли файла с таким именем на google-диске, после проверки файл загружается на диск
+            и в соответствующую таблицу в БД (audios или images) заносится информация о файле.
+        В файл с тестом записывается вопрос, имя медиафайла при его наличии,
+            соответствия и максимальное количество баллов за данное задание.
+        Атрибут self.maxscore - максимальное количество баллов за задание.
+        """
+
         utext = userquestion.strip()
         var1f = self.var1f.text().strip()
         var1s = self.var1s.text().strip()

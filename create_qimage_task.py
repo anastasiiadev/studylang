@@ -5,7 +5,18 @@ import re
 
 class QImage(QWidget):
 
+    """
+    Виджет, реализующий часть окна создания задания типа "Изображение".
+    Пользователю необходимо открыть диалоговое окно (объект класса QFileDialog)
+        и выбрать файл, а также ввести текст вопроса.
+    """
+
     def __init__(self, i):
+
+        """
+        :param i: номер задания
+        """
+
         super().__init__()
         self.box = QVBoxLayout(self)
         self.box.setContentsMargins(0, 30, 0, 30)
@@ -41,6 +52,13 @@ class QImage(QWidget):
 
 
     def showDialog(self):
+
+        """
+        Атрибут self.distribution - путь до файла формата jpg или png.
+        Выполняется проверка формата файла.
+        В атрибут self.newfile сохраняется имя файла изображения.
+        """
+
         self.distribution = QFileDialog.getOpenFileName(self, 'Open file', '/home', "source File (*.jpg *.png)")[0]
         self.basename = os.path.basename(self.distribution)
         self.img.setText(self.distribution)

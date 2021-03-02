@@ -6,13 +6,27 @@ from PyQt5 import QtGui, QtCore
 
 class QText(QWidget):
 
+    """
+    Виджет, реализующий часть окна задания типа "Текст".
+    """
+
     def __init__(self, i, question):
+        """
+        :param i: номер задания
+        :param question: текст вопроса
+        """
+
         super().__init__()
         self.n = i
         self.question = question
         self.initUI()
 
     def initUI(self):
+
+        """
+        Настройка части виджета задания типа "Текст".
+        """
+
         box = QVBoxLayout(self)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))

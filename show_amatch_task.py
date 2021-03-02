@@ -7,11 +7,29 @@ from PyQt5.QtCore import Qt, QMimeData
 
 
 class DragLabel(QLabel):
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.drag_start_position = event.pos()
+
+    """
+    Класс, реализующий надпись, которую можно перетаскивать.
+    """
+
+    # def mousePressEvent(self, event):
+    #
+    #     """
+    #     :param event: событие (ожидается нажатие на кнопку)
+    #     В атрибут drag_start_position сохраняется координата элемента,
+    #         на который нажал пользователь.
+    #     """
+    #
+    #     if event.button() == Qt.LeftButton:
+    #         self.drag_start_position = event.pos()
 
     def mouseMoveEvent(self, event):
+
+        """
+        :param event: event: событие (ожидается нажатие на кнопку)
+        Надпись, на которую нажал пользователь, копируется (прямоугольная область) и перетаскивается следом за курсором.
+        """
+
         if not (event.buttons() & Qt.LeftButton):
             return
         else:
@@ -23,7 +41,7 @@ class DragLabel(QLabel):
             drag.setMimeData(mimedata)
 
             # creating the dragging effect
-            pixmap = QPixmap(self.size())  # label size
+            pixmap = QPixmap(self.size())
 
             painter = QPainter(pixmap)
             painter.drawPixmap(self.rect(), self.grab())
@@ -35,17 +53,40 @@ class DragLabel(QLabel):
 
 
 class DropLabel(QLabel):
-    def __init__(self, label, parent):
-        super().__init__(label, parent)
 
+    """
+    Класс, объектами которого являются надписи, куда перетаскиваются другие надписи.
+    """
+
+    def __init__(self, label, parent):
+
+        """
+        :param label: надпись (текст)
+        :param parent: родительский виджет
+        Разрешается собитие отпускания мыши.
+        """
+
+        super().__init__(label, parent)
         self.setAcceptDrops(True)
 
+
     def dragEnterEvent(self, event):
+
+        """
+        Указываем, что пользователь может отпустить переносимый объект в данном виджете.
+        :param event: событие (ожидается перетаскивание)
+        """
+
         if event.mimeData().hasText():
             event.acceptProposedAction()
 
+
     def dropEvent(self, event):
-        pos = event.pos()
+
+        """
+        :param event: событие (ожидается перетаскивание)
+        Текст надписи меняется на перетаскиваемый текст.
+        """
         text = event.mimeData().text()
         self.setText(text)
         self.setFont(QtGui.QFont("Century Gothic", 11, QtGui.QFont.Bold))
@@ -55,9 +96,21 @@ class DropLabel(QLabel):
 
 class AMatch(QWidget):
 
+    """
+    Виджет, реализующий часть окна для ответа типа "Установить соответствие".
+    """
+
     do_task_end = QtCore.pyqtSignal()
 
     def __init__(self, i, filename, d, maxscore):
+
+        """
+        :param i: номер задания
+        :param filename: имя файла ответа пользователя
+        :param d: словарь с верными соответствиями
+        :param maxscore: максимальный балл за данное задание
+        """
+
         super().__init__()
         self.n = i
         self.filename = filename
@@ -69,6 +122,14 @@ class AMatch(QWidget):
 
 
     def initUI(self):
+
+        """
+        Установка трёх столбцов:
+        1 столбец - первые части соответствий;
+        2 столбец - места, куда нужно перетащить вторые части соответствий
+        3 столбец - вторые част исоответствий, расположенные в рандомном порядке
+        """
+
         # new type
         self.values = []
         for v in self.dict.values():
@@ -127,6 +188,13 @@ class AMatch(QWidget):
 
 
     def WriteToFile(self):
+
+        """
+        Проверка, для всех ли соответствий были указаны вторые части.
+        Ответы пользователя и баллы записываются в файл с ответом.
+        Атрибут score - набранный балл
+        """
+
         permission = 0
         for el in range(1, self.matches_number + 1):
             exec(f'self.a{el} = self.lbl_to_drop{el}.text()')

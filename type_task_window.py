@@ -24,9 +24,19 @@ MATCH = 'match'
 
 class ThisWindow(gs.SLWindow):
 
+    """
+    Окно выбора типа вопроса и типа ответа при создании задания.
+    """
+
     switch_type_task = QtCore.pyqtSignal(str, str)
 
     def __init__(self, n, testname):
+
+        """
+        :param n: номер вопроса
+        :param testname: имя файла с тестом
+        """
+
         super().__init__()
         self.n = n
         self.testname = testname
@@ -34,6 +44,12 @@ class ThisWindow(gs.SLWindow):
 
 
     def initUI(self):
+
+        """
+        Настройки окна выбора типа вопроса и типа ответа.
+        Задаются двумя выпадающими меню, где указаны доступные типы заданий.
+        """
+
         self.box = QVBoxLayout(self)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
@@ -67,6 +83,11 @@ class ThisWindow(gs.SLWindow):
 
 
     def WriteToFile(self):
+
+        """
+        В файл с тестом записывается номер вопроса его тип, а также тип ответа.
+        """
+
         self.qtype = self.qbox.currentText()
         self.atype = self.abox.currentText()
         with open(self.testname, 'a', encoding='utf-8') as file:

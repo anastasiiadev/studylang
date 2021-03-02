@@ -6,7 +6,18 @@ import re
 
 class QAudio(QWidget):
 
+    """
+    Виджет, реализующий часть окна создания задания типа "Аудио".
+    Пользователю необходимо открыть диалоговое окно (объект класса QFileDialog)
+        и выбрать файл, а также ввести текст вопроса.
+    """
+
     def __init__(self, i):
+
+        """
+        :param i: номер задания
+        """
+
         super().__init__()
         self.box = QVBoxLayout(self)
         self.box.setContentsMargins(0, 30, 0, 30)
@@ -41,6 +52,13 @@ class QAudio(QWidget):
         self.setLayout(self.box)
 
     def showDialog(self):
+
+        """
+        Атрибут self.distribution - путь до файла формата mp3 или wav.
+        Выполняется проверка формата файла.
+        В атрибут self.newfile сохраняется имя аудиофайла.
+        """
+
         self.distribution = QFileDialog.getOpenFileName(self, 'Open file', '/home', "source File (*.mp3 *.wav)")[0]
         self.basename = os.path.basename(self.distribution)
         self.audio.setText(self.distribution)

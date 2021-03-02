@@ -13,9 +13,20 @@ import folder
 
 class ThisWindow(gs.SLWindow):
 
+    """
+    Окно меню.
+    """
+
     switch_students = QtCore.pyqtSignal()
 
     def __init__(self, user_id):
+
+        """
+        :param user_id: идентификатор пользователя, авторизовавшегося в программе, в таблице people
+        Вызов функции, которая определяет, является ли пользователь преподавателем или учеником.
+        Создание окна меню в зависимости от роли пользователя.
+        """
+
         super().__init__()
         self.user_id = user_id
         self.role = self.define_role(user_id)
@@ -24,6 +35,12 @@ class ThisWindow(gs.SLWindow):
 
 
     def define_role(self, user_id):
+
+        """
+        :param user_id: идентификатор пользователя, авторизовавшегося в программе, в таблице people
+        :return: число 1 или 2. Единица - маркер роли преподавателя, двойка - ученика.
+        """
+
         try:
             conn = db.create_connection()
             result = db.execute_query(conn, f"SELECT role FROM people WHERE id={user_id}")
@@ -43,6 +60,15 @@ class ThisWindow(gs.SLWindow):
 
 
     def initUI(self):
+
+        """
+        Настройка окна меню.
+        Проподавателю доступно создание теста, прохождение тестирования,
+            просмотр таблицы учеников и их результатов и просмотр руководства пользователя.
+        Ученику доступны прохождение тестирования и просмотр руководства пользователя.
+        Руководства пользователя для преподавателей и учеников отличаются.
+        """
+
         self.box = QVBoxLayout(self)
         self.mainbox = QVBoxLayout(self)
         self.do = QPushButton("Пройти тест", self)
@@ -51,11 +77,11 @@ class ThisWindow(gs.SLWindow):
         self.guide_box = QHBoxLayout(self)
         guide_button = QPushButton(self)
         file = 'question.jpg'
-        img_directory = folder.Making_Folder('\\img\\')
+        img_directory = folder.Making_Folder('\\image\\')
         if os.path.exists(img_directory.path_to_folder + file) is False:
             f = files.File()
-            f.get("1jgRj4273tHow-e8JJ8btM4jl6rG20t1U", "img/question.jpg")
-        ico = QtGui.QIcon('img/question.jpg')
+            f.get("1jgRj4273tHow-e8JJ8btM4jl6rG20t1U", "image/question.jpg")
+        ico = QtGui.QIcon('image/question.jpg')
         guide_button.setIcon(ico)
         guide_button.setIconSize(QtCore.QSize(25, 25))
         self.guide_box.addWidget(guide_button, alignment=QtCore.Qt.AlignRight)
@@ -100,6 +126,11 @@ class ThisWindow(gs.SLWindow):
         self.do.clicked.connect(self.SwitchMode2)
 
     def students_guide(self):
+
+        """
+        Появляется информационное окно, содержащее руководство пользователя для учеников.
+        """
+
         o = QMessageBox(self)
         o.about(self, "Руководство пользователя", "Вам будет предложен список доступных тестов, выбрав один из "
                                                   "которых, вы приступите к тестированию. Вам необходимо ответить на "
@@ -109,6 +140,11 @@ class ThisWindow(gs.SLWindow):
                                                   "вы узнаете, сколько баллов вы набрали, и свою оценку.")
 
     def teachers_guide(self):
+
+        """
+        Появляется информационное окно, содержащее руководство пользователя для преподавателей.
+        """
+
         o = QMessageBox(self)
         o.about(self, "Руководство пользователя", "Вам доступно два режима работы с программой: создание тестов и "
                                                   "прохождение тестов.\n\nВ режиме создания тестов вам нужно указать "
@@ -133,10 +169,22 @@ class ThisWindow(gs.SLWindow):
                                                   "сколько баллов вы набрали, и свою оценку.")
 
     def SwitchMode1(self):
+
+        """
+        Режимом (mode) 1 в БД считается создание теста.
+        Закрывается окно меню и вызывается контроллер создания теста.
+        """
+
         self.close()
         creating_test.TestController(self.user_id)
 
     def SwitchMode2(self):
+
+        """
+        Режимом (mode) 2 в БД считается прохождение тестирования.
+        Закрывается окно меню и вызывается контроллер тестирования.
+        """
+
         self.close()
         testing.Controller(self.user_id)
 
@@ -144,9 +192,8 @@ class ThisWindow(gs.SLWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
-    myapp = ThisWindow('1')
+    myapp = ThisWindow('4')
     myapp.show()
     sys.exit(app.exec_())
 

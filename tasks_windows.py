@@ -1,9 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QVBoxLayout,  QApplication, QSizePolicy
+from PyQt5.QtWidgets import QVBoxLayout, QApplication, QSizePolicy
 
 import general_settings as gs
-import show_qaudio_task, show_qimage_task, show_qtext_task
-import show_avariants_task, show_amatch_task
+import show_amatch_task
+import show_avariants_task
+import show_qaudio_task
+import show_qimage_task
+import show_qtext_task
 
 
 TEXT_TYPE_AUDIO = 'Аудио'
@@ -17,6 +20,14 @@ ONE_VARIANT = 'one'
 class ThisWindow(gs.SLWindow):
 
     def __init__(self, filename, tasklist):
+
+        """
+        :param filename: имя файла с ответами пользователя
+        :param tasklist: список заданий в рамномном порядке
+        Объектом класса является окно задания.
+        Функция сохраняет необходимые атрибуты объекта.
+        """
+
         super().__init__()
         self.tasklist = tasklist
         self.filename = filename
@@ -34,6 +45,12 @@ class ThisWindow(gs.SLWindow):
 
 
     def initUI(self):
+
+        """
+        В зависимости от типа вопроса и типа ответа создаются объекты необходимых классов, которые являются виджетами.
+        Они добавляются в лэйаут и получается окно задания.
+        """
+
         self.mainbox = QVBoxLayout(self)
 
         # type of question check

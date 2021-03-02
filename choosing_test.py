@@ -1,4 +1,5 @@
 import sys
+import logging
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QLabel, QApplication, QPushButton, QComboBox
 
@@ -97,7 +98,6 @@ class ThisWindow(gs.SLWindow):
 
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    import logging
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     myapp = ThisWindow()
     myapp.show()

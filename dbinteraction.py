@@ -53,8 +53,8 @@ def execute_query(connection, query, mode="select"):
 if __name__ == "__main__":
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     conn = create_connection()
-    query = "SELECT * FROM people ORDER BY id"
-    #query = "DELETE FROM tests WHERE id > 0"
+    query = "SELECT * FROM audios ORDER BY id"
+    #query = "DELETE FROM images WHERE id > 2"
     #query = "SELECT * FROM tests WHERE id>15;"
     #query = "SELECT * FROM pg_catalog.pg_tables;"
     #query = "select * from information_schema.columns where information_schema.columns.table_name='tests';"

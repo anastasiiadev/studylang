@@ -1,15 +1,27 @@
-import sys, os
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QMessageBox
+import os
+import sys
 from PyQt5 import QtGui, QtCore
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QPushButton, QMessageBox
 
+import dbinteraction as db
 import files
 import folder
-import dbinteraction as db
 
 
 class QAudio(QWidget):
 
+    """
+    Виджет, реализующий часть окна задания типа "Аудио".
+    """
+
     def __init__(self, i, question, audiofile):
+
+        """
+        :param i: номер задания
+        :param question: текст вопроса
+        :param audiofile: название аудиофайла
+        """
+
         super().__init__()
         self.n = i
         self.question = question
@@ -18,6 +30,11 @@ class QAudio(QWidget):
 
 
     def initUI(self):
+
+        """
+        Настройка части виджета задания типа "Аудио".
+        """
+
         self.box = QVBoxLayout(self)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
@@ -47,6 +64,11 @@ class QAudio(QWidget):
 
 
     def RecordingPlay(self):
+
+        """
+        Скачивание и воспроизведение аудиофайла.
+        """
+
         try:
             audio_directory = folder.Making_Folder('\\audio\\')
             if os.path.exists(audio_directory.path_to_folder + self.audiofile) is False:

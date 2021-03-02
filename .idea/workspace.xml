@@ -28,20 +28,48 @@
   <component name="ChangeListManager">
     <list default="true" id="f547e0c5-0550-4b11-a9b1-f56d311d45a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authorisation_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/authorisation_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test123.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test124.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test133.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test135.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test171.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test172.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test173.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answerfiles/Test174.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/James Blunt - You Are Beautiful.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/choosing_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/choosing_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_amatch_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_amatch_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_avariants_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_avariants_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_qaudio_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_qaudio_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_qimage_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_qimage_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_qtext_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_qtext_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/creating_end.py" beforeDir="false" afterPath="$PROJECT_DIR$/creating_end.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/creating_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/creating_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dbinteraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/dbinteraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doing_end.py" beforeDir="false" afterPath="$PROJECT_DIR$/doing_end.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doing_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/doing_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/files.py" beforeDir="false" afterPath="$PROJECT_DIR$/files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/folder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/general_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/cover3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/iconSL.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/question.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/student_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/students_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/students_table.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_amatch_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_amatch_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_avariants_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_avariants_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_qaudio_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_qaudio_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_qimage_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_qimage_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_qtext_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_qtext_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/tasks_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/Test26.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/Test27.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/Test28.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/Test30.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/timer_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/type_task_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/type_task_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,36 +97,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\developing\studylang\testfiles" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\developing\studylang" />
       <recent name="C:\Users\1\PycharmProjects\StudyLangTest август\testfiles" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\developing\studylang\testfiles" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.choosing_test">
-    <configuration name="choosing_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="StudyLangTest" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/choosing_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.dbinteraction">
     <configuration name="dbinteraction" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -120,7 +127,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="doing_test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="doing_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StudyLangTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -153,7 +160,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\developing\studylang\main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -183,13 +190,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="StudyLangTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.choosing_test" />
-        <item itemvalue="Python.main copy" />
-        <item itemvalue="Python.menu" />
         <item itemvalue="Python.dbinteraction" />
-        <item itemvalue="Python.doing_test (1)" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.menu" />
+        <item itemvalue="Python.doing_test" />
+        <item itemvalue="Python.testing" />
       </list>
     </recent_temporary>
   </component>
@@ -236,6 +264,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="586" y="198" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1612166675241" />
+    <state x="731" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1614680273027">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="731" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1614680273027" />
     <state x="686" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1614231603020">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -248,38 +280,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613120653790" />
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom" timestamp="1614324469115">
+    <state width="1881" height="360" key="GridCell.Tab.0.bottom" timestamp="1614684234615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614324469115" />
-    <state width="1899" height="348" key="GridCell.Tab.0.center" timestamp="1614324469115">
+    <state width="1881" height="360" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614684234615" />
+    <state width="1881" height="360" key="GridCell.Tab.0.center" timestamp="1614684234615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614324469115" />
-    <state width="1899" height="348" key="GridCell.Tab.0.left" timestamp="1614324469115">
+    <state width="1881" height="360" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614684234615" />
+    <state width="1881" height="360" key="GridCell.Tab.0.left" timestamp="1614684234615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614324469115" />
-    <state width="1899" height="348" key="GridCell.Tab.0.right" timestamp="1614324469115">
+    <state width="1881" height="360" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614684234615" />
+    <state width="1881" height="360" key="GridCell.Tab.0.right" timestamp="1614684234615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614324469115" />
-    <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1614324470941">
+    <state width="1881" height="360" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614684234615" />
+    <state width="1881" height="348" key="GridCell.Tab.1.bottom" timestamp="1614683979741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614324470941" />
-    <state width="1899" height="348" key="GridCell.Tab.1.center" timestamp="1614324470941">
+    <state width="1881" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614683979741" />
+    <state width="1881" height="348" key="GridCell.Tab.1.center" timestamp="1614683979741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614324470941" />
-    <state width="1899" height="348" key="GridCell.Tab.1.left" timestamp="1614324470940">
+    <state width="1881" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614683979741" />
+    <state width="1881" height="348" key="GridCell.Tab.1.left" timestamp="1614683979741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614324470940" />
-    <state width="1899" height="348" key="GridCell.Tab.1.right" timestamp="1614324470941">
+    <state width="1881" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614683979741" />
+    <state width="1881" height="348" key="GridCell.Tab.1.right" timestamp="1614683979741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614324470941" />
+    <state width="1881" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614683979741" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1613041975159">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -293,19 +325,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/choosing_test.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/creating_test.py</url>
-          <line>72</line>
-          <option name="timeStamp" value="224" />
+          <line>37</line>
+          <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/menu.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="238" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/choosing_test.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="239" />
+          <line>188</line>
+          <option name="timeStamp" value="250" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

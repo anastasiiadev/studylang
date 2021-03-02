@@ -7,7 +7,18 @@ import general_settings as gs
 
 
 class Window(QWidget):
+
+    """
+    Окно таймера.
+    """
+
     def __init__(self, time):
+
+        """
+        Настройка окна таймера.
+        :param time: максимальное время прохождение теста, объект timedelta
+        """
+
         super().__init__()
         self.time = time
         gs.SLWindow.set_icon_and_title(self)
@@ -26,6 +37,12 @@ class Window(QWidget):
         self.show()
 
     def local_button_handler(self, time):
+
+        """
+        Установка надписи таймера с текущим оставшимся временем на тест.
+        :param time: оставшееся время теста, объект timedelta
+        """
+
         self.label.setText("Осталось  " + "{}".format(time))
 
 

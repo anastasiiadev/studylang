@@ -1,16 +1,29 @@
-import sys, os
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QMessageBox
+import os
+import sys
+
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QMessageBox
 
+import dbinteraction as db
 import files
 import folder
-import dbinteraction as db
 
 
 class QImage(QWidget):
 
+    """
+    Виджет, реализующий часть окна задания типа "Изображение".
+    """
+
     def __init__(self, i, question, image):
+
+        """
+        :param i: номер задания
+        :param question: текст вопроса
+        :param image: название файла с картинкой
+        """
+
         super().__init__()
         self.n = i
         self.question = question
@@ -18,6 +31,11 @@ class QImage(QWidget):
         self.initUI()
 
     def initUI(self):
+
+        """
+        Настройка части виджета задания типа "Изображение".
+        """
+
         self.box = QVBoxLayout(self)
         self.qnum = QLabel(f"Вопрос #{self.n}", self)
         self.qnum.setFont(QtGui.QFont("Century Gothic", 15, QtGui.QFont.Bold))
@@ -32,13 +50,13 @@ class QImage(QWidget):
             self.qtext.setFixedSize(500, 150)
         self.qtext.setAlignment(QtCore.Qt.AlignCenter)
         try:
-            image_directory = folder.Making_Folder('\\img\\')
+            image_directory = folder.Making_Folder('\\image\\')
             if os.path.exists(image_directory.path_to_folder + self.image) is False:
                 conn = db.create_connection()
                 fileid = db.execute_query(conn,
                                           f"SELECT fileid FROM images WHERE filename='{self.image}'")[0][0]
                 f = files.File()
-                f.get(fileid, f'img/{self.image}')
+                f.get(fileid, f'image/{self.image}')
         except Exception:
             self.msgnofile = QMessageBox(None)
             self.msgnofile.critical(None, "Ошибка ", "Не удалось загрузить файл.", QMessageBox.Ok)

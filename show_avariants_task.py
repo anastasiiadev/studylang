@@ -9,9 +9,24 @@ ONE_VARIANT = 'one'
 
 class AVariants(QWidget):
 
+    """
+    Виджет, реализующий часть окна для ответа типа "Выбрать один/несколько вариант(/-ов)".
+    """
+
     do_task_end = QtCore.pyqtSignal()
 
     def __init__(self, type, i, answers, filename, rightanswers, maxscore):
+
+        """
+        :param type: тип ответа ('one' или 'many')
+        :param i: номер задания
+        :param answers: список вариантов ответа
+        :param filename: имя файла ответа пользователя
+        :param rightanswers: список правильных вариантов ответа (если их несколько)
+                             либо один правильный ответ
+        :param maxscore: максимальный балл за данное задание
+        """
+
         super().__init__()
         self.type = type
         self.n = i
@@ -23,6 +38,11 @@ class AVariants(QWidget):
         self.initUI()
 
     def initUI(self):
+
+        """
+        Настройка части виджета ответа с типом "Выбрать один/несколько вариант(/-ов)".
+        """
+
         self.box = QVBoxLayout(self)
         if self.type == MANY_VARIANTS:
             self.message = QLabel("Выберите несколько правильных ответов.", self)
@@ -72,6 +92,14 @@ class AVariants(QWidget):
 
 
     def WriteToFile(self):
+
+        """
+        Проверка, выбрал ли пользователь вариант(/ы) ответа и
+            является ли выбранное количество ответов допустимым.
+        Ответы пользователя и баллы записываются в файл с ответом.
+        Атрибут score - набранный балл
+        """
+
         # проверка, что кнопка нажата
         user_answers = []
         for x in range(1, self.variants_number + 1):

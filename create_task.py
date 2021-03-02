@@ -1,12 +1,13 @@
 import sys
-import logging
-from PyQt5.QtWidgets import QVBoxLayout,  QApplication
 from PyQt5 import QtCore
+from PyQt5.QtWidgets import QVBoxLayout, QApplication
 
+import create_amatch_task
+import create_avariants_task
+import create_qaudio_task
+import create_qimage_task
+import create_qtext_task
 import general_settings as gs
-import create_qaudio_task, create_qimage_task, create_qtext_task
-import create_avariants_task, create_amatch_task
-
 
 AUDIO = 'audio'
 IMAGE = 'image'
@@ -16,9 +17,21 @@ ONE_VARIANT = 'one'
 
 class ThisWindow(gs.SLWindow):
 
+    """
+    Окно создания задания.
+    """
+
     switch_create_task_end = QtCore.pyqtSignal()
 
     def __init__(self, i, filename, question, answer):
+
+        """
+        :param i: номер текущего задания
+        :param filename: имя файла с тестом
+        :param question: тип вопроса
+        :param answer: тип ответа
+        """
+
         super().__init__()
         self.n = i
         self.filename = filename
@@ -27,6 +40,11 @@ class ThisWindow(gs.SLWindow):
         self.initUI()
 
     def initUI(self):
+        """
+        В зависимости от типа вопроса и типа ответа вызываются соответстсвующие виджеты
+            и компонуются в одном окне.
+        """
+
         self.mainbox = QVBoxLayout(self)
         if self.question == AUDIO:
             self.qcomponents = create_qaudio_task.QAudio(self.n)
@@ -50,6 +68,12 @@ class ThisWindow(gs.SLWindow):
         self.acomponents.btn.clicked.connect(self.check)
 
     def check(self):
+
+        """
+        Текст вопроса пользователя созраняется в переменной utext.
+        Далее в зависимости от типа задания вызывается функция записи данных в файл с нужными аргументами.
+        """
+
         utext = self.qcomponents.utext.toPlainText()
         self.acomponents.switch_task_end.connect(lambda: self.close_task_window())
         if self.question in (AUDIO, IMAGE):
@@ -58,12 +82,17 @@ class ThisWindow(gs.SLWindow):
             self.acomponents.WriteToFile(utext, self.filename)
 
     def close_task_window(self):
+
+        """
+        Закрывается окно создания задания и издается сигнал.
+        """
+
         self.close()
         self.switch_create_task_end.emit()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = ThisWindow(1, 1, 'testfiles/Test1.txt', 'text', 'one')
+    myapp = ThisWindow(1, 'testfiles/Test1.txt', 'image', 'match')
     myapp.show()
     sys.exit(app.exec_())
