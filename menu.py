@@ -193,7 +193,7 @@ class ThisWindow(gs.SLWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
-    myapp = ThisWindow('4')
+    myapp = ThisWindow('3')
     myapp.show()
     sys.exit(app.exec_())
 

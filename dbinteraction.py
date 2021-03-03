@@ -23,6 +23,7 @@ def create_connection():
         raise Exception
     return connection
 
+
 def execute_query(connection, query, mode="select"):
 
     """
@@ -50,17 +51,11 @@ def execute_query(connection, query, mode="select"):
         raise Exception
 
 
+
 if __name__ == "__main__":
     logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
     conn = create_connection()
-    query = "SELECT * FROM audios ORDER BY id"
-    #query = "DELETE FROM images WHERE id > 2"
-    #query = "SELECT * FROM tests WHERE id>15;"
-    #query = "SELECT * FROM pg_catalog.pg_tables;"
-    #query = "select * from information_schema.columns where information_schema.columns.table_name='tests';"
-    #query = "INSERT INTO images (id, filename, fileid) VALUES (2, 'question.jpg', '1jgRj4273tHow-e8JJ8btM4jl6rG20t1U')"
-    #query = "UPDATE people SET role=1, confirmed=1 WHERE id=3"
-    #query = "ALTER TABLE people ALTER COLUMN password TYPE varchar(300)"
+    query = "SELECT * FROM tests ORDER BY id"
     q = execute_query(conn, query)
     for line in q:
         print(line)

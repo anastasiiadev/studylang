@@ -44,6 +44,7 @@ class TaskController:
                 self.test.test_directory = folder.Making_Folder('\\testfiles\\')
             self.type_task = type_task_window.ThisWindow(self.i, self.filename)
             self.type_task.switch_type_task.connect(self.general)
+            print('show type task window')
             self.type_task.show()
 
 
@@ -57,7 +58,8 @@ class TaskController:
         """
 
         self.task = create_task.ThisWindow(self.i, self.filename, q, a)
-        self.task.switch_create_task_end.connect(self.new)
+        print('show task window')
+        self.task.switch_create_task_end.connect(lambda: self.new())
         self.type_task.close()
         self.task.show()
 
@@ -69,8 +71,11 @@ class TaskController:
         Вызов нового контроллера задания.
         """
 
+        print('step to NEW')
+        print('score before rising:', self.testscore)
         self.task.close()
         self.testscore += int(self.task.acomponents.maxscore)
+        print('in new, score: ', self.testscore)
         TestController.create_new_task(self.test, self.n, self.i + 1, self.filename, self.testscore)
 
 

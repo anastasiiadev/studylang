@@ -77,7 +77,9 @@ class ThisWindow(gs.SLWindow):
         utext = self.qcomponents.utext.toPlainText()
         self.acomponents.switch_task_end.connect(lambda: self.close_task_window())
         if self.question in (AUDIO, IMAGE):
+            print('go to writetofile')
             self.acomponents.WriteToFile(utext, self.filename, self.qcomponents.distribution, self.qcomponents.newfile)
+            print('step out from writetofile')
         else:
             self.acomponents.WriteToFile(utext, self.filename)
 
@@ -87,6 +89,7 @@ class ThisWindow(gs.SLWindow):
         Закрывается окно создания задания и издается сигнал.
         """
 
+        print('before switch_create_task_end signal')
         self.close()
         self.switch_create_task_end.emit()
 
